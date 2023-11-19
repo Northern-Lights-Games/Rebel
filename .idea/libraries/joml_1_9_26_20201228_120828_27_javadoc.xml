@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="joml-1.9.26-20201228.120828-27-javadoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/joml-1.9.26-20201228.120828-27.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/libs/joml-1.9.26-20201228.120828-27-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/libs/joml-1.9.26-20201228.120828-27-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/joml-1.9.26-20201228.120828-27-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
