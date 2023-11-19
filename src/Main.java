@@ -18,7 +18,7 @@ public class Main {
 
         while (!window.shouldClose()) {
 
-            renderer2D.clear(0.0f, 0.0f, 0.0f, 0.0f);
+            renderer2D.clear(1.0f, 1.0f, 1.0f, 0.0f);
 
 
             renderer2D.drawTexture(0f, 300f, 300f, 300f, tex2);
@@ -30,7 +30,7 @@ public class Main {
             renderer2D.drawFilledRect(600f, 300f, 300f, 300f, Color.RED);
             renderer2D.drawTexture(window.getMouseX() - 150f, window.getMouseY() - 150, 300f, 300f, tex2);
             renderer2D.drawFilledRect(600f, 600f, 300f, 300f, Color.BLUE);
-            renderer2D.drawTexture(450f, 450f, 300f, 300f, tex1);
+            renderer2D.drawFilledRect(0, 0, 1920, 35, Color.LIGHT_GRAY);
 
 
 

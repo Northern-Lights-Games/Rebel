@@ -106,7 +106,7 @@ public class Renderer2D {
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 1] = (y);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 2] = (0f);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 3] = (0f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 4] = ((float) texture.slot);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 4] = ((float) texture.getSlot());
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 5] = color.r;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 6] = color.g;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 7] = color.b;
@@ -116,7 +116,7 @@ public class Renderer2D {
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 10] = (y + h);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 11] = (0f);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 12] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 13] = ((float) texture.slot);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 13] = ((float) texture.getSlot());
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 14] = color.r;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 15] = color.g;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 16] = color.b;
@@ -126,7 +126,7 @@ public class Renderer2D {
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 19] = (y + h);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 20] = (1f);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 21] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 22] = ((float) texture.slot);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 22] = ((float) texture.getSlot());
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 23] = color.r;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 24] = color.g;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 25] = color.b;
@@ -136,7 +136,7 @@ public class Renderer2D {
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 28] = (y);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 29] = (1f);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 30] = (0f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 31] = ((float) texture.slot);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 31] = ((float) texture.getSlot());
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 32] = color.r;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 33] = color.g;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 34] = color.b;

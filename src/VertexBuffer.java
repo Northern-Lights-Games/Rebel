@@ -71,7 +71,4 @@ public class VertexBuffer {
 
     }
 
-    public void vertex(int index, float x, float y, float w, float h, Texture texture) {
-        glBufferSubData(GL_ARRAY_BUFFER, index, new float[]{x, y, w, h, texture.slot});
-    }
 }

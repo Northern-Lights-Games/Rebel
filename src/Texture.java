@@ -5,41 +5,55 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.glActiveTexture;
+import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 public class Texture {
     private String path;
     private int texID;
     private static int availableSlot;
-
-    public int slot;
+    private int slot;
+    private int width, height;
 
     public Texture(String path) {
         this.path = path;
 
-        IntBuffer width = BufferUtils.createIntBuffer(1);
-        IntBuffer height = BufferUtils.createIntBuffer(1);
+        IntBuffer w = BufferUtils.createIntBuffer(1);
+        IntBuffer h = BufferUtils.createIntBuffer(1);
         IntBuffer channelsInFile = BufferUtils.createIntBuffer(1);
+        ByteBuffer texture = STBImage.stbi_load(path, w, h, channelsInFile, 4);
 
+        width = w.get();
+        height = h.get();
 
-        ByteBuffer texture = STBImage.stbi_load(path, width, height, channelsInFile, 4);
 
         slot = availableSlot++;
         glActiveTexture(GL_TEXTURE0 + slot);
         texID = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, texID);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width.get(), height.get(), 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
 
 
         glGenerateMipmap(GL_TEXTURE_2D);
         STBImage.stbi_image_free(texture);
     }
 
-    public void bind() {
-        glBindTexture(GL_TEXTURE_2D, texID);
-
+    public String getPath() {
+        return path;
     }
 
+    public int getTexID() {
+        return texID;
+    }
+    public int getSlot() {
+        return slot;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
