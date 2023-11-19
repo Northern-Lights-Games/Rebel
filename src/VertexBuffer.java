@@ -14,10 +14,12 @@ public class VertexBuffer {
     private int maxVertices = 1000;
 
     private int numOfVertices;
+    private int vertexDataLength;
 
-    public VertexBuffer(float[] vertices, int[] indices) {
+    public VertexBuffer(float[] vertices, int[] indices, int vertexDataLength) {
         this.vertices = vertices;
         this.indices = indices;
+        this.vertexDataLength = vertexDataLength;
 
 
         build();
@@ -25,6 +27,10 @@ public class VertexBuffer {
 
     public int getNumOfVertices() {
         return numOfVertices;
+    }
+
+    public int getVertexDataLength() {
+        return vertexDataLength;
     }
 
     private void build() {
@@ -41,7 +47,7 @@ public class VertexBuffer {
         verticesAsFloatBuffer.flip();
 
         if(vertices.length == 0){
-            glBufferData(GL_ARRAY_BUFFER, maxVertices * 20L, GL_DYNAMIC_DRAW);
+            glBufferData(GL_ARRAY_BUFFER, maxVertices * vertexDataLength, GL_DYNAMIC_DRAW);
             numOfVertices = maxVertices;
         }
         else {

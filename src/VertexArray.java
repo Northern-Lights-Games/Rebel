@@ -23,13 +23,20 @@ public class VertexArray {
 
 
     public void build() {
-        glVertexAttribPointer(0, 2, GL_FLOAT, false, 20,  0);
+        //Vertex Pos
+        glVertexAttribPointer(0, 2, GL_FLOAT, false, 36,  0);
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 2, GL_FLOAT, false, 20, 8);
+        //Vertex Texture Pos
+        glVertexAttribPointer(1, 2, GL_FLOAT, false, 36, 8);
         glEnableVertexAttribArray(1);
 
-        glVertexAttribPointer(2, 1, GL_FLOAT, false, 20, 16);
+        //Vertex Texture ID
+        glVertexAttribPointer(2, 1, GL_FLOAT, false, 36, 16);
         glEnableVertexAttribArray(2);
+
+        //Vertex Color
+        glVertexAttribPointer(3, 4, GL_FLOAT, false, 36, 20);
+        glEnableVertexAttribArray(3);
     }
 }
