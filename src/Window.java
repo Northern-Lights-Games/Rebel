@@ -67,6 +67,10 @@ public class Window {
         glfwPollEvents();
     }
 
+    public void setTitle(String title){
+        glfwSetWindowTitle(window, title);
+    }
+
     public float getMouseX() {
         return (float) mouseX;
     }

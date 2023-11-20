@@ -1,14 +1,10 @@
 import org.joml.Matrix4f;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
+import org.lwjgl.BufferUtils;
 
-import java.util.ArrayList;
+import java.nio.IntBuffer;
 import java.util.Arrays;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL30.*;
 
 public class Renderer2D {
     private int width;
@@ -24,13 +20,16 @@ public class Renderer2D {
         this.width = width;
         this.height = height;
 
+        glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
-        proj = new Matrix4f().ortho(0, 1920, 1080, 0, 0, 1);
+        proj = new Matrix4f().ortho(0, width, height, 0, 0, 1);
         view = new Matrix4f().identity();
-        translation = new Matrix4f().translation(0, 0, 0);
+        translation = new Matrix4f().identity();
+
+
 
 
 
@@ -49,7 +48,7 @@ public class Renderer2D {
         shader.setMatrix4f("v_model", getTranslation());
         shader.setMatrix4f("v_view", getView());
         shader.setMatrix4f("v_projection", getProj());
-        shader.setIntArray("u_textures", new int[]{0, 1, 2});
+        shader.setIntArray("u_textures", createTextureSlots());
 
 
 
@@ -65,6 +64,25 @@ public class Renderer2D {
         vertexArray.build();
 
         vertices = new float[vertexBuffer.getNumOfVertices()];
+    }
+
+    private int[] createTextureSlots() {
+
+        IntBuffer maxTextureSlots = BufferUtils.createIntBuffer(1);
+        glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, maxTextureSlots);
+        int size = maxTextureSlots.get();
+
+        int[] slots = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            slots[i] = i;
+        }
+
+        System.out.println("Max Texture Slots: " + size);
+        System.out.println(Arrays.toString(slots));
+
+
+        return slots;
     }
 
 
@@ -100,6 +118,7 @@ public class Renderer2D {
 
 
     public void drawTexture(float x, float y, float w, float h, Texture texture, Color color) {
+
 
 
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 0] = (x);
@@ -215,7 +234,6 @@ public class Renderer2D {
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, getVertexBuffer().myEbo);
         glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, indices);
-
         glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
 
         vertices = new float[vertexBuffer.getNumOfVertices()];
@@ -226,5 +244,9 @@ public class Renderer2D {
     public void clear(float r, float g, float b, float a) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(r, g, b, a);
+    }
+
+    public String getHardwareInfo() {
+        return glGetString(GL_RENDERER);
     }
 }
