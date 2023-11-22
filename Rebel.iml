@@ -9,6 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lwjgl-glfw-natives-windows" level="project" />
     <orderEntry type="library" name="joml-1.9.26-20201228.120828-27-javadoc" level="project" />
-    <orderEntry type="library" name="imgui-app-1.86.11-all" level="project" />
+    <orderEntry type="library" name="lwjgl-freetype-natives-windows" level="project" />
   </component>
 </module>

@@ -19,12 +19,11 @@ uniform mat4 v_projection;
 
 
 
-void main()
-{
-    gl_Position = v_projection * v_view * v_model * vec4(v_pos, 1.0);
-
+void main() {
 
     f_texindex = v_texindex;
     f_texcoord = v_texcoord;
     f_color = v_color;
+
+    gl_Position = v_projection * v_view * v_model * vec4(v_pos, 1.0);
 }

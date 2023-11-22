@@ -208,6 +208,8 @@ public class Renderer2D {
         numOfDraws++;
     }
 
+
+
     public void render() {
 
         glBindBuffer(GL_ARRAY_BUFFER, getVertexBuffer().myVbo);
