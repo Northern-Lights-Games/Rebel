@@ -208,6 +208,49 @@ public class Renderer2D {
         numOfDraws++;
     }
 
+    public void drawFilledEllipse(int x, int y, int w, int h, Color color) {
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 0] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 1] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 2] = (0f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 3] = (0f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 4] = -2;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 5] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 6] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 7] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 8] = color.a;
+
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 9] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 10] = (y + h);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 11] = (0f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 12] = (1f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 13] = -2;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 14] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 15] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 16] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 17] = color.a;
+
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 18] = (x + w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 19] = (y + h);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 20] = (1f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 21] = (1f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 22] = -2;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 23] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 24] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 25] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 26] = color.a;
+
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 27] = (x + w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 28] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 29] = (1f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 30] = (0f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 31] = -2;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 32] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 33] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 34] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 35] = color.a;
+
+        numOfDraws++;
+    }
 
 
     public void render() {
@@ -251,4 +294,6 @@ public class Renderer2D {
     public String getHardwareInfo() {
         return glGetString(GL_RENDERER);
     }
+
+
 }

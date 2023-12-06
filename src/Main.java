@@ -6,11 +6,11 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Window window = new Window(1920, 1080, "Rebel");
+        Window window = new Window((int) (640 * 1.5f), (int) (480 * 1.5f), "Rebel");
 
 
 
-        Renderer2D renderer2D = new Renderer2D(1920, 1080);
+        Renderer2D renderer2D = new Renderer2D((int) (640 * 1.5f), (int) (480 * 1.5f));
 
         window.setTitle("Rebel: " + renderer2D.getHardwareInfo());
 
@@ -29,10 +29,9 @@ public class Main {
 
 
 
-            renderer2D.drawTexture(300f, 300f, 150f, 300f, tex1);
-            renderer2D.drawTexture(window.getMouseX(), window.getMouseY(), 200, 200, tex2, Color.RED);
-            renderer2D.drawFilledRect(300, 150, 300, 300, Color.GRAY);
-            renderer2D.drawFilledRect(0, 0, 70, 70, Color.LIGHT_GRAY);
+
+
+            renderer2D.drawFilledEllipse(0, 0, (int) (640 * 1.5f), (int) (480 * 1.5f), Color.RED);
 
 
 

@@ -15,6 +15,28 @@ void main()
     if(index == -1){
         FragColor = f_color;
     }
+    else if(index == -2){
+
+        //gl_FragCoord is in pixel coordinates
+        //the circle shader needs NDC [-1 <-> 1]
+
+
+
+
+
+        vec2 uv = vec2(gl_FragCoord.x / (640 * 1.5), gl_FragCoord.y / (480 * 1.5)) * 2.0 - 1.0;
+
+        float distance = 1 - length(uv);
+
+        if(distance > 0.0)
+            FragColor = f_color;
+        else {
+            discard;
+        }
+
+
+
+    }
     else {
         FragColor = texture(u_textures[index], f_texcoord) * f_color;
     }
