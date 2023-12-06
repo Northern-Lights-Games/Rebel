@@ -6,6 +6,11 @@ in vec2 f_texcoord;
 uniform sampler2D u_textures[32];
 in float f_texindex;
 in vec4 f_color;
+in vec2 f_origin;
+in vec2 f_size;
+//gl_FragCoord goes y-axis up, but Rebel uses y-axis down...
+layout(origin_upper_left) in vec4 gl_FragCoord;
+
 
 void main()
 {
@@ -17,14 +22,7 @@ void main()
     }
     else if(index == -2){
 
-        //gl_FragCoord is in pixel coordinates
-        //the circle shader needs NDC [-1 <-> 1]
-
-
-
-
-
-        vec2 uv = vec2(gl_FragCoord.x / (640 * 1.5), gl_FragCoord.y / (480 * 1.5)) * 2.0 - 1.0;
+        vec2 uv = vec2((gl_FragCoord.x - f_origin.x) / f_size.x, (gl_FragCoord.y - f_origin.y) / f_size.y) * 2.0 - 1.0;
 
         float distance = 1 - length(uv);
 
@@ -33,8 +31,6 @@ void main()
         else {
             discard;
         }
-
-
 
     }
     else {

@@ -55,10 +55,11 @@ public class Renderer2D {
         VertexArray vertexArray = new VertexArray();
         vertexArray.bind();
 
+        //vertexDataLength should be determined by VAO and passed to VBO, changing 52 everywhere is annoying
         vertexBuffer = new VertexBuffer(
                 new float[]{},
                 new int[]{},
-                36
+                52
         );
 
         vertexArray.build();
@@ -125,41 +126,61 @@ public class Renderer2D {
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 1] = (y);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 2] = (0f);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 3] = (0f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 4] = ((float) texture.getSlot());
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 4] = texture.getSlot();
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 5] = color.r;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 6] = color.g;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 7] = color.b;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 8] = color.a;
-
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 9] = (x);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 10] = (y + h);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 11] = (0f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 12] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 13] = ((float) texture.getSlot());
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 14] = color.r;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 15] = color.g;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 16] = color.b;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 17] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 10] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 11] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 12] = (h);
 
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 18] = (x + w);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 19] = (y + h);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 20] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 21] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 22] = ((float) texture.getSlot());
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 23] = color.r;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 24] = color.g;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 25] = color.b;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 26] = color.a;
 
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 27] = (x + w);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 28] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 13] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 14] = (y + h);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 15] = (0f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 16] = (1f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 17] = texture.getSlot();
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 18] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 19] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 20] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 21] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 22] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 23] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 24] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 25] = (h);
+
+
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 26] = (x + w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 27] = (y + h);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 28] = (1f);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 29] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 30] = (0f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 31] = ((float) texture.getSlot());
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 32] = color.r;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 33] = color.g;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 34] = color.b;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 35] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 30] = texture.getSlot();
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 31] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 32] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 33] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 34] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 35] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 36] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 37] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 38] = (h);
+
+
+
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 39] = (x + w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 40] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 41] = (1f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 42] = (0f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 43] = texture.getSlot();
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 44] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 45] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 46] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 47] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 48] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 49] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 50] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 51] = (h);
 
         numOfDraws++;
     }
@@ -174,41 +195,61 @@ public class Renderer2D {
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 6] = color.g;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 7] = color.b;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 8] = color.a;
-
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 9] = (x);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 10] = (y + h);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 11] = (0f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 12] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 13] = -1;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 14] = color.r;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 15] = color.g;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 16] = color.b;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 17] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 10] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 11] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 12] = (h);
 
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 18] = (x + w);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 19] = (y + h);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 20] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 21] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 22] = -1;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 23] = color.r;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 24] = color.g;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 25] = color.b;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 26] = color.a;
 
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 27] = (x + w);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 28] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 13] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 14] = (y + h);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 15] = (0f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 16] = (1f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 17] = -1;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 18] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 19] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 20] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 21] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 22] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 23] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 24] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 25] = (h);
+
+
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 26] = (x + w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 27] = (y + h);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 28] = (1f);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 29] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 30] = (0f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 31] = -1;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 32] = color.r;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 33] = color.g;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 34] = color.b;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 35] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 30] = -1;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 31] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 32] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 33] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 34] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 35] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 36] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 37] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 38] = (h);
+
+
+
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 39] = (x + w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 40] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 41] = (1f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 42] = (0f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 43] = -1;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 44] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 45] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 46] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 47] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 48] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 49] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 50] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 51] = (h);
 
         numOfDraws++;
     }
 
-    public void drawFilledEllipse(int x, int y, int w, int h, Color color) {
+    public void drawFilledEllipse(float x, float y, float w, float h, Color color) {
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 0] = (x);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 1] = (y);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 2] = (0f);
@@ -218,36 +259,56 @@ public class Renderer2D {
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 6] = color.g;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 7] = color.b;
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 8] = color.a;
-
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 9] = (x);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 10] = (y + h);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 11] = (0f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 12] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 13] = -2;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 14] = color.r;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 15] = color.g;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 16] = color.b;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 17] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 10] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 11] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 12] = (h);
 
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 18] = (x + w);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 19] = (y + h);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 20] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 21] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 22] = -2;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 23] = color.r;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 24] = color.g;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 25] = color.b;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 26] = color.a;
 
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 27] = (x + w);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 28] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 13] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 14] = (y + h);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 15] = (0f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 16] = (1f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 17] = -2;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 18] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 19] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 20] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 21] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 22] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 23] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 24] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 25] = (h);
+
+
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 26] = (x + w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 27] = (y + h);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 28] = (1f);
         vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 29] = (1f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 30] = (0f);
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 31] = -2;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 32] = color.r;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 33] = color.g;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 34] = color.b;
-        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 35] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 30] = -2;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 31] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 32] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 33] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 34] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 35] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 36] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 37] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 38] = (h);
+
+
+
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 39] = (x + w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 40] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 41] = (1f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 42] = (0f);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 43] = -2;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 44] = color.r;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 45] = color.g;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 46] = color.b;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 47] = color.a;
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 48] = (x);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 49] = (y);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 50] = (w);
+        vertices[(numOfDraws * vertexBuffer.getVertexDataLength()) + 51] = (h);
 
         numOfDraws++;
     }

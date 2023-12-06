@@ -24,14 +24,19 @@ public class Main {
 
             renderer2D.clear(1.0f, 1.0f, 1.0f, 1.0f);
 
+            renderer2D.drawFilledRect(0, 300, 150, 150, Color.GREEN);
+            renderer2D.drawFilledRect(0, 450, 100, 150, Color.LIGHT_GRAY);
 
 
 
 
 
+            renderer2D.drawTexture(0, 0, 300, 300, tex1);
+            renderer2D.drawTexture(150, 0, 300, 300, tex2);
 
 
-            renderer2D.drawFilledEllipse(0, 0, (int) (640 * 1.5f), (int) (480 * 1.5f), Color.RED);
+            renderer2D.drawFilledEllipse(window.getMouseX(), window.getMouseY(), 150, 150, Color.RED);
+            renderer2D.drawFilledEllipse(window.getMouseX() + 150, window.getMouseY() + 150, 300, 300, Color.BLACK);
 
 
 
