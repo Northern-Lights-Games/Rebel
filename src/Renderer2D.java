@@ -60,7 +60,7 @@ public class Renderer2D {
 
         vertexArray.build();
 
-        vertices = new float[vertexBuffer.getNumOfVertices()];
+        vertices = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataSize()];
     }
 
     private int[] createTextureSlots() {
