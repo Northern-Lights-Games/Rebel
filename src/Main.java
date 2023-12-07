@@ -1,3 +1,4 @@
+import static org.lwjgl.glfw.GLFW.*;
 import java.util.ArrayList;
 
 public class Main {
@@ -22,11 +23,21 @@ public class Main {
 
 
 
+        double start = glfwGetTime();
 
 
         while (!window.shouldClose()) {
 
+            double timeNow = glfwGetTime();
+            double deltaTime = timeNow - start;
+            start = timeNow;
+
+            System.out.println(deltaTime);
+
+
+
             renderer2D.clear(1.0f, 1.0f, 1.0f, 1.0f);
+
 
             int sx = 0, sy = 0;
 
@@ -61,7 +72,7 @@ public class Main {
 
             renderer2D.render();
 
-            Tools.logRenderCalls(renderer2D);
+            //Tools.logRenderCalls(renderer2D);
 
 
 
