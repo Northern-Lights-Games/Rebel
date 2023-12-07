@@ -60,7 +60,7 @@ public class Renderer2D {
         vertexArray.bind();
 
         //vertexDataLength should be determined by VAO and passed to VBO, changing 52 everywhere is annoying
-        vertexBuffer = new VertexBuffer(52);
+        vertexBuffer = new VertexBuffer(1000, 52);
 
         vertexArray.build();
 
@@ -109,7 +109,7 @@ public class Renderer2D {
         return translation;
     }
 
-    private int drawCalls;
+    private int quadIndex;
     private int textureDraws;
 
     public void drawTexture(float x, float y, float w, float h, Texture texture){
@@ -122,77 +122,78 @@ public class Renderer2D {
         if(texture.getSlot() >= maxTextureSlots) texture.findSlot();
 
 
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 0] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 1] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 2] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 3] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 4] = texture.getSlot();
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 5] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 6] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 7] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 8] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 9] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 10] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 11] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 12] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 0] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 1] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 2] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 3] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 4] = texture.getSlot();
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 5] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 6] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 7] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 8] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 9] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 10] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 11] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 12] = (h);
 
 
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 13] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 14] = (y + h);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 15] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 16] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 17] = texture.getSlot();
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 18] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 19] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 20] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 21] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 22] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 23] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 24] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 25] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 13] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 14] = (y + h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 15] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 16] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 17] = texture.getSlot();
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 18] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 19] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 20] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 21] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 22] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 23] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 24] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 25] = (h);
 
 
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 26] = (x + w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 27] = (y + h);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 28] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 29] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 30] = texture.getSlot();
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 31] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 32] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 33] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 34] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 35] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 36] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 37] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 38] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 26] = (x + w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 27] = (y + h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 28] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 29] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 30] = texture.getSlot();
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 31] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 32] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 33] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 34] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 35] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 36] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 37] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 38] = (h);
 
 
 
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 39] = (x + w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 40] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 41] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 42] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 43] = texture.getSlot();
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 44] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 45] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 46] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 47] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 48] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 49] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 50] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 51] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 39] = (x + w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 40] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 41] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 42] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 43] = texture.getSlot();
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 44] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 45] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 46] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 47] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 48] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 49] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 50] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 51] = (h);
 
-        drawCalls++;
+        quadIndex++;
         textureDraws++;
 
         if(textureDraws >= maxTextureSlots){
             Texture.availableSlot = 0;
             render();
+            return;
         }
 
 
 
-        if(drawCalls >= vertexBuffer.maxQuads()) {
+        if(quadIndex >= vertexBuffer.maxQuads()) {
             Texture.availableSlot = 0;
             render();
         }
@@ -200,138 +201,139 @@ public class Renderer2D {
     }
 
     public void drawFilledRect(float x, float y, float w, float h, Color color){
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 0] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 1] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 2] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 3] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 4] = -1;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 5] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 6] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 7] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 8] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 9] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 10] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 11] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 12] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 0] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 1] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 2] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 3] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 4] = -1;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 5] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 6] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 7] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 8] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 9] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 10] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 11] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 12] = (h);
 
 
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 13] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 14] = (y + h);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 15] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 16] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 17] = -1;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 18] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 19] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 20] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 21] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 22] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 23] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 24] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 25] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 13] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 14] = (y + h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 15] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 16] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 17] = -1;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 18] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 19] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 20] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 21] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 22] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 23] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 24] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 25] = (h);
 
 
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 26] = (x + w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 27] = (y + h);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 28] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 29] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 30] = -1;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 31] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 32] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 33] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 34] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 35] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 36] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 37] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 38] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 26] = (x + w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 27] = (y + h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 28] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 29] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 30] = -1;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 31] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 32] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 33] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 34] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 35] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 36] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 37] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 38] = (h);
 
 
 
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 39] = (x + w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 40] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 41] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 42] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 43] = -1;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 44] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 45] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 46] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 47] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 48] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 49] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 50] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 51] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 39] = (x + w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 40] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 41] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 42] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 43] = -1;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 44] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 45] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 46] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 47] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 48] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 49] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 50] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 51] = (h);
 
-        drawCalls++;
+        quadIndex++;
 
-        if(drawCalls >= vertexBuffer.maxQuads()) render();
+        if(quadIndex >= vertexBuffer.maxQuads()) render();
     }
 
     public void drawFilledEllipse(float x, float y, float w, float h, Color color) {
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 0] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 1] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 2] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 3] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 4] = -2;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 5] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 6] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 7] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 8] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 9] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 10] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 11] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 12] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 0] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 1] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 2] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 3] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 4] = -2;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 5] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 6] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 7] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 8] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 9] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 10] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 11] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 12] = (h);
 
 
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 13] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 14] = (y + h);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 15] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 16] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 17] = -2;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 18] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 19] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 20] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 21] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 22] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 23] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 24] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 25] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 13] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 14] = (y + h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 15] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 16] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 17] = -2;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 18] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 19] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 20] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 21] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 22] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 23] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 24] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 25] = (h);
 
 
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 26] = (x + w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 27] = (y + h);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 28] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 29] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 30] = -2;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 31] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 32] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 33] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 34] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 35] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 36] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 37] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 38] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 26] = (x + w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 27] = (y + h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 28] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 29] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 30] = -2;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 31] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 32] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 33] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 34] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 35] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 36] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 37] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 38] = (h);
 
 
 
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 39] = (x + w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 40] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 41] = (1f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 42] = (0f);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 43] = -2;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 44] = color.r;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 45] = color.g;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 46] = color.b;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 47] = color.a;
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 48] = (x);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 49] = (y);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 50] = (w);
-        vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 51] = (h);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 39] = (x + w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 40] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 41] = (1f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 42] = (0f);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 43] = -2;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 44] = color.r;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 45] = color.g;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 46] = color.b;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 47] = color.a;
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 48] = (x);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 49] = (y);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 50] = (w);
+        vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 51] = (h);
 
-        drawCalls++;
+        quadIndex++;
 
-        if(drawCalls >= vertexBuffer.maxQuads()) render();
+        if(quadIndex >= vertexBuffer.maxQuads()) render();
 
     }
 
+    private int renderCalls = 0;
 
     public void render() {
 
@@ -342,7 +344,7 @@ public class Renderer2D {
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
 
 
-        int numOfIndices = drawCalls * 6;
+        int numOfIndices = quadIndex * 6;
         int[] indices = new int[numOfIndices];
         int offset = 0;
 
@@ -365,20 +367,18 @@ public class Renderer2D {
 
 
         vertices = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataSize()];
-        drawCalls = 0;
+        quadIndex = 0;
         textureDraws = 0;
-
-
+        renderCalls++;
     }
 
-    private void checkError(){
-        int error = glGetError();
-
-        if(error != 0){
-            System.err.println("OpenGL Error: " + error);
-            System.exit(1);
-        }
+    public int getRenderCalls(){
+        int r = renderCalls;
+        renderCalls = 0;
+        return r;
     }
+
+
 
 
     public void clear(float r, float g, float b, float a) {

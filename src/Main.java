@@ -16,7 +16,7 @@ public class Main {
 
         ArrayList<Texture> textures = new ArrayList<>();
         for (int i = 0; i < 64; i++) {
-            textures.add(new Texture("amogus.png"));
+            textures.add(Math.random() > 0.5 ? new Texture("amogus.png") : new Texture("texture.png"));
         }
 
 
@@ -63,6 +63,9 @@ public class Main {
 
 
             renderer2D.render();
+
+            System.out.println(renderer2D.getRenderCalls());
+
             window.update();
         }
 

@@ -3,12 +3,15 @@ import static org.lwjgl.opengl.GL43.*;
 public class VertexBuffer {
     public int myVbo;
     public int myEbo;
-    private int maxVertices = (2) * 4; /*1000;*/
+
+    //maxQuads * 4
+    private int maxVertices;
     private int numOfVertices;
     private int vertexDataSize;
 
-    public VertexBuffer(int vertexDataSize) {
+    public VertexBuffer(int maxQuads, int vertexDataSize) {
         this.vertexDataSize = vertexDataSize;
+        maxVertices = maxQuads * 4;
         build();
     }
 
