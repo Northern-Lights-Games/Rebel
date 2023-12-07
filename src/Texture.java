@@ -1,12 +1,8 @@
 import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;
-import org.lwjgl.system.NativeType;
-
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-
-
-import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL43.*;
 
 public class Texture {
     private String path;

@@ -1,9 +1,9 @@
-import static org.lwjgl.opengl.GL45.*;
+import static org.lwjgl.opengl.GL43.*;
 
 public class VertexBuffer {
     public int myVbo;
     public int myEbo;
-    private int maxVertices = 1000;
+    private int maxVertices = (2) * 4; /*1000;*/
     private int numOfVertices;
     private int vertexDataSize;
 
@@ -33,6 +33,10 @@ public class VertexBuffer {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myEbo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, (maxVertices / 4) * 6L * Integer.BYTES, GL_DYNAMIC_DRAW);
 
+    }
+
+    public int maxQuads(){
+        return maxVertices / 4;
     }
 
 }

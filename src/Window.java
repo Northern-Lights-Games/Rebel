@@ -1,15 +1,16 @@
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GLDebugMessageCallback;
+import org.lwjgl.opengl.GLDebugMessageARBCallbackI;
+import org.lwjgl.opengl.GLUtil;
 
 import java.nio.DoubleBuffer;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.glViewport;
-import static org.lwjgl.opengl.GL43.glDebugMessageCallback;
+import static org.lwjgl.opengl.ARBDebugOutput.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
+import static org.lwjgl.opengl.GL43.*;
 
 public class Window {
     private long window;
@@ -35,11 +36,7 @@ public class Window {
         glfwShowWindow(window);
 
         GL.createCapabilities();
-        glDebugMessageCallback((source, type, id, severity, length, message, userParam) -> {
-            String messageStr = GLDebugMessageCallback.getMessage(length, message);
-
-            System.out.println(messageStr);
-        }, 0);
+        GLUtil.setupDebugMessageCallback();
 
         glfwSetWindowSizeCallback(window, (window1, width, height) -> glViewport(0, 0, width, height));
     }

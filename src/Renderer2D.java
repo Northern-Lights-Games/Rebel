@@ -4,7 +4,7 @@ import org.lwjgl.BufferUtils;
 import java.nio.IntBuffer;
 import java.util.Arrays;
 
-import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL43.*;
 
 public class Renderer2D {
     private int width;
@@ -189,6 +189,14 @@ public class Renderer2D {
             Texture.availableSlot = 0;
             render();
         }
+
+
+
+        if(drawCalls >= vertexBuffer.maxQuads()) {
+            Texture.availableSlot = 0;
+            render();
+        }
+
     }
 
     public void drawFilledRect(float x, float y, float w, float h, Color color){
@@ -253,6 +261,8 @@ public class Renderer2D {
         vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 51] = (h);
 
         drawCalls++;
+
+        if(drawCalls >= vertexBuffer.maxQuads()) render();
     }
 
     public void drawFilledEllipse(float x, float y, float w, float h, Color color) {
@@ -317,13 +327,20 @@ public class Renderer2D {
         vertices[(drawCalls * vertexBuffer.getVertexDataSize()) + 51] = (h);
 
         drawCalls++;
+
+        if(drawCalls >= vertexBuffer.maxQuads()) render();
+
     }
 
 
     public void render() {
 
         glBindBuffer(GL_ARRAY_BUFFER, getVertexBuffer().myVbo);
+
+
+
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+
 
         int numOfIndices = drawCalls * 6;
         int[] indices = new int[numOfIndices];
@@ -343,11 +360,24 @@ public class Renderer2D {
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, getVertexBuffer().myEbo);
         glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, indices);
+
         glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
+
 
         vertices = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataSize()];
         drawCalls = 0;
         textureDraws = 0;
+
+
+    }
+
+    private void checkError(){
+        int error = glGetError();
+
+        if(error != 0){
+            System.err.println("OpenGL Error: " + error);
+            System.exit(1);
+        }
     }
 
 
