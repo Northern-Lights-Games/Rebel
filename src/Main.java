@@ -1,5 +1,7 @@
 import org.lwjgl.opengl.GL30;
 
+import java.util.ArrayList;
+
 public class Main {
 
 
@@ -14,8 +16,10 @@ public class Main {
 
         window.setTitle("Rebel: " + renderer2D.getHardwareInfo());
 
-        Texture tex1 = new Texture("texture.png");
-        Texture tex2 = new Texture("amogus.png");
+        ArrayList<Texture> textures = new ArrayList<>();
+        for (int i = 0; i < 64; i++) {
+            textures.add(new Texture("amogus.png"));
+        }
 
 
 
@@ -24,21 +28,21 @@ public class Main {
 
             renderer2D.clear(1.0f, 1.0f, 1.0f, 1.0f);
 
-            renderer2D.drawFilledRect(0, 300, 150, 150, Color.GREEN);
-            renderer2D.drawFilledRect(0, 450, 100, 150, Color.LIGHT_GRAY);
 
 
+            int x = 0, y = 0;
+
+            for (int i = 0; i < 64; i++) {
+                if((x / 100) % 8 == 0){
+                    y += 100;
+                    x = 0;
+                }
+                x += 100;
+
+                renderer2D.drawTexture(x, y, 100, 100, textures.get(i));
 
 
-
-            renderer2D.drawTexture(0, 0, 300, 300, tex1);
-            renderer2D.drawTexture(150, 0, 300, 300, tex2);
-
-
-            renderer2D.drawFilledEllipse(window.getMouseX(), window.getMouseY(), 150, 150, Color.RED);
-            renderer2D.drawFilledEllipse(window.getMouseX() + 150, window.getMouseY() + 150, 300, 300, Color.BLACK);
-            renderer2D.drawTexture(window.getMouseX() - 150, window.getMouseY() + 150, 300, 300, tex2);
-
+            }
 
 
 
