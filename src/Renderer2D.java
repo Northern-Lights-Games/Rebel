@@ -122,6 +122,9 @@ public class Renderer2D {
     public void drawTexture(float x, float y, float w, float h, Texture texture, Color color) {
 
         if(texture.getSlot() >= maxTextureSlots) texture.findSlot();
+        //Double-check the math here, this has a few weird problems
+        texture.bind();
+        glActiveTexture(GL_TEXTURE0 + texture.getSlot());
 
 
         vertices[(quadIndex * vertexBuffer.getVertexDataSize()) + 0] = (x);

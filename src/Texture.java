@@ -50,8 +50,9 @@ public class Texture {
     }
 
     public void findSlot(){
-        slot = availableSlot++;
-        glActiveTexture(GL_TEXTURE0 + slot);
+        slot = availableSlot;
+
+        availableSlot++;
     }
 
     public int getWidth() {

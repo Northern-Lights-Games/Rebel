@@ -16,9 +16,11 @@ public class Main {
         window.setTitle("Rebel: " + renderer2D.getHardwareInfo());
 
         ArrayList<Texture> textures = new ArrayList<>();
-        for (int i = 0; i < 64; i++) {
+        for (int i = 0; i < 256; i++) {
             textures.add(Math.random() > 0.5 ? new Texture("amogus.png") : new Texture("texture.png"));
         }
+
+        RFont font = new RFont("Times New Roman", 20, false);
 
 
 
@@ -57,14 +59,14 @@ public class Main {
 
             int tx = 0, ty = 0;
 
-            for (int i = 0; i < 64; i++) {
-                if((tx / 100) % 8 == 0){
-                    ty += 100;
+            for (int i = 0; i < textures.size(); i++) {
+                if((tx / 50) % 16 == 0){
+                    ty += 50;
                     tx = 0;
                 }
 
-                renderer2D.drawTexture(tx + window.getMouseX(), ty + window.getMouseY(), 100, 100, textures.get(i));
-                tx += 100;
+                renderer2D.drawTexture(tx + window.getMouseX(), ty + window.getMouseY(), 50, 50, textures.get(i));
+                tx += 50;
             }
 
 
