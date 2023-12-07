@@ -2,7 +2,9 @@ import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.lwjgl.opengl.GL43.*;
 
@@ -187,7 +189,7 @@ public class Renderer2D {
 
         if(textureDraws >= maxTextureSlots){
             Texture.availableSlot = 0;
-            render();
+            render("Next Batch Render [No more Texture slots out of " + maxTextureSlots + "]");
             return;
         }
 
@@ -195,7 +197,7 @@ public class Renderer2D {
 
         if(quadIndex >= vertexBuffer.maxQuads()) {
             Texture.availableSlot = 0;
-            render();
+            render("Next Batch Render");
         }
 
     }
@@ -263,7 +265,7 @@ public class Renderer2D {
 
         quadIndex++;
 
-        if(quadIndex >= vertexBuffer.maxQuads()) render();
+        if(quadIndex >= vertexBuffer.maxQuads()) render("Next Batch Render");
     }
 
     public void drawFilledEllipse(float x, float y, float w, float h, Color color) {
@@ -329,13 +331,20 @@ public class Renderer2D {
 
         quadIndex++;
 
-        if(quadIndex >= vertexBuffer.maxQuads()) render();
+        if(quadIndex >= vertexBuffer.maxQuads()) render("Next Batch Render");
 
     }
 
-    private int renderCalls = 0;
 
-    public void render() {
+
+    public void render(){
+        render("Final Draw Call [Renderer2D.render()]");
+    }
+
+    public ArrayList<String> renderCallNames = new ArrayList<>(50);
+
+    public void render(String renderName) {
+        renderCallNames.add(renderName);
 
         glBindBuffer(GL_ARRAY_BUFFER, getVertexBuffer().myVbo);
 
@@ -369,13 +378,11 @@ public class Renderer2D {
         vertices = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataSize()];
         quadIndex = 0;
         textureDraws = 0;
-        renderCalls++;
+
     }
 
-    public int getRenderCalls(){
-        int r = renderCalls;
-        renderCalls = 0;
-        return r;
+    public List<String> getRenderCalls(){
+        return new ArrayList<>(renderCallNames);
     }
 
 
@@ -391,4 +398,7 @@ public class Renderer2D {
     }
 
 
+    public void finished() {
+        renderCallNames.clear();
+    }
 }

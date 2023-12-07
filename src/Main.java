@@ -22,6 +22,8 @@ public class Main {
 
 
 
+
+
         while (!window.shouldClose()) {
 
             renderer2D.clear(1.0f, 1.0f, 1.0f, 1.0f);
@@ -55,17 +57,16 @@ public class Main {
             }
 
 
-            try {
-                Thread.sleep(0);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
 
 
             renderer2D.render();
 
-            System.out.println(renderer2D.getRenderCalls());
+            Tools.logRenderCalls(renderer2D);
 
+
+
+
+            renderer2D.finished();
             window.update();
         }
 
