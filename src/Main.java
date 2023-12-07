@@ -37,6 +37,7 @@ public class Main {
 
             renderer2D.drawFilledEllipse(window.getMouseX(), window.getMouseY(), 150, 150, Color.RED);
             renderer2D.drawFilledEllipse(window.getMouseX() + 150, window.getMouseY() + 150, 300, 300, Color.BLACK);
+            renderer2D.drawTexture(window.getMouseX() - 150, window.getMouseY() + 150, 300, 300, tex2);
 
 
 

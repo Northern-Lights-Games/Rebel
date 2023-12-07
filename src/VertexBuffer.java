@@ -1,17 +1,14 @@
 import static org.lwjgl.opengl.GL45.*;
 
 public class VertexBuffer {
-
-
     public int myVbo;
     public int myEbo;
     private int maxVertices = 1000;
-
     private int numOfVertices;
-    private int vertexDataLength;
+    private int vertexDataSize;
 
-    public VertexBuffer(int vertexDataLength) {
-        this.vertexDataLength = vertexDataLength;
+    public VertexBuffer(int vertexDataSize) {
+        this.vertexDataSize = vertexDataSize;
         build();
     }
 
@@ -19,8 +16,8 @@ public class VertexBuffer {
         return numOfVertices;
     }
 
-    public int getVertexDataLength() {
-        return vertexDataLength;
+    public int getVertexDataSize() {
+        return vertexDataSize;
     }
 
     private void build() {
@@ -29,7 +26,7 @@ public class VertexBuffer {
 
         myVbo = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, myVbo);
-        glBufferData(GL_ARRAY_BUFFER, maxVertices * vertexDataLength * Float.BYTES, GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, maxVertices * vertexDataSize * Float.BYTES, GL_DYNAMIC_DRAW);
         numOfVertices = maxVertices;
 
         myEbo = glGenBuffers();
