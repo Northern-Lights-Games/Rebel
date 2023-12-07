@@ -1,13 +1,7 @@
-import org.lwjgl.BufferUtils;
-
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-
 import static org.lwjgl.opengl.GL45.*;
 
 public class VertexBuffer {
-    private float[] vertices;
-    private int[] indices;
+
 
     public int myVbo;
     public int myEbo;
@@ -16,12 +10,8 @@ public class VertexBuffer {
     private int numOfVertices;
     private int vertexDataLength;
 
-    public VertexBuffer(float[] vertices, int[] indices, int vertexDataLength) {
-        this.vertices = vertices;
-        this.indices = indices;
+    public VertexBuffer(int vertexDataLength) {
         this.vertexDataLength = vertexDataLength;
-
-
         build();
     }
 
@@ -39,35 +29,12 @@ public class VertexBuffer {
 
         myVbo = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, myVbo);
-
-
-
-        FloatBuffer verticesAsFloatBuffer = BufferUtils.createFloatBuffer(vertices.length);
-        verticesAsFloatBuffer.put(vertices);
-        verticesAsFloatBuffer.flip();
-
-        if(vertices.length == 0){
-            glBufferData(GL_ARRAY_BUFFER, maxVertices * vertexDataLength, GL_DYNAMIC_DRAW);
-            numOfVertices = maxVertices;
-        }
-        else {
-            glBufferData(GL_ARRAY_BUFFER, verticesAsFloatBuffer, GL_STATIC_DRAW);
-            numOfVertices = vertices.length;
-        }
+        glBufferData(GL_ARRAY_BUFFER, maxVertices * vertexDataLength * Float.BYTES, GL_DYNAMIC_DRAW);
+        numOfVertices = maxVertices;
 
         myEbo = glGenBuffers();
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myEbo);
-
-        IntBuffer indicesAsIntBuffer = BufferUtils.createIntBuffer(indices.length);
-        indicesAsIntBuffer.put(indices);
-        indicesAsIntBuffer.flip();
-
-        if(indices.length == 0){
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, maxVertices * 6L, GL_DYNAMIC_DRAW);
-        }
-        else
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesAsIntBuffer, GL_STATIC_DRAW);
-
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, (maxVertices / 4) * 6L * Integer.BYTES, GL_DYNAMIC_DRAW);
 
     }
 

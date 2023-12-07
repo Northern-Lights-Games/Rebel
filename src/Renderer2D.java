@@ -57,8 +57,6 @@ public class Renderer2D {
 
         //vertexDataLength should be determined by VAO and passed to VBO, changing 52 everywhere is annoying
         vertexBuffer = new VertexBuffer(
-                new float[]{},
-                new int[]{},
                 52
         );
 
@@ -317,10 +315,28 @@ public class Renderer2D {
     public void render() {
 
         glBindBuffer(GL_ARRAY_BUFFER, getVertexBuffer().myVbo);
+
+        {
+
+            IntBuffer size = BufferUtils.createIntBuffer(1);
+            glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, size);
+            System.out.println("Size: " + size.get() + " " + vertices.length);
+        }
+
+
+
+
+
+
+
+
+
+
+
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
 
-        int numOfQuads = vertices.length / vertexBuffer.getVertexDataLength();
-        int numOfIndices = numOfQuads * 6;
+
+        int numOfIndices = 6 * 6;
 
 
         int[] indices = new int[numOfIndices];
@@ -342,7 +358,7 @@ public class Renderer2D {
         glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, indices);
         glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
 
-        vertices = new float[vertexBuffer.getNumOfVertices()];
+        vertices = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataLength()];
         numOfDraws = 0;
     }
 
