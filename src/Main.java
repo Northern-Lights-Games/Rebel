@@ -1,4 +1,6 @@
 import static org.lwjgl.glfw.GLFW.*;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Main {
@@ -16,12 +18,13 @@ public class Main {
         window.setTitle("Rebel: " + renderer2D.getHardwareInfo());
 
         ArrayList<Texture> textures = new ArrayList<>();
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < 64; i++) {
             textures.add(Math.random() > 0.5 ? new Texture("amogus.png") : new Texture("texture.png"));
         }
 
-        RFont font = new RFont("Times New Roman", 20, false);
+        RFont font = new RFont("Arial", 50, true);
 
+        //Looks like every 32 textures, the first one goes missing
 
 
 
@@ -34,12 +37,11 @@ public class Main {
             double deltaTime = timeNow - start;
             start = timeNow;
 
-            System.out.println(deltaTime);
 
 
 
-            renderer2D.clear(1.0f, 1.0f, 1.0f, 1.0f);
 
+            renderer2D.clear(1f, 1f, 1f, 1.0f);
 
             int sx = 0, sy = 0;
 
@@ -56,18 +58,23 @@ public class Main {
                 sx += 100;
             }
 
-
             int tx = 0, ty = 0;
 
             for (int i = 0; i < textures.size(); i++) {
-                if((tx / 50) % 16 == 0){
-                    ty += 50;
+                if((tx / 100) % 8 == 0){
+                    ty += 100;
                     tx = 0;
                 }
 
-                renderer2D.drawTexture(tx + window.getMouseX(), ty + window.getMouseY(), 50, 50, textures.get(i));
-                tx += 50;
+                renderer2D.drawTexture(tx, ty, 100, 100, textures.get(i));
+                tx += 100;
             }
+
+            renderer2D.drawText(window.getMouseX(), window.getMouseY(), renderer2D.getHardwareInfo(), Color.RED, font);
+            renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library", Color.GRAY, font);
+
+
+
 
 
 

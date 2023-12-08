@@ -7,8 +7,6 @@ import static org.lwjgl.opengl.GL43.*;
 public class Texture {
     private String path;
     private int texID;
-    public static int availableSlot;
-    private int slot;
     private int width, height;
 
     public Texture(String path) {
@@ -24,12 +22,25 @@ public class Texture {
 
         texID = glGenTextures();
 
-        findSlot();
         glBindTexture(GL_TEXTURE_2D, texID);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
         glGenerateMipmap(GL_TEXTURE_2D);
 
         STBImage.stbi_image_free(texture);
+    }
+
+    public Texture() {
+        texID = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, texID);
+    }
+
+    public void setData(ByteBuffer data, int width, int height) {
+        this.width = width;
+        this.height = height;
+
+        glBindTexture(GL_TEXTURE_2D, texID);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
     }
 
 
@@ -45,15 +56,8 @@ public class Texture {
     public int getTexID() {
         return texID;
     }
-    public int getSlot() {
-        return slot;
-    }
 
-    public void findSlot(){
-        slot = availableSlot;
 
-        availableSlot++;
-    }
 
     public int getWidth() {
         return width;

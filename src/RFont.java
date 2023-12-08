@@ -4,10 +4,12 @@ import java.awt.color.ColorSpace;
 import java.awt.image.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 public class RFont {
     private Font awtFont;
+    private HashMap<Integer, Texture> glyphs = new HashMap<>();
 
     public RFont(String name, int size, boolean antialias){
         awtFont = new Font(name, Font.PLAIN, size);
@@ -18,28 +20,14 @@ public class RFont {
             }
             char c = (char) i;
             BufferedImage ch = createCharImage(awtFont, c, antialias);
-
-
+            Texture glyph = new Texture();
+            glyph.setData(convertImageData(ch), ch.getWidth(), ch.getHeight());
+            glyphs.put(i, glyph);
         }
-
-
-
-
-
-
-
-
     }
 
-    public FontMetrics getMetrics(boolean antiAlias){
-        BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = image.createGraphics();
-        if (antiAlias) g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setFont(awtFont);
-        FontMetrics metrics = g.getFontMetrics();
-        g.dispose();
-
-        return metrics;
+    public HashMap<Integer, Texture> getGlyphs() {
+        return glyphs;
     }
 
     //COPIED! Rewrite this
