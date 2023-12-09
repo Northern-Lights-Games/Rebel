@@ -7,34 +7,46 @@ import java.nio.ByteOrder;
 import java.util.HashMap;
 import java.util.Hashtable;
 
-public class RFont {
+public class FontRes {
     private Font awtFont;
+    private boolean antialias;
     private HashMap<Integer, Texture> glyphs = new HashMap<>();
+    private FontMetrics metrics;
+    public static int NORMAL = Font.PLAIN;
+    public static int ITALIC = Font.ITALIC;
+    public static int BOLD = Font.BOLD;
 
-    public RFont(String name, int size, boolean antialias){
-        awtFont = new Font(name, Font.PLAIN, size);
+    public FontRes(String name, int style, int size, boolean antialias){
+        this.antialias = antialias;
+        awtFont = new Font(name, style, size);
+        metrics = createFontMetrics();
 
         for (int i = 32; i < 256; i++) {
-            if (i == 127) {
-                continue;
-            }
+            if (i == 127) continue;
             char c = (char) i;
-            BufferedImage ch = createCharImage(awtFont, c, antialias);
             Texture glyph = new Texture();
-            glyph.setData(convertImageData(ch), ch.getWidth(), ch.getHeight());
+
+            BufferedImage ch = toBufferedImage(c);
+            glyph.setData(toByteBuffer(ch), ch.getWidth(), ch.getHeight());
             glyphs.put(i, glyph);
         }
+
+
     }
 
     public HashMap<Integer, Texture> getGlyphs() {
         return glyphs;
     }
 
+    public Font getAWTFont() {
+        return awtFont;
+    }
+
     //COPIED! Rewrite this
     /**
      * Convert the buffered image to a texture
      */
-    private ByteBuffer convertImageData(BufferedImage bufferedImage) {
+    private ByteBuffer toByteBuffer(BufferedImage bufferedImage) {
         ByteBuffer imageBuffer;
         WritableRaster raster;
         BufferedImage texImage;
@@ -67,39 +79,37 @@ public class RFont {
         return imageBuffer;
     }
 
-    //COPIED! Rewrite this
-    private BufferedImage createCharImage(java.awt.Font font, char c, boolean antiAlias) {
-        /* Creating temporary image to extract character size */
+    private FontMetrics createFontMetrics(){
         BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
-        if (antiAlias) {
-            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        }
-        g.setFont(font);
+        if (antialias) g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setFont(awtFont);
         FontMetrics metrics = g.getFontMetrics();
         g.dispose();
 
-        /* Get char charWidth and charHeight */
-        int charWidth = metrics.charWidth(c);
-        int charHeight = metrics.getHeight();
+        return metrics;
+    }
 
-        /* Check if charWidth is 0 */
-        if (charWidth == 0) {
-            return null;
-        }
+    private BufferedImage toBufferedImage(char c) {
+        BufferedImage image = new BufferedImage(metrics.charWidth(c), metrics.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = image.createGraphics();
 
-        /* Create image for holding the char */
-        image = new BufferedImage(charWidth, charHeight, BufferedImage.TYPE_INT_ARGB);
-        g = image.createGraphics();
-        if (antiAlias) {
-            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        }
-        g.setFont(font);
+        if (antialias) g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         g.setPaint(java.awt.Color.WHITE);
+        g.setFont(awtFont);
         g.drawString(String.valueOf(c), 0, metrics.getAscent());
         g.dispose();
+
         return image;
     }
 
+    public float getHeight(){
+        return metrics.getHeight();
+    }
+
+    public float getWidthOf(String string){
+        return metrics.stringWidth(string);
+    }
 
 }

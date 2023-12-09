@@ -23,6 +23,9 @@ public class Renderer2D {
         this.width = width;
         this.height = height;
 
+
+
+
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -399,7 +402,7 @@ public class Renderer2D {
         renderCallNames.clear();
     }
 
-    public void drawText(float x, float y, String text, Color color, RFont font) {
+    public void drawText(float x, float y, String text, Color color, FontRes font) {
 
         for(char c : text.toCharArray()){
             int i = (int) c;

@@ -1,6 +1,5 @@
 import static org.lwjgl.glfw.GLFW.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Main {
@@ -15,6 +14,8 @@ public class Main {
 
         Renderer2D renderer2D = new Renderer2D(1920, 1080);
 
+
+
         window.setTitle("Rebel: " + renderer2D.getHardwareInfo());
 
         ArrayList<Texture> textures = new ArrayList<>();
@@ -22,9 +23,9 @@ public class Main {
             textures.add(Math.random() > 0.5 ? new Texture("amogus.png") : new Texture("texture.png"));
         }
 
-        RFont font = new RFont("Arial", 50, true);
+        FontRes font = new FontRes("Comic Sans MS", FontRes.NORMAL, 40, true);
+        FontRes font2 = new FontRes("Times New Roman", FontRes.ITALIC | FontRes.BOLD,  40, true);
 
-        //Looks like every 32 textures, the first one goes missing
 
 
 
@@ -70,8 +71,22 @@ public class Main {
                 tx += 100;
             }
 
-            renderer2D.drawText(window.getMouseX(), window.getMouseY(), renderer2D.getHardwareInfo(), Color.RED, font);
-            renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library", Color.GRAY, font);
+            String text = renderer2D.getHardwareInfo();
+
+
+            float width = font.getWidthOf(text);
+            float height = font.getHeight();
+
+
+
+            renderer2D.drawText((renderer2D.getWidth() / 2) - (width / 2), renderer2D.getHeight() - height, text, Color.RED, font);
+
+
+
+
+
+
+            renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library", Color.GRAY, font2);
 
 
 
