@@ -405,11 +405,16 @@ public class Renderer2D {
     public void drawText(float x, float y, String text, Color color, FontRes font) {
 
         for(char c : text.toCharArray()){
-            int i = (int) c;
-            Texture texture = font.getGlyphs().get(i);
+
+            if(c == '\n'){
+                y += font.getHeight();
+                x = 0;
+                continue;
+            }
+
+            Texture texture = font.getGlyphs().get((int) c);
             drawTexture(x, y, texture.getWidth(), texture.getHeight(), texture, color);
             x += texture.getWidth();
-
         }
 
     }

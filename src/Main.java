@@ -24,7 +24,7 @@ public class Main {
         }
 
         FontRes font = new FontRes("Comic Sans MS", FontRes.NORMAL, 40, true);
-        FontRes font2 = new FontRes("Times New Roman", FontRes.ITALIC | FontRes.BOLD,  40, true);
+        FontRes font2 = new FontRes("Consolas", FontRes.NORMAL,  40, true);
 
 
 
@@ -86,7 +86,7 @@ public class Main {
 
 
 
-            renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library", Color.GRAY, font2);
+            renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library\n\nIsn't this cool?", Color.GRAY, font2);
 
 
 
