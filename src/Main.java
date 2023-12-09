@@ -19,12 +19,19 @@ public class Main {
         window.setTitle("Rebel: " + renderer2D.getHardwareInfo());
 
         ArrayList<Texture> textures = new ArrayList<>();
-        for (int i = 0; i < 64; i++) {
-            textures.add(Math.random() > 0.5 ? new Texture("amogus.png") : new Texture("texture.png"));
+
+        Texture logo = new Texture("project/logo.png");
+
+
+        boolean sw = false;
+
+        for (int i = 0; i < 32; i++) {
+            textures.add(sw ? new Texture("project/logo.png") : new Texture("texture.png"));
+            sw = !sw;
         }
 
         FontRes font = new FontRes("Comic Sans MS", FontRes.NORMAL, 40, true);
-        FontRes font2 = new FontRes("Consolas", FontRes.NORMAL,  40, true);
+        FontRes font2 = new FontRes("Ink Free", FontRes.BOLD,  40, true);
 
 
 
@@ -44,9 +51,9 @@ public class Main {
 
             renderer2D.clear(1f, 1f, 1f, 1.0f);
 
-            int sx = 0, sy = 0;
+            int sx = 0, sy = 500;
 
-            for (int i = 0; i < 64; i++) {
+            for (int i = 0; i < 32; i++) {
                 if((sx / 100) % 8 == 0){
                     sy += 100;
                     sx = 0;
@@ -86,9 +93,10 @@ public class Main {
 
 
 
-            renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library\n\nIsn't this cool?", Color.GRAY, font2);
+            renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library\n\nIsn't this cool?", Color.BLUE, font2);
 
 
+            renderer2D.drawTexture(1000, 300, 500, 500, logo);
 
 
 
