@@ -65,7 +65,7 @@ public class Renderer2D {
         vertexArray.bind();
 
         //vertexDataLength should be determined by VAO and passed to VBO, changing 52 everywhere is annoying
-        vertexBuffer = new VertexBuffer(1000, 52);
+        vertexBuffer = new VertexBuffer(8, 52);
 
         vertexArray.build();
 
@@ -141,11 +141,6 @@ public class Renderer2D {
 
     public void drawTexture(float x, float y, float w, float h, Texture texture, Color color) {
 
-        if(textureDraws >= maxTextureSlots){
-            render("Next Batch Render [No more Texture slots out of " + maxTextureSlots + "]");
-        }
-        if(quadIndex >= vertexBuffer.maxQuads()) render("Next Batch Render");
-
         int slot = textureDraws;
         glActiveTexture(GL_TEXTURE0 + slot);
         texture.bind();
@@ -154,20 +149,17 @@ public class Renderer2D {
 
         textureDraws++;
 
+        if(textureDraws == maxTextureSlots)
+            render("Next Batch Render [No more Texture slots out of " + maxTextureSlots + "]");
+
     }
 
     public void drawFilledRect(float x, float y, float w, float h, Color color){
         drawQuad(x, y, w, h, -1, color, originX, originY);
-
-        //is this checking too late?
-        if(quadIndex >= vertexBuffer.maxQuads()) render("Next Batch Render");
     }
 
     public void drawFilledEllipse(float x, float y, float w, float h, Color color) {
         drawQuad(x, y, w, h, -2, color, originX, originY);
-
-        if(quadIndex >= vertexBuffer.maxQuads()) render("Next Batch Render");
-
     }
 
 
@@ -261,6 +253,9 @@ public class Renderer2D {
 
         }
         quadIndex++;
+
+        System.out.println(quadIndex);
+        if(quadIndex == vertexBuffer.maxQuads()) render("Next Batch Render");
     }
 
     public void render(){
