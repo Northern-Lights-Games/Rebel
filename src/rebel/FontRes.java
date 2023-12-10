@@ -1,3 +1,5 @@
+package rebel;
+
 import java.awt.*;
 import java.awt.Color;
 import java.awt.color.ColorSpace;
@@ -42,7 +44,9 @@ public class FontRes {
         return awtFont;
     }
 
-    //COPIED! Rewrite this
+
+    //COPIED! From https://stackoverflow.com/questions/5194325/how-do-i-load-an-image-for-use-as-an-opengl-texture-with-lwjgl
+    //TODO: Replace this!
     /**
      * Convert the buffered image to a texture
      */
