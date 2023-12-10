@@ -1,3 +1,5 @@
+package rebel;
+
 import static org.lwjgl.opengl.GL43.*;
 
 public class VertexBuffer {

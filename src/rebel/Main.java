@@ -1,3 +1,5 @@
+package rebel;
+
 import org.joml.*;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -12,10 +14,13 @@ public class Main {
 
 
         Window window = new Window(1920, 1080, "Rebel");
-
-
-
         Renderer2D renderer2D = new Renderer2D(1920, 1080);
+
+
+
+
+
+
 
 
 
@@ -87,6 +92,8 @@ public class Main {
 
                 int tx = 0, ty = 0;
 
+
+
                 for (int i = 0; i < textures.size(); i++) {
                     if ((tx / 100) % 8 == 0) {
                         ty += 100;
@@ -107,11 +114,8 @@ public class Main {
 
 
 
-                renderer2D.setOrigin(((renderer2D.getWidth() / 2) - (width / 2)) + (width / 2), (renderer2D.getHeight() - height) + (height / 2));
-                renderer2D.setTransform(matrix4f);
+
                 renderer2D.drawText((renderer2D.getWidth() / 2) - (width / 2), renderer2D.getHeight() - height, text, Color.RED, font);
-                renderer2D.setTransform(new Matrix4f().identity());
-                renderer2D.setOrigin(0, 0);
 
 
 
@@ -120,7 +124,10 @@ public class Main {
 
                 renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library\nRenderer2D OpenGL Demo", Color.BLUE, font2);
 
+
+
             }
+
 
 
 
@@ -144,6 +151,8 @@ public class Main {
             renderer2D.setOrigin(0, 0);
 
             rotation += 5 * deltaTime;
+
+
 
 
 

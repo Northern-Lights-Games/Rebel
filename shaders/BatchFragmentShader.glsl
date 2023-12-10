@@ -22,7 +22,10 @@ void main()
     }
     else if(index == -2){
 
+        //Drawing circles breaks when resizing because the UV's are screwed and no longer at the right space
         vec2 uv = vec2((gl_FragCoord.x - f_origin.x) / f_size.x, (gl_FragCoord.y - f_origin.y) / f_size.y) * 2.0 - 1.0;
+
+
 
         float distance = 1 - length(uv);
 
@@ -31,6 +34,9 @@ void main()
         else {
             discard;
         }
+
+
+        //FragColor = vec4(uv, 1.0, 1.0);
 
     }
     else {

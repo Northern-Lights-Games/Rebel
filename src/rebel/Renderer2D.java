@@ -1,3 +1,5 @@
+package rebel;
+
 import org.joml.*;
 import org.lwjgl.BufferUtils;
 
@@ -18,6 +20,10 @@ public class Renderer2D {
 
     private float[] vertexData;
     private int maxTextureSlots;
+    private Shader shader;
+
+    private static int RECT = -1;
+    private static int CIRCLE = -2;
 
     public Renderer2D(int width, int height) {
         this.width = width;
@@ -42,7 +48,7 @@ public class Renderer2D {
 
 
 
-        Shader shader = new Shader(
+        shader = new Shader(
                 FileReader.readFile("shaders/BatchVertexShader.glsl"),
                 FileReader.readFile("shaders/BatchFragmentShader.glsl")
         );
@@ -72,6 +78,8 @@ public class Renderer2D {
         vertexData = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataSize()];
     }
 
+
+
     private int[] createTextureSlots() {
 
 
@@ -82,7 +90,7 @@ public class Renderer2D {
             slots[i] = i;
         }
 
-        System.out.println("Max Texture Slots: " + maxTextureSlots);
+        System.out.println("Max rebel.Texture Slots: " + maxTextureSlots);
         System.out.println(Arrays.toString(slots));
 
 
@@ -150,16 +158,16 @@ public class Renderer2D {
         textureDraws++;
 
         if(textureDraws == maxTextureSlots)
-            render("Next Batch Render [No more Texture slots out of " + maxTextureSlots + "]");
+            render("Next Batch Render [No more rebel.Texture slots out of " + maxTextureSlots + "]");
 
     }
 
     public void drawFilledRect(float x, float y, float w, float h, Color color){
-        drawQuad(x, y, w, h, -1, color, originX, originY);
+        drawQuad(x, y, w, h, RECT, color, originX, originY);
     }
 
     public void drawFilledEllipse(float x, float y, float w, float h, Color color) {
-        drawQuad(x, y, w, h, -2, color, originX, originY);
+        drawQuad(x, y, w, h, CIRCLE, color, originX, originY);
     }
 
 
@@ -259,7 +267,7 @@ public class Renderer2D {
     }
 
     public void render(){
-        render("Final Draw Call [Renderer2D.render()]");
+        render("Final Draw Call [rebel.Renderer2D.render()]");
     }
 
     public ArrayList<String> renderCallNames = new ArrayList<>(50);

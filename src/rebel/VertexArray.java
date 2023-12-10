@@ -1,3 +1,5 @@
+package rebel;
+
 import static org.lwjgl.opengl.GL43.*;
 
 public class VertexArray {
@@ -20,15 +22,15 @@ public class VertexArray {
         glVertexAttribPointer(0, 2, GL_FLOAT, false, 52,  0);
         glEnableVertexAttribArray(0);
 
-        //Vertex Texture Pos
+        //Vertex rebel.Texture Pos
         glVertexAttribPointer(1, 2, GL_FLOAT, false, 52, 8);
         glEnableVertexAttribArray(1);
 
-        //Vertex Texture ID
+        //Vertex rebel.Texture ID
         glVertexAttribPointer(2, 1, GL_FLOAT, false, 52, 16);
         glEnableVertexAttribArray(2);
 
-        //Vertex Color
+        //Vertex rebel.Color
         glVertexAttribPointer(3, 4, GL_FLOAT, false, 52, 20);
         glEnableVertexAttribArray(3);
 
