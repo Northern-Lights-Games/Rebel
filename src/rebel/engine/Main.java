@@ -45,21 +45,10 @@ public class Main {
 
 
 
-
-
-
-
-
-        double start = glfwGetTime();
-
         float rotation = 0f;
 
 
         while (!window.shouldClose()) {
-
-            double timeNow = glfwGetTime();
-            double deltaTime = timeNow - start;
-            start = timeNow;
 
 
 
@@ -150,7 +139,7 @@ public class Main {
             renderer2D.setTransform(new Matrix4f().identity());
             renderer2D.setOrigin(0, 0);
 
-            rotation += 5 * deltaTime;
+            rotation += 5 * Time.deltaTime;
 
 
 
