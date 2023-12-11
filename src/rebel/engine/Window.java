@@ -93,6 +93,10 @@ public class Window {
         return (float) mouseY;
     }
 
+    public int getFPS() {
+        return (int) (1 / Time.deltaTime);
+    }
+
     public void close() {
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
