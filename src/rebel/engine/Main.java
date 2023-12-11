@@ -15,24 +15,13 @@ public class Main {
 
         Window window = new Window(1920, 1080, "Rebel");
         Renderer2D renderer2D = new Renderer2D(1920, 1080);
-
-
-
-
-
-
-
-
-
         window.setTitle("Rebel: " + renderer2D.getHardwareInfo());
 
+
+
         ArrayList<Texture> textures = new ArrayList<>();
-
         Texture logo = new Texture("project/logo.png");
-
-
         boolean sw = false;
-
         for (int i = 0; i < 32; i++) {
             textures.add(sw ? new Texture("project/logo.png") : new Texture("texture.png"));
             sw = !sw;
@@ -56,8 +45,7 @@ public class Main {
 
             renderer2D.clear(1f, 1f, 1f, 1.0f);
 
-            Matrix4f matrix4f = new Matrix4f();
-            matrix4f.rotate(rotation, 0, 0, 1);
+
 
 
 
@@ -134,9 +122,9 @@ public class Main {
 
             //pos + origin
             renderer2D.setOrigin(1000 + 250, 300 + 250);
-            renderer2D.setTransform(matrix4f);
+            renderer2D.rotate((float) Math.toRadians(rotation));
             renderer2D.drawTexture(1000, 300, 500, 500, logo);
-            renderer2D.setTransform(new Matrix4f().identity());
+            renderer2D.resetTransform();
             renderer2D.setOrigin(0, 0);
 
             rotation += 5 * Time.deltaTime;
