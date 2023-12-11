@@ -40,8 +40,8 @@ public class Main {
 
 
 
-        FontRes font = new FontRes("Comic Sans MS", FontRes.NORMAL, 40, true);
-        FontRes font2 = new FontRes("Ink Free", FontRes.BOLD,  40, true);
+        FontRes font = new FontRes("Times New Roman", FontRes.NORMAL, 40, true);
+        FontRes font2 = new FontRes("Times New Roman", FontRes.BOLD,  40, true);
 
 
 
