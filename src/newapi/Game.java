@@ -1,9 +1,6 @@
 package newapi;
 
-import rebel.Renderer2D;
-import rebel.Texture;
-import rebel.Tools;
-import rebel.Window;
+import rebel.engine.*;
 
 import java.util.HashMap;
 

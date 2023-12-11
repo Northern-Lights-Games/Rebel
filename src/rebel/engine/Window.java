@@ -1,4 +1,4 @@
-package rebel;
+package rebel.engine;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;

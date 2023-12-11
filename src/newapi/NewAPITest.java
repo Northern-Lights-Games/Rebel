@@ -1,5 +1,7 @@
 package newapi;
 
+import rebel.engine.Time;
+
 import static newapi.Game.*;
 
 public class NewAPITest {
@@ -14,10 +16,10 @@ public class NewAPITest {
 
         };
 
-        player.dx = (float) (300 * Math.random());
-        player.dy = (float) (300 * Math.random());
-        player.width = 120;
-        player.height = 120;
+        player.dx = (float) (700 * Math.random());
+        player.dy = (float) (700 * Math.random());
+        player.width = 30;
+        player.height = 30;
 
         play("My game!", 640, 480, () -> {
 

@@ -1,4 +1,4 @@
-package rebel;
+package rebel.engine;
 
 import static org.lwjgl.opengl.GL43.*;
 

@@ -1,4 +1,4 @@
-package rebel;
+package rebel.engine;
 
 import java.awt.*;
 import java.awt.Color;

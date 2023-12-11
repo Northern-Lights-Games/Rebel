@@ -1,4 +1,4 @@
-package rebel;
+package rebel.engine;
 
 import org.joml.*;
 import org.lwjgl.BufferUtils;
@@ -90,7 +90,7 @@ public class Renderer2D {
             slots[i] = i;
         }
 
-        System.out.println("Max rebel.Texture Slots: " + maxTextureSlots);
+        System.out.println("Max rebel.engine.Texture Slots: " + maxTextureSlots);
         System.out.println(Arrays.toString(slots));
 
 
@@ -158,7 +158,7 @@ public class Renderer2D {
         textureDraws++;
 
         if(textureDraws == maxTextureSlots)
-            render("Next Batch Render [No more rebel.Texture slots out of " + maxTextureSlots + "]");
+            render("Next Batch Render [No more rebel.engine.Texture slots out of " + maxTextureSlots + "]");
 
     }
 
@@ -267,7 +267,7 @@ public class Renderer2D {
     }
 
     public void render(){
-        render("Final Draw Call [rebel.Renderer2D.render()]");
+        render("Final Draw Call [rebel.engine.Renderer2D.render()]");
     }
 
     public ArrayList<String> renderCallNames = new ArrayList<>(50);
