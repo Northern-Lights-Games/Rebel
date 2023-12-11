@@ -156,6 +156,18 @@ public class Renderer2D {
         this.originY = y;
     }
 
+    public void drawRect(float x, float y, float w, float h, Color color, int thickness){
+
+        //Left
+        drawFilledRect(x - ((float) thickness / 2), y, thickness, h, color);
+        //Top
+        drawFilledRect(x, y - ((float) thickness / 2), w, thickness, color);
+        //Bottom
+        drawFilledRect(x, y - ((float) thickness / 2) + h, w, thickness, color);
+        //Right
+        drawFilledRect(x - ((float) thickness / 2) + w, y, thickness, h, color);
+
+    }
 
     public void drawTexture(float x, float y, float w, float h, Texture texture, Color color) {
 
