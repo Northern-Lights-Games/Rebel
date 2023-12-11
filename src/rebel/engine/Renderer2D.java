@@ -177,7 +177,7 @@ public class Renderer2D {
 
         float angle = (float) Math.atan2(dy, dx);
 
-        setOrigin(x1, y1 + (thickness / 2));
+        setOrigin(x1, y1);
         rotate(angle);
 
         float hypotenuse = (float) Math.sqrt((dx * dx) + (dy * dy));
