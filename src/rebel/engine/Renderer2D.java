@@ -3,6 +3,7 @@ package rebel.engine;
 import org.joml.*;
 import org.lwjgl.BufferUtils;
 
+import java.lang.Math;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -166,6 +167,28 @@ public class Renderer2D {
         drawFilledRect(x, y - ((float) thickness / 2) + h, w, thickness, color);
         //Right
         drawFilledRect(x - ((float) thickness / 2) + w, y, thickness, h, color);
+
+    }
+
+    public void drawLine(float x1, float y1, float x2, float y2, Color color, int thickness){
+
+        float dx = x2 - x1;
+        float dy = y2 - y1;
+
+        float angle = (float) Math.atan2(dy, dx);
+
+        setOrigin(x1, y1 + (thickness / 2));
+        rotate(angle);
+
+        float hypotenuse = (float) Math.sqrt((dx * dx) + (dy * dy));
+
+        drawFilledRect(x1, y1 - (thickness / 2), hypotenuse, thickness, color);
+
+        resetTransform();
+        setOrigin(0, 0);
+
+
+
 
     }
 
