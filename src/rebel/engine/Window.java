@@ -74,6 +74,17 @@ public class Window {
         Time.deltaTime = (float) deltaTime;
     }
 
+    public int getKey(int key){
+        return glfwGetKey(window, key);
+    }
+
+    public boolean isKeyPressed(int key){
+        return getKey(key) == GLFW_PRESS;
+    }
+    public boolean isKeyReleased(int key){
+        return getKey(key) == GLFW_RELEASE;
+    }
+
     public void setTitle(String title){
         glfwSetWindowTitle(window, title);
     }
