@@ -3,16 +3,12 @@ package rebel.engine;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GLDebugMessageARBCallbackI;
 import org.lwjgl.opengl.GLUtil;
-
 import java.nio.DoubleBuffer;
-
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.ARBDebugOutput.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
-import static org.lwjgl.opengl.GL43.*;
+import static org.lwjgl.opengl.GL46.*;
 
 public class Window {
     private long window;

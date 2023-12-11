@@ -1,6 +1,6 @@
 package rebel.engine;
 
-import static org.lwjgl.opengl.GL43.*;
+import static org.lwjgl.opengl.GL46.*;
 
 public class VertexBuffer {
     public int myVbo;

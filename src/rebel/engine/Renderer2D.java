@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.lwjgl.opengl.GL43.*;
+import static org.lwjgl.opengl.GL46.*;
 
 public class Renderer2D {
     private int width;
