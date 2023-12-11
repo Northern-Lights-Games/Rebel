@@ -18,6 +18,7 @@ public class Window {
     private long window;
 
     private double mouseX, mouseY;
+    private double start;
 
     public Window(int w, int h, String title){
 
@@ -41,6 +42,8 @@ public class Window {
         GLUtil.setupDebugMessageCallback();
 
         glfwSetWindowSizeCallback(window, (window1, width, height) -> glViewport(0, 0, width, height));
+
+        start = glfwGetTime();
     }
 
     public long getGLFWHandle() {
@@ -64,6 +67,11 @@ public class Window {
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        double timeNow = glfwGetTime();
+        double deltaTime = timeNow - start;
+        start = timeNow;
+        Time.deltaTime = (float) deltaTime;
     }
 
     public void setTitle(String title){
