@@ -1,7 +1,7 @@
 #version 330 core
 out vec4 FragColor;
 
-in vec2 f_texcoord;
+in vec2 f_uv;
 
 uniform sampler2D u_textures[32];
 in float f_texindex;
@@ -21,26 +21,20 @@ void main()
         FragColor = f_color;
     }
     else if(index == -2){
-
-        //This is a bit hacky because it uses texture coordinates to draw a circle?
-        vec2 uv = f_texcoord * 2.0 - 1.0;
-
-
+        vec2 uv = f_uv * 2.0 - 1.0;
 
         float distance = 1 - length(uv);
 
         if(distance > 0.0)
             FragColor = f_color;
-        else {
+        else
             discard;
-        }
 
 
-        //FragColor = vec4(uv, 1.0, 1.0);
 
     }
     else {
-        FragColor = texture(u_textures[index], f_texcoord) * f_color;
+        FragColor = texture(u_textures[index], f_uv) * f_color;
     }
 
 }
