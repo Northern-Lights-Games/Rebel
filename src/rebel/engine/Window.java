@@ -93,6 +93,10 @@ public class Window {
         return (float) mouseY;
     }
 
+    public boolean getMousePressed(int button){
+        return glfwGetMouseButton(window, button) == GLFW_PRESS;
+    }
+
     public int getFPS() {
         return (int) (1 / Time.deltaTime);
     }
