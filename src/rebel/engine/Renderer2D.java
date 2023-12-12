@@ -71,9 +71,17 @@ public class Renderer2D {
         VertexArray vertexArray = new VertexArray();
         vertexArray.bind();
 
-        //vertexDataLength should be determined by VAO and passed to VBO, changing 52 everywhere is annoying
-        vertexBuffer = new VertexBuffer(1000, 52);
 
+        vertexArray.setVertexAttributes(
+                new VertexAttribute(0, 2, false, "v_pos"),
+                new VertexAttribute(1, 2, false, "v_uv"),
+                new VertexAttribute(2, 1, false, "v_texindex"),
+                new VertexAttribute(3, 4, false, "v_color"),
+                new VertexAttribute(4, 2, false, "v_origin"),
+                new VertexAttribute(5, 2, false, "v_size")
+        );
+
+        vertexBuffer = new VertexBuffer(1000, vertexArray.getStride());
         vertexArray.build();
 
         vertexData = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataSize()];

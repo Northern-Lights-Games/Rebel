@@ -5,6 +5,9 @@ import static org.lwjgl.opengl.GL46.*;
 public class VertexArray {
     private int myVao;
 
+    private VertexAttribute[] vertexAttributes;
+    private int stride = 0;
+
 
 
 
@@ -18,28 +21,35 @@ public class VertexArray {
 
 
     public void build() {
-        //Vertex Pos
-        glVertexAttribPointer(0, 2, GL_FLOAT, false, 52,  0);
-        glEnableVertexAttribArray(0);
 
-        //Vertex rebel.engine.Texture Pos
-        glVertexAttribPointer(1, 2, GL_FLOAT, false, 52, 8);
-        glEnableVertexAttribArray(1);
+        int pointer = 0;
 
-        //Vertex rebel.engine.Texture ID
-        glVertexAttribPointer(2, 1, GL_FLOAT, false, 52, 16);
-        glEnableVertexAttribArray(2);
+        for(VertexAttribute vertexAttribute : vertexAttributes){
 
-        //Vertex rebel.engine.Color
-        glVertexAttribPointer(3, 4, GL_FLOAT, false, 52, 20);
-        glEnableVertexAttribArray(3);
+            glVertexAttribPointer(
+                    vertexAttribute.index,
+                    vertexAttribute.size,
+                    GL_FLOAT,
+                    vertexAttribute.normalized,
+                    stride,
+                    pointer
+            );
 
-        //Quad Pos
-        glVertexAttribPointer(4, 2, GL_FLOAT, false, 52, 36);
-        glEnableVertexAttribArray(4);
+            glEnableVertexAttribArray(vertexAttribute.index);
 
-        //Quad Dimensions
-        glVertexAttribPointer(5, 2, GL_FLOAT, false, 52, 44);
-        glEnableVertexAttribArray(5);
+            pointer += vertexAttribute.size * Float.BYTES;
+        }
+
+    }
+
+    public void setVertexAttributes(VertexAttribute... vertexAttributes) {
+        this.vertexAttributes = vertexAttributes;
+        for(VertexAttribute vertexAttribute : vertexAttributes){
+            stride += vertexAttribute.size * Float.BYTES;
+        }
+    }
+
+    public int getStride() {
+        return stride;
     }
 }
