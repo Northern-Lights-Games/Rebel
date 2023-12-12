@@ -30,7 +30,7 @@ public class Main {
 
 
         FontRes font = new FontRes("Times New Roman", FontRes.NORMAL, 40, true);
-        FontRes font2 = new FontRes("Times New Roman", FontRes.BOLD,  40, true);
+        FontRes font2 = new FontRes("Times New Roman", FontRes.BOLD | FontRes.ITALIC,  40, true);
 
 
 
@@ -54,6 +54,8 @@ public class Main {
 
                 int sx = 0, sy = 500;
 
+                renderer2D.setTransform(new Matrix4f().rotate((float) Math.toRadians(30), 0, 0, 1).scale(2f, 1f, 0f));
+
                 for (int i = 0; i < 32; i++) {
                     if ((sx / 100) % 8 == 0) {
                         sy += 100;
@@ -66,6 +68,12 @@ public class Main {
                         renderer2D.drawFilledEllipse(sx, sy, 100, 100, Color.BLACK);
                     sx += 100;
                 }
+
+                renderer2D.resetTransform();
+
+
+
+
 
                 int tx = 0, ty = 0;
 
@@ -131,6 +139,7 @@ public class Main {
 
 
 
+            renderer2D.drawLine(30, 30, window.getMouseX(), window.getMouseY(), Color.RED, 5);
 
 
             renderer2D.render();
