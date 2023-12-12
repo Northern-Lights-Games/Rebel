@@ -254,10 +254,12 @@ public class Renderer2D {
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 6] = color.g;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 7] = color.b;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 8] = color.a;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 9] = (x);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 10] = (y);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 11] = (w);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 12] = (h);
+
+            //These need to be changed to represent the new width/height if the quad is scaled
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 9]  = topLeft.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 10] = topLeft.y;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 11] = topRight.x - topLeft.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 12] = bottomRight.y - topRight.y;
 
 
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 13] = bottomLeft.x;
@@ -269,10 +271,10 @@ public class Renderer2D {
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 19] = color.g;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 20] = color.b;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 21] = color.a;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 22] = (x);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 23] = (y);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 24] = (w);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 25] = (h);
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 22] = topLeft.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 23] = topLeft.y;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 24] = topRight.x - topLeft.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 25] = bottomRight.y - topRight.y;
 
 
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 26] = bottomRight.x;
@@ -284,10 +286,10 @@ public class Renderer2D {
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 32] = color.g;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 33] = color.b;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 34] = color.a;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 35] = (x);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 36] = (y);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 37] = (w);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 38] = (h);
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 35] = topLeft.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 36] = topLeft.y;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 37] = topRight.x - topLeft.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 38] = bottomRight.y - topRight.y;
 
 
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 39] = topRight.x;
@@ -299,10 +301,10 @@ public class Renderer2D {
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 45] = color.g;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 46] = color.b;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 47] = color.a;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 48] = (x);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 49] = (y);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 50] = (w);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 51] = (h);
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 48] = topLeft.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 49] = topLeft.y;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 50] = topRight.x - topLeft.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 51] = bottomRight.y - topRight.y;
 
         }
         quadIndex++;
