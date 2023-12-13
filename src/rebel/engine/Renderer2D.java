@@ -14,18 +14,13 @@ import static org.lwjgl.opengl.GL46.*;
 public class Renderer2D {
     private int width;
     private int height;
-
     private Matrix4f proj, view, translation;
-
     private VertexBuffer vertexBuffer;
-
     private float[] vertexData;
     private int maxTextureSlots;
     private Shader shader;
-
     private static int RECT = -1;
     private static int CIRCLE = -2;
-
     public Renderer2D(int width, int height) {
         this.width = width;
         this.height = height;
@@ -86,9 +81,6 @@ public class Renderer2D {
 
         vertexData = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataSize()];
     }
-
-
-
     private int[] createTextureSlots() {
 
 
@@ -105,66 +97,48 @@ public class Renderer2D {
 
         return slots;
     }
-
-
     public VertexBuffer getVertexBuffer() {
         return vertexBuffer;
     }
-
     public int getWidth() {
         return width;
     }
-
     public int getHeight() {
         return height;
     }
-
     public Matrix4f getProj() {
         return proj;
     }
-
     public Matrix4f getView() {
         return view;
     }
-
     public Matrix4f getTranslation() {
         return translation;
     }
-
     private int quadIndex;
     private int nextTextureSlot;
-
     private Matrix4f transform = new Matrix4f().identity();
-
     private float originX, originY;
-
     private static final Matrix4f identity = new Matrix4f().identity();
-
     public Matrix4f getTransform() {
         return transform;
     }
-
     public void setTransform(Matrix4f transform) {
         this.transform = transform;
     }
-
     public void rotate(float radians){
         setTransform(new Matrix4f().rotate(radians, 0, 0, 1));
     }
-
     public void resetTransform(){
         setTransform(identity);
     }
-
     public void drawTexture(float x, float y, float w, float h, Texture texture){
         drawTexture(x, y, w, h, texture, Color.WHITE);
     }
-
     public void setOrigin(float x, float y){
         this.originX = x;
         this.originY = y;
     }
-
     public void drawRect(float x, float y, float w, float h, Color color, int thickness){
 
         //Left
@@ -177,7 +151,6 @@ public class Renderer2D {
         drawFilledRect(x - ((float) thickness / 2) + w, y, thickness, h, color);
 
     }
-
     public void drawLine(float x1, float y1, float x2, float y2, Color color, int thickness){
 
         float dx = x2 - x1;
@@ -199,10 +172,12 @@ public class Renderer2D {
 
 
     }
-
     private Texture lastTexture;
 
-    public void drawTexture(float x, float y, float w, float h, Texture texture, Color color) {
+    public void drawTexture(float x, float y, float w, float h, Texture texture, Color color){
+        drawTexture(x, y, w, h, texture, color, new Rect2D(0, 0, 1, 1));
+    }
+    public void drawTexture(float x, float y, float w, float h, Texture texture, Color color, Rect2D rect2D) {
 
         int slot = nextTextureSlot;
         boolean isUniqueTexture = false;
@@ -232,7 +207,7 @@ public class Renderer2D {
         }
 
 
-        drawQuad(x, y, w, h, slot, color, originX, originY);
+        drawQuad(x, y, w, h, slot, color, originX, originY, rect2D);
 
         if(isUniqueTexture) nextTextureSlot++;
 
@@ -240,17 +215,13 @@ public class Renderer2D {
             render("Next Batch Render [No more rebel.engine.Texture slots out of " + maxTextureSlots + "]");
 
     }
-
     public void drawFilledRect(float x, float y, float w, float h, Color color){
-        drawQuad(x, y, w, h, RECT, color, originX, originY);
+        drawQuad(x, y, w, h, RECT, color, originX, originY, new Rect2D(0, 0, 1, 1));
     }
-
     public void drawFilledEllipse(float x, float y, float w, float h, Color color) {
-        drawQuad(x, y, w, h, CIRCLE, color, originX, originY);
+        drawQuad(x, y, w, h, CIRCLE, color, originX, originY, new Rect2D(0, 0, 1, 1));
     }
-
-
-    private void drawQuad(float x, float y, float w, float h, int slot, Color color, float originX, float originY){
+    private void drawQuad(float x, float y, float w, float h, int slot, Color color, float originX, float originY, Rect2D region){
         //Translate back by origin (for rotation math)
         //This usually takes everything near (0, 0)
         Vector4f topLeft = new Vector4f(x - originX, y - originY, 0, 1);
@@ -287,8 +258,8 @@ public class Renderer2D {
 
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 0] = topLeft.x;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 1] = topLeft.y;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 2] = (0f);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 3] = (0f);
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 2] = region.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 3] = region.y;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 4] = slot;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 5] = color.r;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 6] = color.g;
@@ -304,8 +275,8 @@ public class Renderer2D {
 
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 13] = bottomLeft.x;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 14] = bottomLeft.y;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 15] = (0f);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 16] = (1f);
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 15] = region.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 16] = region.y + region.h;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 17] = slot;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 18] = color.r;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 19] = color.g;
@@ -319,8 +290,8 @@ public class Renderer2D {
 
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 26] = bottomRight.x;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 27] = bottomRight.y;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 28] = (1f);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 29] = (1f);
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 28] = region.x + region.w;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 29] = region.y + region.h;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 30] = slot;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 31] = color.r;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 32] = color.g;
@@ -334,8 +305,8 @@ public class Renderer2D {
 
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 39] = topRight.x;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 40] = topRight.y;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 41] = (1f);
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 42] = (0f);
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 41] = region.x + region.w;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 42] = region.x;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 43] = slot;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 44] = color.r;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 45] = color.g;
@@ -352,13 +323,10 @@ public class Renderer2D {
 
         if(quadIndex == vertexBuffer.maxQuads()) render("Next Batch Render");
     }
-
     public void render(){
         render("Final Draw Call [rebel.engine.Renderer2D.render()]");
     }
-
     public ArrayList<String> renderCallNames = new ArrayList<>(50);
-
     public void render(String renderName) {
         renderCallNames.add(renderName);
 
@@ -396,28 +364,19 @@ public class Renderer2D {
         nextTextureSlot = 0;
 
     }
-
     public List<String> getRenderCalls(){
         return new ArrayList<>(renderCallNames);
     }
-
-
-
-
     public void clear(float r, float g, float b, float a) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(r, g, b, a);
     }
-
     public String getHardwareInfo() {
         return glGetString(GL_RENDERER);
     }
-
-
     public void finished() {
         renderCallNames.clear();
     }
-
     public void drawText(float x, float y, String text, Color color, FontRes font) {
 
         for(char c : text.toCharArray()){
