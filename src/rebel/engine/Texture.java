@@ -1,7 +1,11 @@
 package rebel.engine;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL46;
 import org.lwjgl.stb.STBImage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import static org.lwjgl.opengl.GL46.*;
@@ -13,7 +17,17 @@ public class Texture {
 
     private int slot;
 
-    public Texture(String path) {
+    public static int FILTER_NEAREST = GL46.GL_NEAREST;
+    public static int FILTER_LINEAR = GL46.GL_LINEAR;
+
+    public Texture(String path){
+        this(path, FILTER_LINEAR);
+    }
+
+    public Texture(String path, int filter) {
+        if(!new File(path).exists()) throw new RuntimeException("");
+
+
         this.path = path;
 
         IntBuffer w = BufferUtils.createIntBuffer(1);
@@ -29,6 +43,9 @@ public class Texture {
         glBindTexture(GL_TEXTURE_2D, texID);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
         glGenerateMipmap(GL_TEXTURE_2D);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
 
         STBImage.stbi_image_free(texture);
     }
