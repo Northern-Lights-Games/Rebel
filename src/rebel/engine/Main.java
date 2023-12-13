@@ -109,6 +109,7 @@ public class Main {
 
                 renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library\nRenderer2D OpenGL Demo. FPS: " + window.getFPS(), Color.BLUE, font2);
 
+                System.out.println(window.getMousePressed(GLFW_MOUSE_BUTTON_2));
 
 
             }
@@ -144,7 +145,7 @@ public class Main {
 
             renderer2D.render();
 
-            Tools.logRenderCalls(renderer2D);
+            //Tools.logRenderCalls(renderer2D);
 
 
 

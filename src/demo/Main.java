@@ -1,8 +1,12 @@
 package demo;
 
 
+import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFW;
 import rebel.engine.*;
+import rebel.engine.particles.Particle;
+import rebel.engine.particles.ParticleSource;
+import rebel.engine.particles.ParticleSourceConfig;
 
 import java.lang.Math;
 import java.util.ArrayList;
@@ -49,9 +53,21 @@ public class Main {
 
         createTiles(renderer2D, logo);
 
+        ParticleSourceConfig p = new ParticleSourceConfig();
+        p.w = 20;
+        p.h = 20;
+        p.vx = 80;
+        p.vy = 80;
+        p.particleLifetime = 3000;
+        p.scale = 7;
+
+        ParticleSource particleSource = new ParticleSource(p, new Vector2f(0, 0));
+        particleSource.addParticles(50);
 
 
         int fails = 0;
+
+        float time = 500;
 
 
         while (!window.shouldClose()) {
@@ -84,8 +100,31 @@ public class Main {
 
                     if (tile.rect2D.contains(window.getMouseX(), window.getMouseY())) {
                         iterator.remove();
+                        time = 500;
+                        particleSource.setSource(new Vector2f(window.getMouseX(), window.getMouseY()));
                     }
                 }
+
+
+
+                if(time > 0) {
+                    particleSource.update();
+                    time -= Time.deltaTime * 1000;
+
+                    for(Particle particle : particleSource.getParticles()){
+                        renderer2D.drawFilledEllipse(particle.rect2D.x, particle.rect2D.y, particle.rect2D.w, particle.rect2D.h, Color.BLACK);
+                    }
+                }
+                else {
+                    particleSource.getParticles().clear();
+                    particleSource.addParticles(50);
+                }
+
+
+
+
+
+
 
                 if(tiles.isEmpty()) {
                     gameState = State.YOU_WON;
@@ -108,6 +147,8 @@ public class Main {
             }
 
             renderer2D.render();
+
+            Tools.logRenderCalls(renderer2D);
 
             renderer2D.finished();
             window.update();
