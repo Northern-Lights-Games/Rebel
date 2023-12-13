@@ -306,7 +306,7 @@ public class Renderer2D {
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 39] = topRight.x;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 40] = topRight.y;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 41] = region.x + region.w;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 42] = region.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 42] = region.y;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 43] = slot;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 44] = color.r;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 45] = color.g;
