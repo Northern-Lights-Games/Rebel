@@ -11,6 +11,8 @@ public class Texture {
     private int texID;
     private int width, height;
 
+    private int slot;
+
     public Texture(String path) {
         this.path = path;
 
@@ -67,5 +69,13 @@ public class Texture {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
     }
 }

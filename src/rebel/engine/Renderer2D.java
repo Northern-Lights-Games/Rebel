@@ -132,7 +132,7 @@ public class Renderer2D {
     }
 
     private int quadIndex;
-    private int textureDraws;
+    private int nextTextureSlot;
 
     private Matrix4f transform = new Matrix4f().identity();
 
@@ -200,17 +200,43 @@ public class Renderer2D {
 
     }
 
+    private Texture lastTexture;
+
     public void drawTexture(float x, float y, float w, float h, Texture texture, Color color) {
 
-        int slot = textureDraws;
-        glActiveTexture(GL_TEXTURE0 + slot);
-        texture.bind();
+        int slot = nextTextureSlot;
+        boolean isUniqueTexture = false;
+
+
+
+        if(lastTexture == null) {
+            glActiveTexture(GL_TEXTURE0 + slot);
+            texture.bind();
+            texture.setSlot(slot);
+            lastTexture = texture;
+            isUniqueTexture = true;
+        }
+
+        //Existing texture
+        else if (lastTexture == texture) {
+            slot = lastTexture.getSlot();
+        }
+
+        //Unique Texture
+        else {
+            glActiveTexture(GL_TEXTURE0 + slot);
+            texture.bind();
+            texture.setSlot(slot);
+            lastTexture = texture;
+            isUniqueTexture = true;
+        }
+
 
         drawQuad(x, y, w, h, slot, color, originX, originY);
 
-        textureDraws++;
+        if(isUniqueTexture) nextTextureSlot++;
 
-        if(textureDraws == maxTextureSlots)
+        if(nextTextureSlot == maxTextureSlots)
             render("Next Batch Render [No more rebel.engine.Texture slots out of " + maxTextureSlots + "]");
 
     }
@@ -367,7 +393,7 @@ public class Renderer2D {
 
         vertexData = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataSize()];
         quadIndex = 0;
-        textureDraws = 0;
+        nextTextureSlot = 0;
 
     }
 
