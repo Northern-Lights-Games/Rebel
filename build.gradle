@@ -48,5 +48,21 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
     implementation "org.joml:joml:${jomlVersion}"
+    implementation "org.lwjgl:lwjgl-openal"
+    runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
+    implementation("commons-io:commons-io:2.11.0")
+
+}
+
+jar {
+
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
 
 }
