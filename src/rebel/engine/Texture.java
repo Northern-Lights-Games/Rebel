@@ -25,7 +25,7 @@ public class Texture {
     }
 
     public Texture(String path, int filter) {
-        if(!new File(path).exists()) throw new RuntimeException("");
+        if(!new File(path).exists()) throw new RuntimeException("The file " + path + " does not exist!");
 
 
         this.path = path;
