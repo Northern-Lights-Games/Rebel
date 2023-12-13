@@ -50,7 +50,15 @@ public class ParticleSource {
     }
 
     public void setSource(Vector2f source) {
+
+
         this.source = source;
+    }
+
+    public void addParticles(int n){
+        for (int i = 0; i < n; i++) {
+            emit();
+        }
     }
 
     public void emit(){
