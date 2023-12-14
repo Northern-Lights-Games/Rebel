@@ -1,7 +1,7 @@
 package demo;
 
-import rebel.engine.Rect2D;
-import rebel.engine.Texture;
+import rebel.Rect2D;
+import rebel.graphics.Texture;
 
 public class Tile {
     public Rect2D rect2D;

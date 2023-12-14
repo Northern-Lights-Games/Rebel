@@ -1,154 +1,156 @@
 package demo;
 
+import org.joml.*;
+import rebel.Time;
+import rebel.graphics.*;
 
-import org.joml.Vector2f;
-import org.lwjgl.glfw.GLFW;
-import rebel.engine.*;
-import rebel.engine.particles.Particle;
-import rebel.engine.particles.ParticleSource;
-import rebel.engine.particles.ParticleSourceConfig;
+import static org.lwjgl.glfw.GLFW.*;
 
 import java.lang.Math;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Main {
 
-    enum State {
-        PLAYING,
-        GAME_OVER,
-        YOU_WON
-    }
 
-    ArrayList<Tile> tiles = new ArrayList<>();
-
-    public void createTiles(Renderer2D renderer2D, Texture logo){
-
-        tiles.clear();
+    public static void main(String[] args) {
 
 
-        for (int i = 0; i < 10; i++) {
-            Rect2D rect2D = new Rect2D((float) (
-                    renderer2D.getWidth() * Math.random()),
-                    (float) ((renderer2D.getHeight() / 2) * Math.random()),
-                    100,
-                    100
-            );
-
-            tiles.add(new Tile(rect2D, logo));
-        }
-    }
-
-
-    public void play(){
-        Window window = new Window(1920, 1080, "Not Piano Tiles");
+        Window window = new Window(1920, 1080, "Rebel");
         Renderer2D renderer2D = new Renderer2D(1920, 1080);
+        window.setTitle("Rebel: " + renderer2D.getHardwareInfo());
 
+
+
+        ArrayList<Texture> textures = new ArrayList<>();
         Texture logo = new Texture("project/logo.png");
-        FontRes font = new FontRes("Consolas", FontRes.NORMAL, 40, true);
-
-        State gameState = State.PLAYING;
-        int tries = 10;
-
-
-        createTiles(renderer2D, logo);
-
-        ParticleSourceConfig p = new ParticleSourceConfig();
-        p.w = 20;
-        p.h = 20;
-        p.vx = 80;
-        p.vy = 80;
-        p.particleLifetime = 3000;
-        p.scale = 7;
-
-        ParticleSource particleSource = new ParticleSource(p, new Vector2f(0, 0));
-        particleSource.addParticles(50);
+        boolean sw = false;
+        for (int i = 0; i < 32; i++) {
+            textures.add(sw ? new Texture("project/logo.png") : new Texture("texture.png"));
+            sw = !sw;
+        }
 
 
-        int fails = 0;
 
-        float time = 500;
+        FontRes font = new FontRes("Times New Roman", FontRes.NORMAL, 40, true);
+        FontRes font2 = new FontRes("Times New Roman", FontRes.BOLD | FontRes.ITALIC,  40, true);
+
+
+
+        float rotation = 0f;
 
 
         while (!window.shouldClose()) {
+
+
+
+
+
             renderer2D.clear(1f, 1f, 1f, 1.0f);
 
-            if(gameState == State.YOU_WON){
-                renderer2D.drawText(0, 0, "You won! Press Space to restart!", Color.BLUE, font);
-                if(window.isKeyPressed(GLFW.GLFW_KEY_SPACE)) {
-                    fails = 0;
-                    gameState = State.PLAYING;
-                    createTiles(renderer2D, logo);
-                }
-            }
-
-            if(gameState == State.PLAYING) {
 
 
-                for (Iterator<Tile> iterator = tiles.iterator(); iterator.hasNext(); ) {
-                    Tile tile = iterator.next();
 
 
-                    renderer2D.drawTexture(tile.rect2D.x, tile.rect2D.y, tile.rect2D.w, tile.rect2D.h, tile.texture);
 
-                    if (tile.rect2D.y >= renderer2D.getHeight()) {
-                        tile.rect2D.y = -tile.rect2D.h;
-                        fails++;
+            {
+
+                int sx = 0, sy = 500;
+
+                renderer2D.setTransform(new Matrix4f().rotate((float) Math.toRadians(30), 0, 0, 1).scale(2f, 1f, 0f));
+
+                for (int i = 0; i < 32; i++) {
+                    if ((sx / 100) % 8 == 0) {
+                        sy += 100;
+                        sx = 0;
                     }
 
-                    tile.rect2D.y += 300 * Time.deltaTime;
+                    if (Math.random() > 0.5)
+                        renderer2D.drawFilledRect(sx, sy, 100, 100, Color.BLACK);
+                    else
+                        renderer2D.drawFilledEllipse(sx, sy, 100, 100, Color.BLACK);
+                    sx += 100;
+                }
 
-                    if (tile.rect2D.contains(window.getMouseX(), window.getMouseY())) {
-                        iterator.remove();
-                        time = 500;
-                        particleSource.setSource(new Vector2f(window.getMouseX(), window.getMouseY()));
+                renderer2D.resetTransform();
+
+
+
+
+
+                int tx = 0, ty = 0;
+
+
+
+                for (int i = 0; i < textures.size(); i++) {
+                    if ((tx / 100) % 8 == 0) {
+                        ty += 100;
+                        tx = 0;
                     }
+
+                    renderer2D.drawTexture(tx, ty, 100, 100, textures.get(i));
+                    tx += 100;
                 }
 
+                String text = renderer2D.getHardwareInfo();
 
 
-                if(time > 0) {
-                    particleSource.update();
-                    time -= Time.deltaTime * 1000;
-
-                    for(Particle particle : particleSource.getParticles()){
-                        renderer2D.drawFilledEllipse(particle.rect2D.x, particle.rect2D.y, particle.rect2D.w, particle.rect2D.h, Color.BLACK);
-                    }
-                }
-                else {
-                    particleSource.getParticles().clear();
-                    particleSource.addParticles(50);
-                }
+                float width = font.getWidthOf(text);
+                float height = font.getHeight();
 
 
 
 
 
 
-
-                if(tiles.isEmpty()) {
-                    gameState = State.YOU_WON;
-                }
+                renderer2D.drawText((renderer2D.getWidth() / 2) - (width / 2), renderer2D.getHeight() - height, text, Color.RED, font);
 
 
 
 
-                renderer2D.drawText(0, 0, "Destroy the " + tiles.size() + " invading tiles!" + " // Chances: " + (tries - fails), Color.BLUE, font);
 
-                if(fails == tries) gameState = State.GAME_OVER;
+
+                renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library\nRenderer2D OpenGL Demo. FPS: " + window.getFPS(), Color.BLUE, font2);
+
+                System.out.println(window.getMousePressed(GLFW_MOUSE_BUTTON_2));
+
+
             }
-            if(gameState == State.GAME_OVER){
-                renderer2D.drawText(0, 0, "Game over! :( Press Space to restart!", Color.BLUE, font);
-                if(window.isKeyPressed(GLFW.GLFW_KEY_SPACE)) {
-                    fails = 0;
-                    gameState = State.PLAYING;
-                    createTiles(renderer2D, logo);
-                }
-            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //pos + origin
+            renderer2D.setOrigin(1000 + 250, 300 + 250);
+            renderer2D.rotate((float) Math.toRadians(rotation));
+            renderer2D.drawTexture(1000, 300, 500, 500, logo);
+            renderer2D.resetTransform();
+            renderer2D.setOrigin(0, 0);
+
+            rotation += 5 * Time.deltaTime;
+
+
+
+            renderer2D.drawLine(30, 30, window.getMouseX(), window.getMouseY(), Color.RED, 5);
+
 
             renderer2D.render();
 
-            Tools.logRenderCalls(renderer2D);
+            //Tools.logRenderCalls(renderer2D);
+
+
+
 
             renderer2D.finished();
             window.update();
@@ -156,10 +158,6 @@ public class Main {
 
 
         window.close();
-    }
-
-    public static void main(String[] args) {
-        new Main().play();
     }
 
 
