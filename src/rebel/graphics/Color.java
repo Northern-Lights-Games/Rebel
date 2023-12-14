@@ -1,4 +1,4 @@
-package rebel.engine;
+package rebel.graphics;
 
 public class Color {
     public float r, g, b, a;

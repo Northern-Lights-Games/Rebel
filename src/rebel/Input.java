@@ -1,4 +1,4 @@
-package rebel.engine;
+package rebel;
 
 public class Input {
     private Input(){}

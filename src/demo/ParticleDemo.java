@@ -1,10 +1,12 @@
 package demo;
 
 import org.joml.Vector2f;
-import rebel.engine.*;
-import rebel.engine.particles.Particle;
-import rebel.engine.particles.ParticleSource;
-import rebel.engine.particles.ParticleSourceConfig;
+import rebel.Input;
+import rebel.Tools;
+import rebel.graphics.*;
+import rebel.particles.Particle;
+import rebel.particles.ParticleSource;
+import rebel.particles.ParticleSourceConfig;
 
 public class ParticleDemo {
 

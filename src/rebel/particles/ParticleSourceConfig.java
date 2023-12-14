@@ -1,4 +1,4 @@
-package rebel.engine.particles;
+package rebel.particles;
 
 public class ParticleSourceConfig {
     public float w, h;

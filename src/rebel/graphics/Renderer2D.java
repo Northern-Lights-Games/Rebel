@@ -1,7 +1,9 @@
-package rebel.engine;
+package rebel.graphics;
 
 import org.joml.*;
 import org.lwjgl.BufferUtils;
+import rebel.FileReader;
+import rebel.Rect2D;
 
 import java.lang.Math;
 import java.nio.IntBuffer;
@@ -91,7 +93,7 @@ public class Renderer2D {
             slots[i] = i;
         }
 
-        System.out.println("Max rebel.engine.Texture Slots: " + maxTextureSlots);
+        System.out.println("Max rebel.engine.graphics.Texture Slots: " + maxTextureSlots);
         System.out.println(Arrays.toString(slots));
 
 
@@ -212,7 +214,7 @@ public class Renderer2D {
         if(isUniqueTexture) nextTextureSlot++;
 
         if(nextTextureSlot == maxTextureSlots)
-            render("Next Batch Render [No more rebel.engine.Texture slots out of " + maxTextureSlots + "]");
+            render("Next Batch Render [No more rebel.engine.graphics.Texture slots out of " + maxTextureSlots + "]");
 
     }
     public void drawFilledRect(float x, float y, float w, float h, Color color){
@@ -324,7 +326,7 @@ public class Renderer2D {
         if(quadIndex == vertexBuffer.maxQuads()) render("Next Batch Render");
     }
     public void render(){
-        render("Final Draw Call [rebel.engine.Renderer2D.render()]");
+        render("Final Draw Call [rebel.engine.graphics.Renderer2D.render()]");
     }
     public ArrayList<String> renderCallNames = new ArrayList<>(50);
     public void render(String renderName) {

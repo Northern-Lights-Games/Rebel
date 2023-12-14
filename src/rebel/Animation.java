@@ -1,4 +1,6 @@
-package rebel.engine;
+package rebel;
+
+import rebel.graphics.Texture;
 
 import java.util.ArrayList;
 

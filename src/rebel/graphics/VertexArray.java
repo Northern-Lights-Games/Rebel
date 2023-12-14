@@ -1,4 +1,4 @@
-package rebel.engine;
+package rebel.graphics;
 
 import static org.lwjgl.opengl.GL46.*;
 

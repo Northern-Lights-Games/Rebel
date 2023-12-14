@@ -1,4 +1,4 @@
-package rebel.engine;
+package rebel.graphics;
 
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;

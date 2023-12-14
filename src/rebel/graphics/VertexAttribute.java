@@ -1,4 +1,4 @@
-package rebel.engine;
+package rebel.graphics;
 
 public class VertexAttribute {
     public int index;

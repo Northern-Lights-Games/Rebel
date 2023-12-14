@@ -1,8 +1,8 @@
-package rebel.engine.particles;
+package rebel.particles;
 
 import org.joml.Vector2f;
-import rebel.engine.Rect2D;
-import rebel.engine.Time;
+import rebel.Rect2D;
+import rebel.Time;
 
 import java.util.ArrayList;
 

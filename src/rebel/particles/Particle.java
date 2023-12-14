@@ -1,6 +1,6 @@
-package rebel.engine.particles;
+package rebel.particles;
 
-import rebel.engine.Rect2D;
+import rebel.Rect2D;
 
 public class Particle {
     public Rect2D rect2D;

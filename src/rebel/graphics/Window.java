@@ -1,9 +1,11 @@
-package rebel.engine;
+package rebel.graphics;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GLUtil;
+import rebel.Time;
+
 import java.nio.DoubleBuffer;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;

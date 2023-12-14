@@ -1,4 +1,4 @@
-package rebel.engine;
+package rebel;
 
 public class Rect2D {
     public float x, y, w, h;
