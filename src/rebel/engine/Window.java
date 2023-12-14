@@ -15,8 +15,11 @@ public class Window {
 
     private double mouseX, mouseY;
     private double start;
+    private int width, height;
 
     public Window(int w, int h, String title){
+        this.width = w;
+        this.height = h;
 
 
         GLFWErrorCallback.createPrint(System.err).set();
@@ -44,6 +47,21 @@ public class Window {
 
     public long getGLFWHandle() {
         return window;
+    }
+
+    public void setSize(int w, int h){
+        this.width = w;
+        this.height = h;
+
+        glfwSetWindowSize(window, w, h);
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public boolean shouldClose(){
