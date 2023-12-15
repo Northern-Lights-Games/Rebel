@@ -27,9 +27,6 @@ public class Renderer2D {
         this.width = width;
         this.height = height;
 
-
-
-
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -47,8 +44,8 @@ public class Renderer2D {
 
 
         shader = new Shader(
-                FileReader.readFile("shaders/BatchVertexShader.glsl"),
-                FileReader.readFile("shaders/BatchFragmentShader.glsl")
+                FileReader.readFile(Renderer2D.class.getClassLoader().getResourceAsStream("BatchVertexShader.glsl")),
+                FileReader.readFile(Renderer2D.class.getClassLoader().getResourceAsStream("BatchFragmentShader.glsl"))
         );
 
 
