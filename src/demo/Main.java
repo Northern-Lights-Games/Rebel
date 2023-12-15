@@ -32,8 +32,8 @@ public class Main {
 
 
 
-        //FontRes font = new FontRes("Times New Roman", FontRes.NORMAL, 40, true);
-        //FontRes font2 = new FontRes("Times New Roman", FontRes.BOLD | FontRes.ITALIC,  40, true);
+        FontRes font = new FontRes("Times New Roman", FontRes.NORMAL, 40, true);
+        FontRes font2 = new FontRes("Times New Roman", FontRes.BOLD | FontRes.ITALIC,  40, true);
 
 
 
@@ -95,22 +95,22 @@ public class Main {
                 String text = renderer2D.getHardwareInfo();
 
 
-                //float width = font.getWidthOf(text);
-                //float height = font.getHeight();
+                float width = font.getWidthOf(text);
+                float height = font.getHeight();
 
 
 
 
 
 
-                //renderer2D.drawText((renderer2D.getWidth() / 2) - (width / 2), renderer2D.getHeight() - height, text, Color.RED, font);
+                renderer2D.drawText((renderer2D.getWidth() / 2) - (width / 2), renderer2D.getHeight() - height, text, Color.RED, font);
 
 
 
 
 
 
-                //renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library\nRenderer2D OpenGL Demo. FPS: " + window.getFPS(), Color.BLUE, font2);
+                renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library\nRenderer2D OpenGL Demo. FPS: " + window.getFPS(), Color.BLUE, font2);
 
                 System.out.println(window.getMousePressed(GLFW_MOUSE_BUTTON_2));
 
@@ -134,6 +134,7 @@ public class Main {
 
             //pos + origin
             renderer2D.setOrigin(1000 + 250, 300 + 250);
+            renderer2D.scale(2f, 2f, 1f);
             renderer2D.rotate((float) Math.toRadians(rotation));
             renderer2D.drawTexture(1000, 300, 500, 500, logo);
             renderer2D.resetTransform();

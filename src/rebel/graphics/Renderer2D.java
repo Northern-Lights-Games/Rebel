@@ -121,7 +121,6 @@ public class Renderer2D {
     private int nextTextureSlot;
     private Matrix4f transform = new Matrix4f().identity();
     private float originX, originY;
-    private static final Matrix4f identity = new Matrix4f().identity();
     public Matrix4f getTransform() {
         return transform;
     }
@@ -129,10 +128,13 @@ public class Renderer2D {
         this.transform = transform;
     }
     public void rotate(float radians){
-        setTransform(new Matrix4f().rotate(radians, 0, 0, 1));
+        setTransform(getTransform().mul(new Matrix4f().rotate(radians, 0, 0, 1)));
+    }
+    public void scale(float x, float y, float z){
+        setTransform(getTransform().mul(new Matrix4f().scale(x, y, z)));
     }
     public void resetTransform(){
-        setTransform(identity);
+        setTransform(new Matrix4f().identity());
     }
     public void drawTexture(float x, float y, float w, float h, Texture texture){
         drawTexture(x, y, w, h, texture, Color.WHITE);
