@@ -9,7 +9,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import java.lang.Math;
 import java.util.ArrayList;
 
-public class Main {
+public class ShowcaseDemo {
 
 
     public static void main(String[] args) {
