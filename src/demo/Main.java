@@ -17,6 +17,7 @@ public class Main {
 
         Window window = new Window(1920, 1080, "Rebel");
         Renderer2D renderer2D = new Renderer2D(1920, 1080);
+        renderer2D.setDebug(true);
         window.setTitle("Rebel: " + renderer2D.getHardwareInfo());
 
 
@@ -146,13 +147,6 @@ public class Main {
 
 
             renderer2D.render();
-
-            //Tools.logRenderCalls(renderer2D);
-
-
-
-
-            renderer2D.finished();
             window.update();
         }
 

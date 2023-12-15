@@ -2,7 +2,6 @@ package demo;
 
 import org.joml.Vector2f;
 import rebel.Input;
-import rebel.Tools;
 import rebel.graphics.*;
 import rebel.particles.Particle;
 import rebel.particles.ParticleSource;
@@ -16,6 +15,7 @@ public class ParticleDemo {
 
         Window window = new Window(1920, 1080, "Rebel");
         Renderer2D renderer2D = new Renderer2D(1920, 1080);
+
 
         FontRes fontRes = new FontRes("Times New Roman", FontRes.NORMAL, 40, true);
 
@@ -58,8 +58,6 @@ public class ParticleDemo {
 
 
             renderer2D.render();
-            Tools.logRenderCalls(renderer2D);
-            renderer2D.finished();
             window.update();
         }
 

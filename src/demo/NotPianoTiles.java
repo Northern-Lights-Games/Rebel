@@ -5,7 +5,6 @@ import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFW;
 import rebel.Rect2D;
 import rebel.Time;
-import rebel.Tools;
 import rebel.graphics.*;
 import rebel.particles.Particle;
 import rebel.particles.ParticleSource;
@@ -151,9 +150,7 @@ public class NotPianoTiles {
 
             renderer2D.render();
 
-            Tools.logRenderCalls(renderer2D);
 
-            renderer2D.finished();
             window.update();
         }
 

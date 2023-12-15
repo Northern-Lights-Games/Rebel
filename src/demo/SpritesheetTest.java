@@ -1,10 +1,9 @@
 package demo;
 
 import rebel.Animation;
-import rebel.Rect2D;
 import rebel.Time;
-import rebel.Tools;
 import rebel.graphics.*;
+
 
 public class SpritesheetTest {
 
@@ -30,8 +29,6 @@ public class SpritesheetTest {
 
 
             renderer2D.render();
-            Tools.logRenderCalls(renderer2D);
-            renderer2D.finished();
             window.update();
         }
 

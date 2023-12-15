@@ -9,6 +9,7 @@ import java.lang.Math;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL46.*;
@@ -21,8 +22,10 @@ public class Renderer2D {
     private float[] vertexData;
     private int maxTextureSlots;
     private Shader shader;
+    private ArrayList<String> renderCallNames = new ArrayList<>(50);
     private static int RECT = -1;
     private static int CIRCLE = -2;
+    private boolean debug = false;
     public Renderer2D(int width, int height) {
         this.width = width;
         this.height = height;
@@ -324,8 +327,20 @@ public class Renderer2D {
     }
     public void render(){
         render("Final Draw Call [rebel.engine.graphics.Renderer2D.render()]");
+
+        if(debug){
+            System.out.println("Renderer2D (" + this + ") - Debug");
+
+            for(String call : getRenderCalls()){
+                System.out.print("\t" + call + "\n");
+            }
+            System.out.println("\n");
+        }
+
+
+        renderCallNames.clear();
     }
-    public ArrayList<String> renderCallNames = new ArrayList<>(50);
+
     public void render(String renderName) {
         renderCallNames.add(renderName);
 
@@ -366,6 +381,15 @@ public class Renderer2D {
     public List<String> getRenderCalls(){
         return new ArrayList<>(renderCallNames);
     }
+
+    public boolean isDebug() {
+        return debug;
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
     public void clear(float r, float g, float b, float a) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(r, g, b, a);
@@ -373,9 +397,7 @@ public class Renderer2D {
     public String getHardwareInfo() {
         return glGetString(GL_RENDERER);
     }
-    public void finished() {
-        renderCallNames.clear();
-    }
+
     public void drawText(float x, float y, String text, Color color, FontRes font) {
 
         for(char c : text.toCharArray()){
