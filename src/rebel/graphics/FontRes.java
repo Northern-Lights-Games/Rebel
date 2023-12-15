@@ -34,7 +34,7 @@ public class FontRes {
             Texture glyph = new Texture();
 
             BufferedImage ch = toBufferedImage(c);
-            glyph.setData(toByteBuffer(ch), ch.getWidth(), ch.getHeight());
+            glyph.setData(ch);
             glyphs.put(i, glyph);
         }
 
@@ -50,43 +50,7 @@ public class FontRes {
     }
 
 
-    //COPIED! From https://stackoverflow.com/questions/5194325/how-do-i-load-an-image-for-use-as-an-opengl-texture-with-lwjgl
-    //TODO: Replace this!
-    /**
-     * Convert the buffered image to a texture
-     */
-    private ByteBuffer toByteBuffer(BufferedImage bufferedImage) {
-        ByteBuffer imageBuffer;
-        WritableRaster raster;
-        BufferedImage texImage;
 
-        ColorModel glAlphaColorModel = new ComponentColorModel(ColorSpace
-                .getInstance(ColorSpace.CS_sRGB), new int[] { 8, 8, 8, 8 },
-                true, false, Transparency.TRANSLUCENT, DataBuffer.TYPE_BYTE);
-
-        raster = Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE,
-                bufferedImage.getWidth(), bufferedImage.getHeight(), 4, null);
-        texImage = new BufferedImage(glAlphaColorModel, raster, true,
-                new Hashtable());
-
-        // copy the source image into the produced image
-        Graphics g = texImage.getGraphics();
-        g.setColor(new Color(0f, 0f, 0f, 0f));
-        g.fillRect(0, 0, 256, 256);
-        g.drawImage(bufferedImage, 0, 0, null);
-
-        // build a byte buffer from the temporary image
-        // that be used by OpenGL to produce a texture.
-        byte[] data = ((DataBufferByte) texImage.getRaster().getDataBuffer())
-                .getData();
-
-        imageBuffer = ByteBuffer.allocateDirect(data.length);
-        imageBuffer.order(ByteOrder.nativeOrder());
-        imageBuffer.put(data, 0, data.length);
-        imageBuffer.flip();
-
-        return imageBuffer;
-    }
 
     private FontMetrics createFontMetrics(){
         BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
