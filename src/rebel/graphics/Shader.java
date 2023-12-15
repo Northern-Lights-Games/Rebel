@@ -7,13 +7,14 @@ import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL46.*;
 
-public class Shader {
+public class Shader implements Disposable {
     private String vertexShaderSource;
     private String fragmentShaderSource;
 
     private int shaderProgram;
 
     public Shader(String vertexShaderSource, String fragmentShaderSource) {
+        Disposer.add(this);
         this.vertexShaderSource = vertexShaderSource;
         this.fragmentShaderSource = fragmentShaderSource;
     }
@@ -75,4 +76,8 @@ public class Shader {
         glUniform1iv(location, array);
     }
 
+    @Override
+    public void dispose() {
+        glDeleteProgram(shaderProgram);
+    }
 }

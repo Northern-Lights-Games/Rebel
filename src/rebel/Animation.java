@@ -1,5 +1,7 @@
 package rebel;
 
+import rebel.graphics.Disposable;
+import rebel.graphics.Disposer;
 import rebel.graphics.Texture;
 
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ public class Animation {
     public void update(float deltaTime) {
         start += deltaTime * 1000;
     }
+
+
 
     public enum Playmode {
         PLAY,
@@ -88,4 +92,5 @@ public class Animation {
     public void setPlaymode(Playmode playmode) {
         this.playmode = playmode;
     }
+
 }

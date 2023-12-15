@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import static org.lwjgl.opengl.GL46.*;
 
-public class Texture {
+public class Texture implements Disposable {
     private String path;
     private int texID;
     private int width, height;
@@ -26,6 +26,7 @@ public class Texture {
 
     public Texture(String path, int filter) {
         if(!new File(path).exists()) throw new RuntimeException("The file " + path + " does not exist!");
+        Disposer.add(this);
 
 
         this.path = path;
@@ -51,6 +52,7 @@ public class Texture {
     }
 
     public Texture() {
+        Disposer.add(this);
         texID = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, texID);
     }
@@ -94,5 +96,10 @@ public class Texture {
 
     public void setSlot(int slot) {
         this.slot = slot;
+    }
+
+    @Override
+    public void dispose() {
+        glDeleteTextures(texID);
     }
 }

@@ -19,6 +19,11 @@ public class FontRes {
     public static int BOLD = Font.BOLD;
 
     public FontRes(String name, int style, int size, boolean antialias){
+
+
+
+
+
         this.antialias = antialias;
         awtFont = new Font(name, style, size);
         metrics = createFontMetrics();

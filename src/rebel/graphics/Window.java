@@ -122,6 +122,7 @@ public class Window {
     }
 
     public void close() {
+        Disposer.disposeAll();
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
         glfwTerminate();

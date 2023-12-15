@@ -2,7 +2,7 @@ package rebel.graphics;
 
 import static org.lwjgl.opengl.GL46.*;
 
-public class VertexBuffer {
+public class VertexBuffer implements Disposable {
     public int myVbo;
     public int myEbo;
 
@@ -12,6 +12,7 @@ public class VertexBuffer {
     private int vertexDataSize;
 
     public VertexBuffer(int maxQuads, int vertexDataSize) {
+        Disposer.add(this);
         this.vertexDataSize = vertexDataSize;
         maxVertices = maxQuads * 4;
         build();
@@ -44,4 +45,9 @@ public class VertexBuffer {
         return maxVertices / 4;
     }
 
+    @Override
+    public void dispose() {
+        glDeleteBuffers(myVbo);
+        glDeleteBuffers(myEbo);
+    }
 }

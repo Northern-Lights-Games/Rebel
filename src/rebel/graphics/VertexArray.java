@@ -2,7 +2,7 @@ package rebel.graphics;
 
 import static org.lwjgl.opengl.GL46.*;
 
-public class VertexArray {
+public class VertexArray implements Disposable {
     private int myVao;
 
     private VertexAttribute[] vertexAttributes;
@@ -12,6 +12,7 @@ public class VertexArray {
 
 
     public VertexArray() {
+        Disposer.add(this);
         myVao = glGenVertexArrays();
     }
 
@@ -51,5 +52,10 @@ public class VertexArray {
 
     public int getStride() {
         return stride;
+    }
+
+    @Override
+    public void dispose() {
+        glDeleteVertexArrays(myVao);
     }
 }
