@@ -15,14 +15,14 @@ public class CubicBezierDemo2 {
         Renderer2D renderer2D = new Renderer2D(1920, 1080);
 
         CubicBezierCurve cubicBezierCurve = new CubicBezierCurve(
-                new Vector2f(100, 100),
-                new Vector2f(200, 100),
                 new Vector2f(200, 500),
-                new Vector2f(100, 300)
+                new Vector2f(600, 100),
+                new Vector2f(900, 1100),
+                new Vector2f(1500, 500)
         );
 
 
-        List<Line> lines = cubicBezierCurve.calculate(10);
+        List<Line> lines = cubicBezierCurve.calculate(15);
 
 
 
@@ -42,7 +42,7 @@ public class CubicBezierDemo2 {
 
 
             for(Line line : lines){
-                renderer2D.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, Color.WHITE, 3);
+                renderer2D.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, Color.WHITE, 10);
             }
 
 
