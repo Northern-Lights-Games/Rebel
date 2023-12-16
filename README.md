@@ -6,7 +6,7 @@ Rebel is a WIP Java Game Engine for making 2D games on Desktop. It provides an O
 
 ## Features (Rebel 2.0)
 
-- 2D Primitive Batch Rendering (Rectangles/Circles/Lines)
+- 2D Primitive Batch Rendering (Rectangles/Circles/Lines/Textures)
 - Sprite-sheet based Animation
 - Text rendering with different fonts
 - Input handling (keys/mouse)
@@ -14,7 +14,7 @@ Rebel is a WIP Java Game Engine for making 2D games on Desktop. It provides an O
 - Quadratic/Cubic Bezier curve API
 - Full GPU GLSL implementation of a Cubic Bezier
 - Compatibility with Java2D, (BufferedImages can be loaded to Textures)
-- Simple transformation API including rotate() and scale() methods that abstract
+- Simple transformation API including rotate() and scale() methods that abstract matrix math
 - Simple Particle System API (ParticleSource)
 - Custom GLSL shader support (Vertex/Fragment Shaders)
 - Packages into a single .jar file to include in your classpath!
