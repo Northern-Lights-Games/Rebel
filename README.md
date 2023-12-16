@@ -10,7 +10,6 @@ Rebel is a WIP Java Game Engine for making 2D games on Desktop. It provides an O
 - Sprite-sheet based Animation
 - Text rendering with different fonts
 - Input handling (keys/mouse)
-  away Matrix Math
 - Quadratic/Cubic Bezier curve API
 - Full GPU GLSL implementation of a Cubic Bezier
 - Compatibility with Java2D, (BufferedImages can be loaded to Textures)
