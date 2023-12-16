@@ -23,17 +23,27 @@ vec2 tValue(Line line, float t){
     return vec2(line.start.x + ((line.end.x - line.start.x) * t), line.start.y + ((line.end.y - line.start.y) * t));
 }
 
-vec2 quadraticBezier(vec2 p0, vec2 p1, vec2 p2, float t){
+vec2 cubicBezier(vec2 p0, vec2 p1, vec2 p2, vec2 p3, float t){
 
 
     Line a = Line(p0, p1);
-    Line b = Line(a.end, p2);
-    Line c = Line(vec2(0, 0), vec2(0, 0));
+    Line b = Line(p2, p3);
+    Line c = Line(a.end, b.start);
+    Line ab = Line(vec2(0, 0), vec2(0, 0));
+    Line bc = Line(vec2(0, 0), vec2(0, 0));
+    Line abToBc = Line(vec2(0, 0), vec2(0, 0));
 
 
-    c.start = tValue(a, t);
-    c.end = tValue(b, t);
-    vec2 tracer = tValue(c, t);
+    ab.start = tValue(a, t);
+    ab.end = tValue(c, t);
+
+    bc.start = tValue(c, t);
+    bc.end = tValue(b, t);
+
+    abToBc.start = tValue(ab, t);
+    abToBc.end = tValue(bc, t);
+
+    vec2 tracer = tValue(abToBc, t);
 
     return tracer;
 }
@@ -43,9 +53,9 @@ void main() {
 
     for(float i = 0.0; i < myT; i+=0.01f){
 
-        vec2 point = quadraticBezier(vec2(150, 150), vec2(250, 250), vec2(300, 150), i);
+        vec2 point = cubicBezier(vec2(100, 250), vec2(300, 50), vec2(550, 550), vec2(750, 250), i);
 
-        if(distance(gl_FragCoord.xy , point) < 5){
+        if(distance(gl_FragCoord.xy , point) < 2){
             FragColor = vec4(1.0, 0.0, 0.0, 1.0);
             return;
         }

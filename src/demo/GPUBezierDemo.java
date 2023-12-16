@@ -8,8 +8,8 @@ import rebel.graphics.*;
 
 public class GPUBezierDemo {
     public static void main(String[] args) {
-        Window window = new Window(640, 480, "GPUBezierDemo");
-        Renderer2D renderer2D = new Renderer2D(640, 480);
+        Window window = new Window(1920, 1080, "GPUBezierDemo");
+        Renderer2D renderer2D = new Renderer2D(1920, 1080);
 
 
         Shader shader = new Shader(
@@ -27,7 +27,7 @@ public class GPUBezierDemo {
         while(!window.shouldClose()){
             renderer2D.clear(0f, 0f, 0f, 0f);
             renderer2D.setShader(shader);
-            renderer2D.drawFilledRect(0, 0, 640, 480, Color.BLACK);
+            renderer2D.drawFilledRect(0, 0, 1920, 1080, Color.BLACK);
 
             shader.setFloat("myT", t);
 
@@ -41,7 +41,7 @@ public class GPUBezierDemo {
 
 
 
-            renderer2D.drawText(0, 0, "Horribly inefficient Quadratic Bezier \non the GPU\nUse left and right arrows to control Bezier t-value", Color.WHITE, fontRes);
+            renderer2D.drawText(0, 0, "Horribly inefficient Cubic Bezier \non the GPU\nUse left and right arrows to control Bezier t-value\nFPS: " + window.getFPS(), Color.WHITE, fontRes);
 
             renderer2D.render();
 
