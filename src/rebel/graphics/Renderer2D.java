@@ -9,7 +9,6 @@ import java.lang.Math;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL46.*;
@@ -21,7 +20,7 @@ public class Renderer2D {
     private VertexBuffer vertexBuffer;
     private float[] vertexData;
     private int maxTextureSlots;
-    private Shader shader;
+    private Shader defaultShader, currentShader;
     private ArrayList<String> renderCallNames = new ArrayList<>(50);
     private static int RECT = -1;
     private static int CIRCLE = -2;
@@ -46,22 +45,21 @@ public class Renderer2D {
 
 
 
-        shader = new Shader(
+        defaultShader = new Shader(
                 FileReader.readFile(Renderer2D.class.getClassLoader().getResourceAsStream("BatchVertexShader.glsl")),
                 FileReader.readFile(Renderer2D.class.getClassLoader().getResourceAsStream("BatchFragmentShader.glsl"))
         );
+        defaultShader.compile();
 
 
+        currentShader = defaultShader;
 
 
-
-        shader.compile();
-        shader.bind();
-
-        shader.setMatrix4f("v_model", getTranslation());
-        shader.setMatrix4f("v_view", getView());
-        shader.setMatrix4f("v_projection", getProj());
-        shader.setIntArray("u_textures", createTextureSlots());
+        currentShader.bind();
+        currentShader.setMatrix4f("v_model", getTranslation());
+        currentShader.setMatrix4f("v_view", getView());
+        currentShader.setMatrix4f("v_projection", getProj());
+        currentShader.setIntArray("u_textures", createTextureSlots());
 
 
 
@@ -83,6 +81,23 @@ public class Renderer2D {
 
         vertexData = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataSize()];
     }
+
+    public void setShader(Shader shader){
+
+        if(currentShader != shader) {
+            currentShader = shader;
+            currentShader.bind();
+            currentShader.setMatrix4f("v_model", getTranslation());
+            currentShader.setMatrix4f("v_view", getView());
+            currentShader.setMatrix4f("v_projection", getProj());
+            currentShader.setIntArray("u_textures", createTextureSlots());
+        }
+    }
+
+    public Shader getDefaultShader() {
+        return defaultShader;
+    }
+
     private int[] createTextureSlots() {
 
 
@@ -93,8 +108,8 @@ public class Renderer2D {
             slots[i] = i;
         }
 
-        System.out.println("Max rebel.engine.graphics.Texture Slots: " + maxTextureSlots);
-        System.out.println(Arrays.toString(slots));
+
+
 
 
         return slots;
