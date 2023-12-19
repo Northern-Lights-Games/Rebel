@@ -8,7 +8,6 @@ import rebel.Rect2D;
 import java.lang.Math;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL46.*;
@@ -25,6 +24,8 @@ public class Renderer2D {
     private static int RECT = -1;
     private static int CIRCLE = -2;
     private boolean debug = false;
+    private TextureMap textureLookup;
+
     public Renderer2D(int width, int height) {
         this.width = width;
         this.height = height;
@@ -42,6 +43,7 @@ public class Renderer2D {
         IntBuffer d = BufferUtils.createIntBuffer(1);
         glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, d);
         maxTextureSlots  = d.get();
+        textureLookup = new TextureMap(maxTextureSlots);
 
 
 
@@ -191,7 +193,7 @@ public class Renderer2D {
 
 
     }
-    private Texture lastTexture;
+
 
     public void drawTexture(float x, float y, float w, float h, Texture texture, Color color){
         drawTexture(x, y, w, h, texture, color, new Rect2D(0, 0, 1, 1));
@@ -203,17 +205,9 @@ public class Renderer2D {
 
 
 
-        if(lastTexture == null) {
-            glActiveTexture(GL_TEXTURE0 + slot);
-            texture.bind();
-            texture.setSlot(slot);
-            lastTexture = texture;
-            isUniqueTexture = true;
-        }
-
         //Existing texture
-        else if (lastTexture == texture) {
-            slot = lastTexture.getSlot();
+        if (textureLookup.containsKey(texture)) {
+            slot = textureLookup.get(texture);
         }
 
         //Unique Texture
@@ -221,7 +215,7 @@ public class Renderer2D {
             glActiveTexture(GL_TEXTURE0 + slot);
             texture.bind();
             texture.setSlot(slot);
-            lastTexture = texture;
+            textureLookup.put(texture, slot);
             isUniqueTexture = true;
         }
 
@@ -393,6 +387,7 @@ public class Renderer2D {
         vertexData = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataSize()];
         quadIndex = 0;
         nextTextureSlot = 0;
+        textureLookup.clear();
 
     }
     public List<String> getRenderCalls(){
