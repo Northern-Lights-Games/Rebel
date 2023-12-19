@@ -1,7 +1,7 @@
 package rebel.particles;
 
 import org.joml.Vector2f;
-import rebel.Rect2D;
+import rebel.graphics.Rect2D;
 import rebel.Time;
 
 import java.util.ArrayList;

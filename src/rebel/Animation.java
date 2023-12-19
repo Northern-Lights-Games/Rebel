@@ -1,7 +1,6 @@
 package rebel;
 
-import rebel.graphics.Disposable;
-import rebel.graphics.Disposer;
+import rebel.graphics.Rect2D;
 import rebel.graphics.Texture;
 
 import java.util.ArrayList;

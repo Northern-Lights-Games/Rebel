@@ -3,7 +3,6 @@ package rebel.graphics;
 import org.joml.*;
 import org.lwjgl.BufferUtils;
 import rebel.FileReader;
-import rebel.Rect2D;
 
 import java.lang.Math;
 import java.nio.IntBuffer;
