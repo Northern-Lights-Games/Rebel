@@ -1,5 +1,8 @@
 package rebel;
 
+/***
+ * Contains Input keycodes for use with rebel.graphics.Window
+ */
 public class Input {
     private Input(){}
 

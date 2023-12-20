@@ -5,6 +5,10 @@ import rebel.graphics.Texture;
 
 import java.util.ArrayList;
 
+
+/***
+ * An Animation is made from a spritesheet texture. You can specify the delay, number of frames and set the Playmode.
+ */
 public class Animation {
     private Texture texture;
     private ArrayList<Rect2D> frames = new ArrayList<>();
@@ -12,12 +16,19 @@ public class Animation {
     private float start = 0;
     private int currentIndex = 0;
     private int numOfFrames = 0;
+
+    /***
+     * Updates the Animation
+     * @param deltaTime
+     */
     public void update(float deltaTime) {
         start += deltaTime * 1000;
     }
 
 
-
+    /***
+     * The Animation Playmode determines if the Animation should loop
+     */
     public enum Playmode {
         PLAY,
         PLAY_REPEAT
@@ -25,10 +36,20 @@ public class Animation {
 
     private Playmode playmode;
 
+    /***
+     * Create An Animation object from the following Texture
+     * @param texture
+     */
     public Animation(Texture texture) {
         this.texture = texture;
     }
 
+    /***
+     * Constructs the individual frames of an Animation from the source Texture.
+     * @param rows The rows in the spritesheet
+     * @param columns The columns in the spritesheet
+     * @param num The number of actual frames. Some spritesheets can have a few empty frames at the end
+     */
     public void create(int rows, int columns, int num){
         this.numOfFrames = num;
         float frameWidth = 1f / rows;
@@ -47,6 +68,10 @@ public class Animation {
         }
     }
 
+    /***
+     * Gets the UV coordinates of the current frame
+     * @return
+     */
     public Rect2D getCurrentFrame(){
 
         if(start >= delay){
