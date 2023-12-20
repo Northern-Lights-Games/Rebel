@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.Color;
 import java.awt.color.ColorSpace;
 import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.HashMap;
@@ -18,14 +20,29 @@ public class FontRes {
     public static int ITALIC = Font.ITALIC;
     public static int BOLD = Font.BOLD;
 
+    public FontRes(File ttfPath, int style, int size, boolean antialias){
+        this(loadTTF(ttfPath).deriveFont(style, size), antialias);
+    }
+
     public FontRes(String name, int style, int size, boolean antialias){
+        this(new Font(name, style, size), antialias);
+    }
 
-
-
-
-
+    public FontRes(Font awtFont, boolean antialias){
         this.antialias = antialias;
-        awtFont = new Font(name, style, size);
+        this.awtFont = awtFont;
+        createGlyphs();
+    }
+
+    private static Font loadTTF(File ttfPath){
+        try {
+            return Font.createFont(Font.TRUETYPE_FONT, ttfPath);
+        } catch (FontFormatException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void createGlyphs(){
         metrics = createFontMetrics();
 
         for (int i = 32; i < 256; i++) {
@@ -37,8 +54,6 @@ public class FontRes {
             glyph.setData(ch);
             glyphs.put(i, glyph);
         }
-
-
     }
 
     public HashMap<Integer, Texture> getGlyphs() {
