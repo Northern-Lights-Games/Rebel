@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class FileReader {
-    public static final String readFile(String path){
+    public static String readFile(String path){
         String total = "";
 
         try {

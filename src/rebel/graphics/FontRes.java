@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.Hashtable;
 
 public class FontRes {
-    private Font awtFont;
-    private boolean antialias;
-    private HashMap<Integer, Texture> glyphs = new HashMap<>();
+    private final Font awtFont;
+    private final boolean antialias;
+    private final HashMap<Integer, Texture> glyphs = new HashMap<>();
     private FontMetrics metrics;
     public static int NORMAL = Font.PLAIN;
     public static int ITALIC = Font.ITALIC;

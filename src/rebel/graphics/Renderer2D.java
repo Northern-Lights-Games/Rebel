@@ -20,8 +20,8 @@ public class Renderer2D {
     private int maxTextureSlots;
     private Shader defaultShader, currentShader;
     private ArrayList<String> renderCallNames = new ArrayList<>(50);
-    private static int RECT = -1;
-    private static int CIRCLE = -2;
+    private int RECT = -1;
+    private int CIRCLE = -2;
     private boolean debug = false;
     private TextureMap textureLookup;
 
