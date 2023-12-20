@@ -7,6 +7,15 @@ package rebel.particles;
 public class ParticleSourceConfig {
     public float w, h;
     public float particleLifetime;
-    public float scale;
-    public float vx, vy;
+    public float sizeReduction;
+    public float velX, velY;
+
+    public ParticleSourceConfig(float w, float h, float particleLifetime, float sizeReduction, float velX, float velY) {
+        this.w = w;
+        this.h = h;
+        this.particleLifetime = particleLifetime;
+        this.sizeReduction = sizeReduction;
+        this.velX = velX;
+        this.velY = velY;
+    }
 }

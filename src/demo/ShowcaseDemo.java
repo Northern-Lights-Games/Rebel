@@ -8,9 +8,6 @@ import rebel.particles.Particle;
 import rebel.particles.ParticleSource;
 import rebel.particles.ParticleSourceConfig;
 
-import static org.lwjgl.glfw.GLFW.*;
-
-import java.io.File;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,15 +43,7 @@ public class ShowcaseDemo {
         float rotation = 0f;
 
 
-        ParticleSourceConfig particleSourceConfig = new ParticleSourceConfig();
-        particleSourceConfig.particleLifetime = 3500;
-        particleSourceConfig.scale = 2;
-        particleSourceConfig.w = 10;
-        particleSourceConfig.h = 10;
-        particleSourceConfig.vx = 10;
-        particleSourceConfig.vy = 10;
-
-
+        ParticleSourceConfig particleSourceConfig = new ParticleSourceConfig(10, 10, 3500, 2, 10, 10);
         ParticleSource particleSource = new ParticleSource(particleSourceConfig, new Vector2f(700f, 700f));
         particleSource.addParticles(200);
 

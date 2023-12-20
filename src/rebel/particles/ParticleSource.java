@@ -13,16 +13,16 @@ public class ParticleSource {
 
     private ArrayList<Particle> particles = new ArrayList<>(500);
     private ParticleSourceConfig particleSourceConfig;
-    private Vector2f source;
+    private Vector2f pos;
 
     /**
      * Creates a ParticleSource with the specified ParticleSourceConfig and location on the screen
      * @param particleSourceConfig
-     * @param source
+     * @param pos
      */
-    public ParticleSource(ParticleSourceConfig particleSourceConfig, Vector2f source) {
+    public ParticleSource(ParticleSourceConfig particleSourceConfig, Vector2f pos) {
         this.particleSourceConfig = particleSourceConfig;
-        this.source = source;
+        this.pos = pos;
     }
 
 
@@ -31,21 +31,21 @@ public class ParticleSource {
      */
     public void update(){
         for (Particle particle : particles) {
-            particle.lifetime -= Time.deltaTime * 1000;
+            particle.lifetimeMs -= Time.deltaTime * 1000;
 
-            if (particle.lifetime <= 0) {
-                particle.rect2D.x = source.x - (particle.rect2D.w / 2);
-                particle.rect2D.y = source.y - (particle.rect2D.w / 2);
+            if (particle.lifetimeMs <= 0) {
+                particle.rect2D.x = pos.x - (particle.rect2D.w / 2);
+                particle.rect2D.y = pos.y - (particle.rect2D.w / 2);
                 particle.rect2D.w = particleSourceConfig.w;
                 particle.rect2D.h = particleSourceConfig.h;
-                particle.lifetime = (float) (Math.random() * particleSourceConfig.particleLifetime);
+                particle.lifetimeMs = (float) (Math.random() * particleSourceConfig.particleLifetime);
 
             } else {
 
-                particle.rect2D.x += particle.vx;
-                particle.rect2D.y += particle.vy;
-                particle.rect2D.w -= particleSourceConfig.scale * Time.deltaTime;
-                particle.rect2D.h -= particleSourceConfig.scale * Time.deltaTime;
+                particle.rect2D.x += particle.velX;
+                particle.rect2D.y += particle.velY;
+                particle.rect2D.w -= particleSourceConfig.sizeReduction * Time.deltaTime;
+                particle.rect2D.h -= particleSourceConfig.sizeReduction * Time.deltaTime;
             }
         }
     }
@@ -55,33 +55,25 @@ public class ParticleSource {
         return particles;
     }
 
-    public Vector2f getSource() {
-        return source;
+    public Vector2f getPos() {
+        return pos;
     }
 
-    public void setSource(Vector2f source) {
-
-
-        this.source = source;
+    public void setPos(Vector2f pos) {
+        this.pos = pos;
     }
 
     public void addParticles(int n){
         for (int i = 0; i < n; i++) {
-            emit();
+            Particle particle = new Particle();
+
+            particle.rect2D = new Rect2D(pos.x - (particleSourceConfig.w / 2), pos.y - (particleSourceConfig.h / 2), particleSourceConfig.w, particleSourceConfig.h);
+            particle.velX = (float) ((float) (Math.random() - 0.5f) * (particleSourceConfig.velX * Math.random()));
+            particle.velY = (float) ((float) (Math.random() - 0.5f) * (particleSourceConfig.velY * Math.random()));
+            particle.lifetimeMs = (float) (Math.random() * particleSourceConfig.particleLifetime);;
+
+            particles.add(particle);
         }
     }
 
-    public void emit(){
-        Particle particle = new Particle();
-
-        particle.rect2D = new Rect2D(source.x - (particleSourceConfig.w / 2), source.y - (particleSourceConfig.h / 2), particleSourceConfig.w, particleSourceConfig.h);
-        particle.vx = (float) ((float) (Math.random() - 0.5f) * (particleSourceConfig.vx * Math.random()));
-        particle.vy = (float) ((float) (Math.random() - 0.5f) * (particleSourceConfig.vy * Math.random()));
-        particle.lifetime = (float) (Math.random() * particleSourceConfig.particleLifetime);;
-
-
-
-        particles.add(particle);
-
-    }
 }
