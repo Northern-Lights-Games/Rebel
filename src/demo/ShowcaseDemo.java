@@ -27,14 +27,14 @@ public class ShowcaseDemo {
 
         ArrayList<Texture> textures = new ArrayList<>();
         Texture logo = new Texture("project/logo.png");
-        Texture opengl = new Texture("texture.png");
+        Texture opengl = new Texture("project/texture.png");
 
 
         for (int i = 0; i < 32; i++) {
             textures.add(i % 2 == 0 ? logo : opengl);
         }
 
-        FontRes font = new FontRes(new File("RubikScribble-Regular.ttf"), FontRes.NORMAL, 40, true);
+        FontRes font = new FontRes("Arial", FontRes.NORMAL, 40, true);
         FontRes font2 = new FontRes("Cascadia Mono", FontRes.NORMAL | FontRes.BOLD,  40, true);
         CubicBezierCurve cubicBezierCurve = new CubicBezierCurve(
                 new Vector2f(200, 800),
