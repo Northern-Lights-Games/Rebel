@@ -12,7 +12,6 @@ public class Disposer {
     public static void disposeAll(){
 
         for(Disposable d : disposables) {
-            System.out.println("Disposing: " + d.getClass().getSimpleName());
             d.dispose();
         }
 
