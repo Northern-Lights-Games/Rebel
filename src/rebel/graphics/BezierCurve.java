@@ -2,7 +2,16 @@ package rebel.graphics;
 
 import java.util.List;
 
+/***
+ * Represents a CPU-based Bézier curve. This class cannot be instantiated, use CubicBezierCurve and QuadraticBezierCurve instead
+ */
 public interface BezierCurve {
+
+    /***
+     * Generates lines that follow the path of the Bézier curve
+     * @param iterations
+     * @return
+     */
     List<Line> calculate(int iterations);
 
 }

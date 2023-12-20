@@ -2,6 +2,10 @@ package rebel.graphics;
 
 import static org.lwjgl.opengl.GL46.*;
 
+/***
+ * Represents an OpenGL Vertex Buffer. This is a Disposable OpenGL object and will be disposed by the Window.
+ * This class also manages the Index Buffer automatically
+ */
 public class VertexBuffer implements Disposable {
     public int myVbo;
     public int myEbo;
@@ -26,10 +30,11 @@ public class VertexBuffer implements Disposable {
         return vertexDataSize;
     }
 
+
+    /***
+     * Actually allocates space for the Vertex Buffer and Index Buffer
+     */
     private void build() {
-
-
-
         myVbo = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, myVbo);
         glBufferData(GL_ARRAY_BUFFER, maxVertices * vertexDataSize * Float.BYTES, GL_DYNAMIC_DRAW);

@@ -4,7 +4,9 @@ import org.joml.Vector2f;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/***
+ * Represents a quadratic Bézier curve with the specified control points
+ */
 public class QuadraticBezierCurve implements BezierCurve {
 
     private Vector2f p0, p1, p2;

@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL46.*;
-
+/***
+ * A Renderer2D is a Batch Renderer responsible for drawing 2D Graphics to the screen. This manages lots of OpenGL state internally including the current shader
+ * VertexArray, VertexBuffer, and the Model, View and Projection Matrices. It also includes some debugging utilities to track draw calls using setDebug()
+ */
 public class Renderer2D {
     private int width;
     private int height;
@@ -83,6 +86,10 @@ public class Renderer2D {
         vertexData = new float[vertexBuffer.getNumOfVertices() * vertexBuffer.getVertexDataSize()];
     }
 
+    /***
+     * Sets the current shader. This shader must be compiled before calling this method!
+     * @param shader
+     */
     public void setShader(Shader shader){
 
         if(currentShader != shader) {
@@ -397,6 +404,10 @@ public class Renderer2D {
         return debug;
     }
 
+    /***
+     * Enables OpenGL draw call tracking
+     * @param debug
+     */
     public void setDebug(boolean debug) {
         this.debug = debug;
     }
@@ -405,6 +416,11 @@ public class Renderer2D {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(r, g, b, a);
     }
+
+    /***
+     * Returns information about the current OpenGL Renderer
+     * @return
+     */
     public String getHardwareInfo() {
         return glGetString(GL_RENDERER);
     }

@@ -2,6 +2,9 @@ package rebel.graphics;
 
 import static org.lwjgl.opengl.GL46.*;
 
+/***
+ * Represents an OpenGL Vertex Array. This is a Disposable OpenGL object and will be disposed by the Window.
+ */
 public class VertexArray implements Disposable {
     private int myVao;
 

@@ -1,5 +1,8 @@
 package rebel.graphics;
 
+/***
+ * Represents a GLSL Vertex Attribute
+ */
 public class VertexAttribute {
     public int index;
     public int size;

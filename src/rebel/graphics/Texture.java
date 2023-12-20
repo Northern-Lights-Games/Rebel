@@ -17,6 +17,9 @@ import java.util.Hashtable;
 
 import static org.lwjgl.opengl.GL46.*;
 
+/***
+ * Represents an OpenGL 2D Texture. This is a Disposable OpenGL object and will be disposed by the Window.
+ */
 public class Texture implements Disposable {
     private String path;
     private int texID;
@@ -27,10 +30,19 @@ public class Texture implements Disposable {
     public static int FILTER_NEAREST = GL46.GL_NEAREST;
     public static int FILTER_LINEAR = GL46.GL_LINEAR;
 
+    /***
+     * Create a Texture from a path. This defaults to a default Linear filter
+     * @param path
+     */
     public Texture(String path){
         this(path, FILTER_LINEAR);
     }
 
+    /***
+     * Creates a Texture from a path using the specified Filter
+     * @param path
+     * @param filter
+     */
     public Texture(String path, int filter) {
         if(!new File(path).exists()) throw new RuntimeException("The file " + path + " does not exist!");
         Disposer.add(this);
@@ -58,12 +70,21 @@ public class Texture implements Disposable {
         STBImage.stbi_image_free(texture);
     }
 
+    /***
+     * Creates a Texture with no uploaded data
+     */
     public Texture() {
         Disposer.add(this);
         texID = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, texID);
     }
 
+    /***
+     * Uploads a ByteBuffer to the Texture
+     * @param data
+     * @param width
+     * @param height
+     */
     public void setData(ByteBuffer data, int width, int height) {
         this.width = width;
         this.height = height;
@@ -73,6 +94,10 @@ public class Texture implements Disposable {
         glGenerateMipmap(GL_TEXTURE_2D);
     }
 
+    /***
+     * Uploads a BufferedImage to the Texture. For compatibility with Java2D
+     * @param bufferedImage
+     */
     public void setData(BufferedImage bufferedImage){
         setData(toByteBuffer(bufferedImage), bufferedImage.getWidth(), bufferedImage.getHeight());
     }

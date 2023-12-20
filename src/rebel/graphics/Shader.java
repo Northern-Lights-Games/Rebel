@@ -6,18 +6,29 @@ import org.lwjgl.BufferUtils;
 import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL46.*;
-
+/***
+ * Represents an OpenGL Shader Program. This is a Disposable OpenGL object and will be disposed by the Window.
+ */
 public class Shader implements Disposable {
     private String vertexShaderSource;
     private String fragmentShaderSource;
 
     private int shaderProgram;
 
+    /***
+     * Create a Shader from the specified Vertex and Fragment Shader sources
+     * @param vertexShaderSource
+     * @param fragmentShaderSource
+     */
     public Shader(String vertexShaderSource, String fragmentShaderSource) {
         Disposer.add(this);
         this.vertexShaderSource = vertexShaderSource;
         this.fragmentShaderSource = fragmentShaderSource;
     }
+
+    /***
+     * Compiles and Links the shader
+     */
 
     public void compile(){
         int vertexShaderProg = glCreateShader(GL_VERTEX_SHADER);

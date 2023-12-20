@@ -1,5 +1,8 @@
 package rebel.graphics;
 
+/***
+ * A fast array-based implementation for looking up Textures in existing slots
+ */
 public class TextureMap {
     public Texture[] keys;
     public Integer[] values;

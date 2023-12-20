@@ -11,6 +11,9 @@ import java.nio.ByteOrder;
 import java.util.HashMap;
 import java.util.Hashtable;
 
+/***
+ * Represents a Font that can be rendered to the screen. This class can also interoperate with AWT Fonts, as well as load TrueType (.ttf) fonts from disk.
+ */
 public class FontRes {
     private final Font awtFont;
     private final boolean antialias;
@@ -20,14 +23,35 @@ public class FontRes {
     public static int ITALIC = Font.ITALIC;
     public static int BOLD = Font.BOLD;
 
+    /***
+     * Loads a TrueType (.ttf) font from a file
+     * @param ttfPath
+     * @param style
+     * @param size
+     * @param antialias
+     */
     public FontRes(File ttfPath, int style, int size, boolean antialias){
         this(loadTTF(ttfPath).deriveFont(style, size), antialias);
     }
+
+    /***
+     * Loads a system-installed font
+     * @param name
+     * @param style
+     * @param size
+     * @param antialias
+     */
 
     public FontRes(String name, int style, int size, boolean antialias){
         this(new Font(name, style, size), antialias);
     }
 
+
+    /***
+     * Loads an AWT font
+     * @param awtFont
+     * @param antialias
+     */
     public FontRes(Font awtFont, boolean antialias){
         this.antialias = antialias;
         this.awtFont = awtFont;

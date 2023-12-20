@@ -12,6 +12,11 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.opengl.GL46.*;
 
+/***
+ * Represents a drawing surface for a Renderer2D. This class also handles mouse and key input along with Disposing
+ * OpenGL resources once the application is closed.
+ */
+
 public class Window {
     private long window;
 
@@ -19,6 +24,13 @@ public class Window {
     private double start;
     private int width, height;
 
+
+    /***
+     * Creates a Window and initializes GLFW. This also creates the OpenGL context
+     * @param w
+     * @param h
+     * @param title
+     */
     public Window(int w, int h, String title){
         System.setProperty("java.awt.headless", "true");
 
@@ -72,6 +84,9 @@ public class Window {
         return glfwWindowShouldClose(window);
     }
 
+    /***
+     * Updates the Window's events, this includes polling GLFW and updating Input and deltaTime
+     */
     public void update() {
 
         DoubleBuffer posX = BufferUtils.createDoubleBuffer(1);
@@ -122,6 +137,10 @@ public class Window {
     public int getFPS() {
         return (int) (1 / Time.deltaTime);
     }
+
+    /***
+     * Closes the Window, and destroys the GLFW and OpenGL context
+     */
 
     public void close() {
         Disposer.disposeAll();
