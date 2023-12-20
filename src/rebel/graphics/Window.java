@@ -20,6 +20,8 @@ public class Window {
     private int width, height;
 
     public Window(int w, int h, String title){
+        System.setProperty("java.awt.headless", "true");
+
         this.width = w;
         this.height = h;
 
