@@ -64,7 +64,7 @@ public class ShowcaseDemo {
                 renderer2D.drawFilledRect(1300, 700, 100, 100, Color.RED);
 
                 for(Line line : lines){
-                    renderer2D.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, Color.WHITE, 6);
+                    renderer2D.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, Color.WHITE, 40, true);
                 }
 
                 renderer2D.drawFilledEllipse(1400, 700, 200, 200, Color.GREEN);
@@ -92,7 +92,7 @@ public class ShowcaseDemo {
                 String text = renderer2D.getHardwareInfo();
 
                 float width = font.getWidthOf(text);
-                float height = font.getHeight();
+                float height = font.getLineHeight();
 
                 renderer2D.drawText((renderer2D.getWidth() / 2) - (width / 2), renderer2D.getHeight() - height, text, Color.RED, font);
                 renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library\nRenderer2D OpenGL Demo. FPS: " + window.getFPS(), Color.WHITE, font2);
