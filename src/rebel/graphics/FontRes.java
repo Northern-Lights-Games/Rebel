@@ -1,15 +1,10 @@
 package rebel.graphics;
 
 import java.awt.*;
-import java.awt.Color;
-import java.awt.color.ColorSpace;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 /***
  * Represents a Font that can be rendered to the screen. This class can also interoperate with AWT Fonts, as well as load TrueType (.ttf) fonts from disk.
@@ -116,9 +111,23 @@ public class FontRes {
         return image;
     }
 
-    public float getHeight(){
+    public float getLineHeight(){
         return metrics.getHeight();
     }
+
+
+    //Use this in Zara2
+    public float getHeightOf(String string){
+        String[] lines = string.split("\n");
+        float height = 0f;
+        for (String ignored : lines) {
+            height += metrics.getHeight();
+        }
+
+        return height;
+    }
+
+
 
     public float getWidthOf(String string){
 
