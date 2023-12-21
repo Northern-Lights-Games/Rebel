@@ -21,6 +21,8 @@ Rebel is a WIP Java Game Engine for making 2D games on Desktop. It provides an O
 
 ## Getting Started
 
-Rebel is a Gradle project, which means you will have to download the source from GitHub and run the Main class in demo. I use IntelliJ, but any IDE that supports Gradle will work.
+Rebel is configured using Gradle and it's recommended to clone the repository using Git and run the _demo.ShowcaseDemo_ file. 
+The current Rebel release cycle will see major changes between releases, and the API will be quite volatile. 
+
 
 ![demo.png](project%2Fdemo.png)
