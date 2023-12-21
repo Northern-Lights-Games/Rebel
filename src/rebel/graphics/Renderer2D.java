@@ -178,7 +178,7 @@ public class Renderer2D {
         drawFilledRect(x - ((float) thickness / 2) + w, y, thickness, h, color);
 
     }
-    public void drawLine(float x1, float y1, float x2, float y2, Color color, int thickness){
+    public void drawLine(float x1, float y1, float x2, float y2, Color color, int thickness, boolean round){
 
         float dx = x2 - x1;
         float dy = y2 - y1;
@@ -194,6 +194,11 @@ public class Renderer2D {
 
         resetTransform();
         setOrigin(0, 0);
+
+        if(round){
+            drawFilledEllipse(x1 - (thickness / 2f), y1 - (thickness / 2f), thickness, thickness, color);
+            drawFilledEllipse(x2 - (thickness / 2f), y2 - (thickness / 2f), thickness, thickness, color);
+        }
 
 
 
@@ -432,7 +437,7 @@ public class Renderer2D {
         for(char c : text.toCharArray()){
 
             if(c == '\n'){
-                y += font.getHeight();
+                y += font.getLineHeight();
                 xc = x;
                 continue;
             }
