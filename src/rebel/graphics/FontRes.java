@@ -121,7 +121,18 @@ public class FontRes {
     }
 
     public float getWidthOf(String string){
-        return metrics.stringWidth(string);
+
+        String[] lines = string.split("\n");
+        float width = 0f;
+
+        for(String line : lines){
+            float lineWidth = metrics.stringWidth(line);
+            if(lineWidth > width){
+                width = lineWidth;
+            }
+        }
+
+        return width;
     }
 
 }
