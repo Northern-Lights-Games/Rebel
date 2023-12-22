@@ -5,6 +5,8 @@ layout (location = 2) in float v_texindex;
 layout (location = 3) in vec4 v_color;
 layout (location = 4) in vec2 v_origin;
 layout (location = 5) in vec2 v_size;
+layout (location = 6) in float v_thickness;
+
 
 
 
@@ -13,6 +15,7 @@ out float f_texindex;
 out vec4 f_color;
 out vec2 f_origin;
 out vec2 f_size;
+out float f_thickness;
 
 uniform mat4 v_model;
 uniform mat4 v_view;
@@ -30,6 +33,7 @@ void main() {
     f_color = v_color;
     f_origin = v_origin;
     f_size = v_size;
+    f_thickness = v_thickness;
 
 
     gl_Position = v_projection * v_view * v_model * vec4(v_pos, 0.0, 1.0);

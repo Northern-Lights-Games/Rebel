@@ -68,6 +68,7 @@ public class ShowcaseDemo {
                 }
 
                 renderer2D.drawFilledEllipse(1400, 700, 200, 200, Color.GREEN);
+                renderer2D.drawEllipse(1600, 700, 200, 200, Color.GREEN, 0.5f);
                 particleSource.update();
 
                 for(Particle particle : particleSource.getParticles()){

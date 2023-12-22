@@ -8,6 +8,7 @@ in float f_texindex;
 in vec4 f_color;
 in vec2 f_origin;
 in vec2 f_size;
+in float f_thickness;
 //gl_FragCoord goes y-axis up, but Rebel uses y-axis down...
 layout(origin_upper_left) in vec4 gl_FragCoord;
 
@@ -23,14 +24,12 @@ void main()
     else if(index == -2){
         vec2 uv = f_uv * 2.0 - 1.0;
 
-        float distance = 1 - length(uv);
+        float distance = length(uv);
 
-        if(distance > 0.0)
+        if(distance < 1.0 && distance > (1.0 - f_thickness))
             FragColor = f_color;
         else
             discard;
-
-
 
     }
     else {
