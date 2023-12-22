@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class Font2D {
     private final Font awtFont;
     private final boolean antialias;
-    private final HashMap<Integer, Texture> glyphs = new HashMap<>();
+    private final HashMap<Integer, Texture2D> glyphs = new HashMap<>();
     private FontMetrics metrics;
     public static int NORMAL = Font.PLAIN;
     public static int ITALIC = Font.ITALIC;
@@ -67,7 +67,7 @@ public class Font2D {
         for (int i = 32; i < 256; i++) {
             if (i == 127) continue;
             char c = (char) i;
-            Texture glyph = new Texture();
+            Texture2D glyph = new Texture2D();
 
             BufferedImage ch = toBufferedImage(c);
             glyph.setData(ch);
@@ -75,7 +75,7 @@ public class Font2D {
         }
     }
 
-    public HashMap<Integer, Texture> getGlyphs() {
+    public HashMap<Integer, Texture2D> getGlyphs() {
         return glyphs;
     }
 

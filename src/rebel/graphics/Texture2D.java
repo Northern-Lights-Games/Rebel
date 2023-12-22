@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.awt.color.ColorSpace;
 import java.awt.image.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
@@ -20,7 +19,7 @@ import static org.lwjgl.opengl.GL46.*;
 /***
  * Represents an OpenGL 2D Texture. This is a Disposable OpenGL object and will be disposed by the Window.
  */
-public class Texture implements Disposable {
+public class Texture2D implements Disposable {
     private String path;
     private int texID;
     private int width, height;
@@ -34,7 +33,7 @@ public class Texture implements Disposable {
      * Create a Texture from a path. This defaults to a default Linear filter
      * @param path
      */
-    public Texture(String path){
+    public Texture2D(String path){
         this(path, FILTER_LINEAR);
     }
 
@@ -43,7 +42,7 @@ public class Texture implements Disposable {
      * @param path
      * @param filter
      */
-    public Texture(String path, int filter) {
+    public Texture2D(String path, int filter) {
         if(!new File(path).exists()) throw new RuntimeException("The file " + path + " does not exist!");
         Disposer.add(this);
 
@@ -73,7 +72,7 @@ public class Texture implements Disposable {
     /***
      * Creates a Texture with no uploaded data
      */
-    public Texture() {
+    public Texture2D() {
         Disposer.add(this);
         texID = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, texID);

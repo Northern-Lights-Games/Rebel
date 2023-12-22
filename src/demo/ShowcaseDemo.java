@@ -22,9 +22,9 @@ public class ShowcaseDemo {
         window.setTitle("Rebel: " + renderer2D.getHardwareInfo());
 
 
-        ArrayList<Texture> textures = new ArrayList<>();
-        Texture logo = new Texture("project/logo.png");
-        Texture opengl = new Texture("project/texture.png");
+        ArrayList<Texture2D> textures = new ArrayList<>();
+        Texture2D logo = new Texture2D("project/logo.png");
+        Texture2D opengl = new Texture2D("project/texture.png");
 
 
         for (int i = 0; i < 32; i++) {
@@ -47,7 +47,7 @@ public class ShowcaseDemo {
         ParticleSource particleSource = new ParticleSource(particleSourceConfig, new Vector2f(700f, 700f));
         particleSource.addParticles(200);
 
-        Animation animation = new Animation(new Texture("project/img.png", Texture.FILTER_NEAREST));
+        Animation animation = new Animation(new Texture2D("project/img.png", Texture2D.FILTER_NEAREST));
         animation.create(2, 2, 4);
         animation.setDelay(150);
         animation.setPlaymode(Animation.Playmode.PLAY_REPEAT);

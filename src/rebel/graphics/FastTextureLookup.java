@@ -4,24 +4,24 @@ package rebel.graphics;
  * A fast array-based implementation for looking up Textures in existing slots
  */
 public class FastTextureLookup {
-    public Texture[] textures;
+    public Texture2D[] textures;
     public int capacity;
     public FastTextureLookup(int capacity) {
         this.capacity = capacity;
-        textures = new Texture[capacity];
+        textures = new Texture2D[capacity];
     }
-    public boolean hasTexture(Texture texture){
-        for(Texture t : textures){
+    public boolean hasTexture(Texture2D texture){
+        for(Texture2D t : textures){
             if(t == texture) return true;
         }
         return false;
     }
-    public void registerTexture(Texture texture, Integer glSlot){
+    public void registerTexture(Texture2D texture, Integer glSlot){
         textures[glSlot] = texture;
     }
-    public int getTexture(Texture texture){
+    public int getTexture(Texture2D texture){
         for (int i = 0; i < textures.length; i++) {
-            Texture t = textures[i];
+            Texture2D t = textures[i];
             if (t == texture) {
                 return i;
             }

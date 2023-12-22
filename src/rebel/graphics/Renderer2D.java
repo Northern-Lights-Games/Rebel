@@ -160,7 +160,7 @@ public class Renderer2D {
     public void resetTransform(){
         setTransform(new Matrix4f().identity());
     }
-    public void drawTexture(float x, float y, float w, float h, Texture texture){
+    public void drawTexture(float x, float y, float w, float h, Texture2D texture){
         drawTexture(x, y, w, h, texture, Color.WHITE);
     }
     public void setOrigin(float x, float y){
@@ -207,10 +207,10 @@ public class Renderer2D {
     }
 
 
-    public void drawTexture(float x, float y, float w, float h, Texture texture, Color color){
+    public void drawTexture(float x, float y, float w, float h, Texture2D texture, Color color){
         drawTexture(x, y, w, h, texture, color, new Rect2D(0, 0, 1, 1));
     }
-    public void drawTexture(float x, float y, float w, float h, Texture texture, Color color, Rect2D rect2D) {
+    public void drawTexture(float x, float y, float w, float h, Texture2D texture, Color color, Rect2D rect2D) {
 
         int slot = nextTextureSlot;
         boolean isUniqueTexture = false;
@@ -446,7 +446,7 @@ public class Renderer2D {
                 continue;
             }
 
-            Texture texture = font.getGlyphs().get((int) c);
+            Texture2D texture = font.getGlyphs().get((int) c);
             drawTexture(xc, y, texture.getWidth(), texture.getHeight(), texture, color);
             xc += texture.getWidth();
         }

@@ -1,7 +1,7 @@
 package rebel;
 
 import rebel.graphics.Rect2D;
-import rebel.graphics.Texture;
+import rebel.graphics.Texture2D;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * An Animation is made from a spritesheet texture. You can specify the delay, number of frames and set the Playmode.
  */
 public class Animation {
-    private Texture texture;
+    private Texture2D texture;
     private ArrayList<Rect2D> frames = new ArrayList<>();
     private float delay;
     private float start = 0;
@@ -40,7 +40,7 @@ public class Animation {
      * Create An Animation object from the following Texture
      * @param texture
      */
-    public Animation(Texture texture) {
+    public Animation(Texture2D texture) {
         this.texture = texture;
     }
 
@@ -96,7 +96,7 @@ public class Animation {
         return frames;
     }
 
-    public Texture getTexture() {
+    public Texture2D getTexture() {
         return texture;
     }
 
