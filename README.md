@@ -24,5 +24,23 @@ Rebel is a WIP Java Game Engine for making 2D games on Desktop. It provides an O
 Rebel is configured using Gradle and it's recommended to clone the repository using Git and run the _demo.ShowcaseDemo_ file. 
 The current Rebel release cycle will see major changes between releases, and the API will be quite volatile. 
 
+## Gallery
+
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7cfi2z8n5yo7vkfq8jj5.png)
+
+*The animated character is Zara, a spritesheet I made for a game but never really used. Maybe she's the mascot of Rebel?*
+
+Here's a demo of some GPU Bezier Curves I made using custom GLSL shaders. This isn't part of Rebel just yet, but Rebel can render CPU-calculated Cubic/Quadratic Bezier Curves.
+
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dx8p2u0a9cm01g1al9o7.png)
+
+Rebel's Particle System (ParticleSource):
+
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cfgcju73d9r09dq55sn0.png)
+
+
 
 ![demo.png](project%2Fdemo.png)
