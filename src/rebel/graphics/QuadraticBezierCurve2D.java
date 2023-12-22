@@ -7,11 +7,11 @@ import java.util.List;
 /***
  * Represents a quadratic Bézier curve with the specified control points
  */
-public class QuadraticBezierCurve implements BezierCurve {
+public class QuadraticBezierCurve2D implements BezierCurve2D {
 
     private Vector2f p0, p1, p2;
 
-    public QuadraticBezierCurve(Vector2f p0, Vector2f p1, Vector2f p2) {
+    public QuadraticBezierCurve2D(Vector2f p0, Vector2f p1, Vector2f p2) {
         this.p0 = p0;
         this.p1 = p1;
         this.p2 = p2;

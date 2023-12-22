@@ -8,11 +8,11 @@ import java.util.List;
 /***
  * Represents a cubic Bézier curve with the specified control points
  */
-public class CubicBezierCurve implements BezierCurve {
+public class CubicBezierCurve2D implements BezierCurve2D {
 
     private Vector2f p0, p1, p2, p3;
 
-    public CubicBezierCurve(Vector2f p0, Vector2f p1, Vector2f p2, Vector2f p3) {
+    public CubicBezierCurve2D(Vector2f p0, Vector2f p1, Vector2f p2, Vector2f p3) {
         this.p0 = p0;
         this.p1 = p1;
         this.p2 = p2;

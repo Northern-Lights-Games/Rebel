@@ -33,7 +33,7 @@ public class ShowcaseDemo {
 
         Font2D font = new Font2D("Arial", Font2D.NORMAL, 40, true);
         Font2D font2 = new Font2D("Cascadia Mono", Font2D.NORMAL | Font2D.BOLD,  40, true);
-        CubicBezierCurve cubicBezierCurve = new CubicBezierCurve(
+        CubicBezierCurve2D cubicBezierCurve = new CubicBezierCurve2D(
                 new Vector2f(200, 800),
                 new Vector2f(600, 400),
                 new Vector2f(900, 1400),

@@ -5,7 +5,7 @@ import java.util.List;
 /***
  * Represents a CPU-based Bézier curve. This class cannot be instantiated, use CubicBezierCurve and QuadraticBezierCurve instead
  */
-public interface BezierCurve {
+public interface BezierCurve2D {
 
     /***
      * Generates lines that follow the path of the Bézier curve
