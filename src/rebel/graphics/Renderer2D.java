@@ -26,7 +26,7 @@ public class Renderer2D {
     private int RECT = -1;
     private int CIRCLE = -2;
     private boolean debug = false;
-    private TextureMap textureLookup;
+    private FastTextureLookup textureLookup;
 
     public Renderer2D(int width, int height) {
         this.width = width;
@@ -45,7 +45,7 @@ public class Renderer2D {
         IntBuffer d = BufferUtils.createIntBuffer(1);
         glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, d);
         maxTextureSlots  = d.get();
-        textureLookup = new TextureMap(maxTextureSlots);
+        textureLookup = new FastTextureLookup(maxTextureSlots);
 
 
 
@@ -217,8 +217,8 @@ public class Renderer2D {
 
 
         //Existing texture
-        if (textureLookup.containsKey(texture)) {
-            slot = textureLookup.get(texture);
+        if (textureLookup.hasTexture(texture)) {
+            slot = textureLookup.getTexture(texture);
         }
 
         //Unique Texture
@@ -226,7 +226,7 @@ public class Renderer2D {
             glActiveTexture(GL_TEXTURE0 + slot);
             texture.bind();
             texture.setSlot(slot);
-            textureLookup.put(texture, slot);
+            textureLookup.registerTexture(texture, slot);
             isUniqueTexture = true;
         }
 
