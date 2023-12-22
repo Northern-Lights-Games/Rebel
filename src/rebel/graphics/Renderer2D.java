@@ -17,7 +17,9 @@ import static org.lwjgl.opengl.GL46.*;
 public class Renderer2D {
     private int width;
     private int height;
-    private Matrix4f proj, view, translation;
+    private Matrix4f proj;
+    private Camera2D camera2D;
+    private Matrix4f translation;
     private VertexBuffer vertexBuffer;
     private float[] vertexData;
     private int maxTextureSlots;
@@ -33,12 +35,14 @@ public class Renderer2D {
         this.height = height;
 
         glEnable(GL_TEXTURE_2D);
+        glEnable(GL_CULL_FACE);
+
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
         proj = new Matrix4f().ortho(0, width, height, 0, 0, 1);
-        view = new Matrix4f().identity();
+        camera2D = new Camera2D();
         translation = new Matrix4f().identity();
 
 
@@ -96,11 +100,15 @@ public class Renderer2D {
         if(currentShaderProgram != shaderProgram) {
             currentShaderProgram = shaderProgram;
             currentShaderProgram.bind();
-            currentShaderProgram.setMatrix4f("v_model", getTranslation());
-            currentShaderProgram.setMatrix4f("v_view", getView());
-            currentShaderProgram.setMatrix4f("v_projection", getProj());
-            currentShaderProgram.setIntArray("u_textures", createTextureSlots());
+            updateCamera2D();
         }
+    }
+
+    public void updateCamera2D(){
+        currentShaderProgram.setMatrix4f("v_model", getTranslation());
+        currentShaderProgram.setMatrix4f("v_view", getView());
+        currentShaderProgram.setMatrix4f("v_projection", getProj());
+        currentShaderProgram.setIntArray("u_textures", createTextureSlots());
     }
 
     public ShaderProgram getDefaultShader() {
@@ -135,8 +143,11 @@ public class Renderer2D {
     public Matrix4f getProj() {
         return proj;
     }
+    public Camera2D getCamera2D() {
+        return camera2D;
+    }
     public Matrix4f getView() {
-        return view;
+        return camera2D.getViewMatrix();
     }
     public Matrix4f getTranslation() {
         return translation;
