@@ -24,7 +24,6 @@ public class Window {
     private double start;
     private int width, height;
 
-
     /***
      * Creates a Window and initializes GLFW. This also creates the OpenGL context
      * @param w
@@ -32,6 +31,17 @@ public class Window {
      * @param title
      */
     public Window(int w, int h, String title){
+        this(w, h, title, true);
+    }
+
+    /***
+     * Creates a Window and initializes GLFW. This also creates the OpenGL context
+     * @param w
+     * @param h
+     * @param title
+     * @param resizable
+     */
+    public Window(int w, int h, String title, boolean resizable){
         System.setProperty("java.awt.headless", "true");
 
         this.width = w;
@@ -43,6 +53,8 @@ public class Window {
         if (!glfwInit())
             throw new IllegalStateException("Unable to initialize GLFW");
 
+
+        glfwWindowHint(GLFW_RESIZABLE, glfwBool(resizable));
 
         window = glfwCreateWindow(w, h, title, NULL, NULL);
         if (window == NULL)
@@ -59,6 +71,10 @@ public class Window {
         glfwSetWindowSizeCallback(window, (window1, width, height) -> glViewport(0, 0, width, height));
 
         start = glfwGetTime();
+    }
+
+    private int glfwBool(boolean b){
+        return b ? GLFW_TRUE : GLFW_FALSE;
     }
 
     public long getGLFWHandle() {
