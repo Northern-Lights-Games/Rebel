@@ -31,8 +31,8 @@ public class ShowcaseDemo {
             textures.add(i % 2 == 0 ? logo : opengl);
         }
 
-        FontRes font = new FontRes("Arial", FontRes.NORMAL, 40, true);
-        FontRes font2 = new FontRes("Cascadia Mono", FontRes.NORMAL | FontRes.BOLD,  40, true);
+        Font2D font = new Font2D("Arial", Font2D.NORMAL, 40, true);
+        Font2D font2 = new Font2D("Cascadia Mono", Font2D.NORMAL | Font2D.BOLD,  40, true);
         CubicBezierCurve cubicBezierCurve = new CubicBezierCurve(
                 new Vector2f(200, 800),
                 new Vector2f(600, 400),

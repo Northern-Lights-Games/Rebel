@@ -9,7 +9,7 @@ import java.util.HashMap;
 /***
  * Represents a Font that can be rendered to the screen. This class can also interoperate with AWT Fonts, as well as load TrueType (.ttf) fonts from disk.
  */
-public class FontRes {
+public class Font2D {
     private final Font awtFont;
     private final boolean antialias;
     private final HashMap<Integer, Texture> glyphs = new HashMap<>();
@@ -25,7 +25,7 @@ public class FontRes {
      * @param size
      * @param antialias
      */
-    public FontRes(File ttfPath, int style, int size, boolean antialias){
+    public Font2D(File ttfPath, int style, int size, boolean antialias){
         this(loadTTF(ttfPath).deriveFont(style, size), antialias);
     }
 
@@ -37,7 +37,7 @@ public class FontRes {
      * @param antialias
      */
 
-    public FontRes(String name, int style, int size, boolean antialias){
+    public Font2D(String name, int style, int size, boolean antialias){
         this(new Font(name, style, size), antialias);
     }
 
@@ -47,7 +47,7 @@ public class FontRes {
      * @param awtFont
      * @param antialias
      */
-    public FontRes(Font awtFont, boolean antialias){
+    public Font2D(Font awtFont, boolean antialias){
         this.antialias = antialias;
         this.awtFont = awtFont;
         createGlyphs();

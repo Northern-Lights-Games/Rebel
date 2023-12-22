@@ -434,7 +434,7 @@ public class Renderer2D {
         return glGetString(GL_RENDERER);
     }
 
-    public void drawText(float x, float y, String text, Color color, FontRes font) {
+    public void drawText(float x, float y, String text, Color color, Font2D font) {
 
         float xc = x;
 
