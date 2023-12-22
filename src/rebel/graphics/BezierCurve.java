@@ -12,6 +12,6 @@ public interface BezierCurve {
      * @param iterations
      * @return
      */
-    List<Line> calculate(int iterations);
+    List<Line2D> calculate(int iterations);
 
 }

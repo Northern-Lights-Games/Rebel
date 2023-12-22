@@ -20,19 +20,19 @@ public class CubicBezierCurve implements BezierCurve {
     }
 
     @Override
-    public List<Line> calculate(int lines) {
+    public List<Line2D> calculate(int lines) {
 
         float step = 1f / lines;
 
-        Line a = new Line(p0, p1);
-        Line b = new Line(p2, p3);
-        Line c = new Line(a.end, b.start);
+        Line2D a = new Line2D(p0, p1);
+        Line2D b = new Line2D(p2, p3);
+        Line2D c = new Line2D(a.end, b.start);
 
-        Line ab = new Line(null, null);
-        Line bc = new Line(null, null);
-        Line abToBc = new Line(null, null);
+        Line2D ab = new Line2D(null, null);
+        Line2D bc = new Line2D(null, null);
+        Line2D abToBc = new Line2D(null, null);
 
-        ArrayList<Line> lineList = new ArrayList<>();
+        ArrayList<Line2D> line2DList = new ArrayList<>();
 
 
         float lastX = a.start.x, lastY = a.start.y;
@@ -51,14 +51,14 @@ public class CubicBezierCurve implements BezierCurve {
 
             Vector2f tracer = abToBc.tValue(i);
 
-            lineList.add(new Line(new Vector2f(lastX, lastY), tracer));
+            line2DList.add(new Line2D(new Vector2f(lastX, lastY), tracer));
 
             lastX = tracer.x;
             lastY = tracer.y;
         }
 
-        lineList.add(new Line(new Vector2f(lastX, lastY), new Vector2f(b.end.x, b.end.y)));
+        line2DList.add(new Line2D(new Vector2f(lastX, lastY), new Vector2f(b.end.x, b.end.y)));
 
-        return lineList;
+        return line2DList;
     }
 }

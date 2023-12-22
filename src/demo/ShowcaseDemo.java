@@ -39,7 +39,7 @@ public class ShowcaseDemo {
                 new Vector2f(900, 1400),
                 new Vector2f(1500, 800)
         );
-        List<Line> lines = cubicBezierCurve.calculate(15);
+        List<Line2D> line2DS = cubicBezierCurve.calculate(15);
         float rotation = 0f;
 
 
@@ -63,8 +63,8 @@ public class ShowcaseDemo {
                 renderer2D.drawRect(1000, 700, 300, 300, Color.GREEN, 3);
                 renderer2D.drawFilledRect(1300, 700, 100, 100, Color.RED);
 
-                for(Line line : lines){
-                    renderer2D.drawLine(line.start.x, line.start.y, line.end.x, line.end.y, Color.WHITE, 40, true);
+                for(Line2D line2D : line2DS){
+                    renderer2D.drawLine(line2D.start.x, line2D.start.y, line2D.end.x, line2D.end.y, Color.WHITE, 40, true);
                 }
 
                 renderer2D.drawFilledEllipse(1400, 700, 200, 200, Color.GREEN);
