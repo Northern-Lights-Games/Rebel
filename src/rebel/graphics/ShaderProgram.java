@@ -9,7 +9,7 @@ import static org.lwjgl.opengl.GL46.*;
 /***
  * Represents an OpenGL Shader Program. This is a Disposable OpenGL object and will be disposed by the Window.
  */
-public class Shader implements Disposable {
+public class ShaderProgram implements Disposable {
     private String vertexShaderSource;
     private String fragmentShaderSource;
 
@@ -20,7 +20,7 @@ public class Shader implements Disposable {
      * @param vertexShaderSource
      * @param fragmentShaderSource
      */
-    public Shader(String vertexShaderSource, String fragmentShaderSource) {
+    public ShaderProgram(String vertexShaderSource, String fragmentShaderSource) {
         Disposer.add(this);
         this.vertexShaderSource = vertexShaderSource;
         this.fragmentShaderSource = fragmentShaderSource;
@@ -30,34 +30,28 @@ public class Shader implements Disposable {
      * Compiles and Links the shader
      */
 
-    public void compile(){
+    public void prepare(){
+
         int vertexShaderProg = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vertexShaderProg, vertexShaderSource);
         glCompileShader(vertexShaderProg);
-
-        System.out.println(glGetShaderInfoLog(vertexShaderProg));
+        System.err.println(glGetShaderInfoLog(vertexShaderProg));
 
 
         int fragmentShaderProg = glCreateShader(GL_FRAGMENT_SHADER);
         glShaderSource(fragmentShaderProg, fragmentShaderSource);
         glCompileShader(fragmentShaderProg);
-
-        System.out.println(glGetShaderInfoLog(fragmentShaderProg));
+        System.err.println(glGetShaderInfoLog(fragmentShaderProg));
 
 
         shaderProgram = glCreateProgram();
-
-
-
         glAttachShader(shaderProgram, vertexShaderProg);
         glAttachShader(shaderProgram, fragmentShaderProg);
-
 
         glDeleteShader(vertexShaderProg);
         glDeleteShader(fragmentShaderProg);
 
         glLinkProgram(shaderProgram);
-
     }
 
     public void bind(){
