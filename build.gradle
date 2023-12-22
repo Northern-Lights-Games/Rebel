@@ -23,8 +23,8 @@ switch (OperatingSystem.current()) {
 }
 
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'northern.lights'
+version '2.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
