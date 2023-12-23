@@ -67,12 +67,7 @@ public class Renderer2D {
 
 
         currentShaderProgram.bind();
-        currentShaderProgram.setMatrix4f("v_model", getTranslation());
-        currentShaderProgram.setMatrix4f("v_view", getView());
-        currentShaderProgram.setMatrix4f("v_projection", getProj());
-        currentShaderProgram.setIntArray("u_textures", createTextureSlots());
-
-
+        updateCamera2D();
 
         VertexArray vertexArray = new VertexArray();
         vertexArray.bind();
@@ -117,19 +112,10 @@ public class Renderer2D {
     }
 
     private int[] createTextureSlots() {
-
-
-
         int[] slots = new int[maxTextureSlots];
-
         for (int i = 0; i < maxTextureSlots; i++) {
             slots[i] = i;
         }
-
-
-
-
-
         return slots;
     }
     public VertexBuffer getVertexBuffer() {
@@ -439,6 +425,10 @@ public class Renderer2D {
             }
 
             Texture2D texture = font.getGlyphs().get((int) c);
+
+
+
+
             drawTexture(xc, y, texture.getWidth(), texture.getHeight(), texture, color);
             xc += texture.getWidth();
         }
