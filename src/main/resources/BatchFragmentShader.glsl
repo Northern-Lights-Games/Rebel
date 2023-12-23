@@ -6,8 +6,6 @@ in vec2 f_uv;
 uniform sampler2D u_textures[32];
 in float f_texindex;
 in vec4 f_color;
-in vec2 f_origin;
-in vec2 f_size;
 in float f_thickness;
 //gl_FragCoord goes y-axis up, but Rebel uses y-axis down...
 layout(origin_upper_left) in vec4 gl_FragCoord;

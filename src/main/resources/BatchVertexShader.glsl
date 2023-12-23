@@ -3,9 +3,7 @@ layout (location = 0) in vec2 v_pos;
 layout (location = 1) in vec2 v_uv;
 layout (location = 2) in float v_texindex;
 layout (location = 3) in vec4 v_color;
-layout (location = 4) in vec2 v_origin;
-layout (location = 5) in vec2 v_size;
-layout (location = 6) in float v_thickness;
+layout (location = 4) in float v_thickness;
 
 
 
@@ -31,8 +29,6 @@ void main() {
     f_texindex = v_texindex;
     f_uv = v_uv;
     f_color = v_color;
-    f_origin = v_origin;
-    f_size = v_size;
     f_thickness = v_thickness;
 
 
