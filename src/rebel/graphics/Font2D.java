@@ -11,7 +11,6 @@ import java.util.HashMap;
  */
 public class Font2D {
     private final Font awtFont;
-    private final boolean antialias;
     private final HashMap<Integer, Texture2D> glyphs = new HashMap<>();
     private FontMetrics metrics;
     public static int NORMAL = Font.PLAIN;
@@ -23,10 +22,9 @@ public class Font2D {
      * @param ttfPath
      * @param style
      * @param size
-     * @param antialias
      */
-    public Font2D(File ttfPath, int style, int size, boolean antialias){
-        this(loadTTF(ttfPath).deriveFont(style, size), antialias);
+    public Font2D(File ttfPath, int style, int size){
+        this(loadTTF(ttfPath).deriveFont(style, size));
     }
 
     /***
@@ -34,21 +32,18 @@ public class Font2D {
      * @param name
      * @param style
      * @param size
-     * @param antialias
      */
 
-    public Font2D(String name, int style, int size, boolean antialias){
-        this(new Font(name, style, size), antialias);
+    public Font2D(String name, int style, int size){
+        this(new Font(name, style, size));
     }
 
 
     /***
      * Loads an AWT font
      * @param awtFont
-     * @param antialias
      */
-    public Font2D(Font awtFont, boolean antialias){
-        this.antialias = antialias;
+    public Font2D(Font awtFont){
         this.awtFont = awtFont;
         createGlyphs();
     }
@@ -89,7 +84,6 @@ public class Font2D {
     private FontMetrics createFontMetrics(){
         BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
-        if (antialias) g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setFont(awtFont);
         FontMetrics metrics = g.getFontMetrics();
         g.dispose();
@@ -100,8 +94,6 @@ public class Font2D {
     private BufferedImage toBufferedImage(char c) {
         BufferedImage image = new BufferedImage(metrics.charWidth(c), metrics.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
-
-        if (antialias) g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g.setPaint(java.awt.Color.WHITE);
         g.setFont(awtFont);
