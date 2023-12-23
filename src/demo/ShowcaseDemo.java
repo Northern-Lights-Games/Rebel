@@ -17,11 +17,11 @@ public class ShowcaseDemo {
 
     public static void main(String[] args) {
         Window window = new Window(1920, 1080, "Rebel");
-        Renderer2D renderer2D = new Renderer2D(1920, 1080);
+        Renderer2D renderer2D = new Renderer2D(1920, 1080, true);
         renderer2D.setDebug(true);
 
-        renderer2D.getCamera2D().getViewMatrix().translate(100f, 0f, 0f).rotate((float) Math.toRadians(45), 0, 0, 1);
-        renderer2D.updateCamera2D();
+        //renderer2D.getCamera2D().getViewMatrix().translate(100f, 0f, 0f).rotate((float) Math.toRadians(45), 0, 0, 1);
+        //renderer2D.updateCamera2D();
 
 
 
