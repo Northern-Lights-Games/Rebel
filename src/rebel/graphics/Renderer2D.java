@@ -111,6 +111,10 @@ public class Renderer2D {
         return defaultShaderProgram;
     }
 
+    public ShaderProgram getCurrentShaderProgram() {
+        return currentShaderProgram;
+    }
+
     private int[] createTextureSlots() {
         int[] slots = new int[maxTextureSlots];
         for (int i = 0; i < maxTextureSlots; i++) {
@@ -230,7 +234,7 @@ public class Renderer2D {
         }
 
 
-        drawQuad(x, y, w, h, slot, color, originX, originY, rect2D, -1);
+        drawQuadGL(x, y, w, h, slot, color, originX, originY, rect2D, -1);
 
         if(isUniqueTexture) nextTextureSlot++;
 
@@ -239,16 +243,16 @@ public class Renderer2D {
 
     }
     public void drawFilledRect(float x, float y, float w, float h, Color color){
-        drawQuad(x, y, w, h, RECT, color, originX, originY, new Rect2D(0, 0, 1, 1), -1);
+        drawQuadGL(x, y, w, h, RECT, color, originX, originY, new Rect2D(0, 0, 1, 1), -1);
     }
     public void drawFilledEllipse(float x, float y, float w, float h, Color color) {
-        drawQuad(x, y, w, h, CIRCLE, color, originX, originY, new Rect2D(0, 0, 1, 1), 1);
+        drawQuadGL(x, y, w, h, CIRCLE, color, originX, originY, new Rect2D(0, 0, 1, 1), 1);
     }
     public void drawEllipse(float x, float y, float w, float h, Color color, float thickness) {
-        drawQuad(x, y, w, h, CIRCLE, color, originX, originY, new Rect2D(0, 0, 1, 1), thickness);
+        drawQuadGL(x, y, w, h, CIRCLE, color, originX, originY, new Rect2D(0, 0, 1, 1), thickness);
     }
 
-    private void drawQuad(float x, float y, float w, float h, int slot, Color color, float originX, float originY, Rect2D region, float thickness){
+    public void drawQuadGL(float x, float y, float w, float h, int slot, Color color, float originX, float originY, Rect2D region, float thickness){
         //Translate back by origin (for rotation math)
         //This usually takes everything near (0, 0)
         Vector4f topLeft = new Vector4f(x - originX, y - originY, 0, 1);
@@ -402,6 +406,14 @@ public class Renderer2D {
     public void clear(float r, float g, float b, float a) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(r, g, b, a);
+    }
+
+    public float getOriginX() {
+        return originX;
+    }
+
+    public float getOriginY() {
+        return originY;
     }
 
     /***
