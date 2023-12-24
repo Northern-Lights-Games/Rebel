@@ -35,6 +35,9 @@ public class ComputeShader implements Disposable {
         glUseProgram(computeShaderProgramID);
     }
 
+    public int getShaderProgram() {
+        return computeShaderProgramID;
+    }
     @Override
     public void dispose() {
         glDeleteProgram(computeShaderProgramID);
