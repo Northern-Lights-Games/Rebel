@@ -35,7 +35,7 @@ public class ComputeDemo {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 512, 512, 0, GL_RGBA,
                 GL_FLOAT, 0);
 
-        glBindImageTexture(1, textureID, 0, false, 0, GL_READ_ONLY, GL_RGBA32F);
+
 
 
 
@@ -46,26 +46,23 @@ public class ComputeDemo {
 
         while(!window.shouldClose()){
 
-            computeShader.bind();
-            glDispatchCompute(512, 512, 1);
-            glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 
-
-
-            int location = glGetUniformLocation(computeShader.getShaderProgram(), "imgOutput");
-            System.out.println(location);
-            glUniform1i(location, 1);
-
-
-
-            //Set the current shader back to the Renderer2D
-            //otherwise nothing will be drawn because we're still doing compute
-            renderer2D.getCurrentShaderProgram().bind();
+            //Render
             renderer2D.clear(1f, 1f, 1f, 1f);
             glActiveTexture(GL_TEXTURE1);
             renderer2D.drawQuadGL(0, 0, 512, 512, 1, Color.WHITE, 0, 0, new Rect2D(0, 0, 1, 1), -1);
             renderer2D.render();
 
+
+            //Compute
+            glBindImageTexture(1, textureID, 0, false, 0, GL_READ_ONLY, GL_RGBA32F);
+            computeShader.bind();
+            glDispatchCompute(512, 512, 1);
+            glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+            int location = glGetUniformLocation(computeShader.getShaderProgram(), "imgOutput");
+            System.out.println(location);
+            glUniform1i(location, 1);
+            renderer2D.getCurrentShaderProgram().bind();
 
 
             window.update();
