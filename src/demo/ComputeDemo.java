@@ -1,7 +1,8 @@
 package demo;
 
 import rebel.gpu.ComputeShader;
-import rebel.gpu.GPUCompute;
+import rebel.gpu.ComputeTask;
+import rebel.gpu.ComputeTexture2D;
 import rebel.graphics.*;
 
 import static org.lwjgl.opengl.GL46.*;
@@ -23,12 +24,14 @@ public class ComputeDemo {
                 "\t\n" +
                 "    imageStore(imgOutput, texelCoord, value);\n" +
                 "}");
+
+
         computeShader.prepare();
 
-        GPUCompute gpuCompute = new GPUCompute(computeShader);
+        ComputeTask task = new ComputeTask(computeShader);
+        ComputeTexture2D computeTexture2D = new ComputeTexture2D(512, 512);
 
 
-        Texture2D texture2D = new Texture2D(512, 512);
         Texture2D logo = new Texture2D("project/logo.png");
         Renderer2D renderer2D = new Renderer2D(640, 480, true);
 
@@ -37,15 +40,15 @@ public class ComputeDemo {
 
             //Render
             renderer2D.clear(1f, 1f, 1f, 1f);
-            renderer2D.drawTexture(0, 0, 512, 512, texture2D);
+            renderer2D.drawTexture(0, 0, 512, 512, computeTexture2D);
 
             renderer2D.drawTexture(512, 0, 100, 100, logo, Color.WHITE);
             renderer2D.render();
 
 
             //Compute
-            gpuCompute.dispatchComputeTask(texture2D, 512, 512, 1);
-            gpuCompute.barrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+            task.dispatchComputeTask(computeTexture2D, 512, 512, 1);
+            task.barrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 
 
             renderer2D.getCurrentShaderProgram().bind();

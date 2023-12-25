@@ -1,10 +1,7 @@
 package rebel.gpu;
 
-import org.lwjgl.BufferUtils;
 import rebel.graphics.Disposable;
 import rebel.graphics.Disposer;
-
-import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL46.*;
 
