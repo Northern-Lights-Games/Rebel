@@ -60,7 +60,7 @@ public class Texture2D implements Disposable {
         texID = glGenTextures();
 
         glBindTexture(GL_TEXTURE_2D, texID);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
         glGenerateMipmap(GL_TEXTURE_2D);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
@@ -72,10 +72,20 @@ public class Texture2D implements Disposable {
     /***
      * Creates a Texture with no uploaded data
      */
-    public Texture2D() {
+    public Texture2D(int width, int height) {
         Disposer.add(this);
         texID = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, texID);
+
+        //On an NVIDIA GeForce MX450 and Intel Iris Xe Graphics, Compute Shaders break without the 4 following lines
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0, GL_RGBA, GL_FLOAT, 0);
     }
 
     /***
