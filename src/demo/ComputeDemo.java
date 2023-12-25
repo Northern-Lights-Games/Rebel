@@ -1,6 +1,7 @@
 package demo;
 
 import rebel.gpu.ComputeShader;
+import rebel.gpu.GPUCompute;
 import rebel.graphics.*;
 
 import static org.lwjgl.opengl.GL46.*;
@@ -24,45 +25,31 @@ public class ComputeDemo {
                 "}");
         computeShader.prepare();
 
-
-        int textureID = glGenTextures();
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 512, 512, 0, GL_RGBA,
-                GL_FLOAT, 0);
+        GPUCompute gpuCompute = new GPUCompute(computeShader);
 
 
-
-
-
-
+        Texture2D texture2D = new Texture2D(512, 512);
+        Texture2D logo = new Texture2D("project/logo.png");
         Renderer2D renderer2D = new Renderer2D(640, 480, true);
-
-
 
         while(!window.shouldClose()){
 
 
             //Render
             renderer2D.clear(1f, 1f, 1f, 1f);
-            glActiveTexture(GL_TEXTURE1);
-            renderer2D.drawQuadGL(0, 0, 512, 512, 1, Color.WHITE, 0, 0, new Rect2D(0, 0, 1, 1), -1);
+            renderer2D.drawTexture(0, 0, 512, 512, texture2D);
+
+            renderer2D.drawTexture(512, 0, 100, 100, logo, Color.WHITE);
             renderer2D.render();
 
 
             //Compute
-            glBindImageTexture(1, textureID, 0, false, 0, GL_READ_ONLY, GL_RGBA32F);
-            computeShader.bind();
-            glDispatchCompute(512, 512, 1);
-            glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
-            int location = glGetUniformLocation(computeShader.getShaderProgram(), "imgOutput");
-            System.out.println(location);
-            glUniform1i(location, 1);
+            gpuCompute.dispatchComputeTask(texture2D, 512, 512, 1);
+            gpuCompute.barrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+
+
             renderer2D.getCurrentShaderProgram().bind();
+
 
 
             window.update();
