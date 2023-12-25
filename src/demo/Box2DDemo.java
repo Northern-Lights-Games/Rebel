@@ -2,8 +2,10 @@ package demo;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
+import org.joml.Vector2f;
 import rebel.graphics.*;
 import rebel.physics.Fixtures;
+import rebel.physics.Scene;
 
 public class Box2DDemo {
 
@@ -11,15 +13,16 @@ public class Box2DDemo {
     public static void main(String[] args) {
         Window window = new Window(640, 480, "Rebel");
         Renderer2D renderer2D = new Renderer2D(640, 480, true);
-        World world = new World(new Vec2(0, 9.8f * 12));
+        Scene scene = new Scene(new Vector2f(0, 9.8f * 12));
+
 
         //meters to pixels, p = m * 2
         float box2DToScreen = 2f;
 
 
-        Block block = new Block(BodyType.DYNAMIC, world, new Rect2D(20, 0, 50, 20));
-        Block block2 = new Block(BodyType.STATIC, world, new Rect2D(0, 150, 100, 70));
-        Block block3 = new Block(BodyType.DYNAMIC, world, new Rect2D(30, 70, 250, 13));
+        Block block =  new Block(BodyType.DYNAMIC, scene.getWorld(), new Rect2D(20, 0, 50, 20));
+        Block block2 = new Block(BodyType.STATIC,  scene.getWorld(), new Rect2D(0, 150, 100, 70));
+        Block block3 = new Block(BodyType.DYNAMIC, scene.getWorld(), new Rect2D(30, 70, 250, 13));
 
 
         while (!window.shouldClose()) {
@@ -30,7 +33,9 @@ public class Box2DDemo {
             block2.render(renderer2D, box2DToScreen);
             block3.render(renderer2D, box2DToScreen);
 
-            world.step(1/60f, 8, 3);
+
+
+            scene.update(1/60f);
             renderer2D.render();
             window.update();
         }
@@ -58,7 +63,7 @@ public class Box2DDemo {
 
         public void render(Renderer2D renderer2D, float box2DToScreen){
             Vec2 playerBodyPos = body.getPosition().mul(box2DToScreen);
-            renderer2D.setOrigin(playerBodyPos.x/* + ((50 * box2DToScreen) / 2)*/, playerBodyPos.y/* + ((20 * box2DToScreen) / 2)*/);
+            renderer2D.setOrigin(playerBodyPos.x, playerBodyPos.y);
             renderer2D.rotate(body.getAngle());
             renderer2D.drawFilledRect(playerBodyPos.x, playerBodyPos.y, (rect2D.w) * box2DToScreen, (rect2D.h) * box2DToScreen, color);
             renderer2D.resetTransform();
