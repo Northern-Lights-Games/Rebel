@@ -11,6 +11,15 @@ public class Rect2D {
         this.h = h;
     }
 
+    public Rect2D mul(float f){
+        x *= f;
+        y *= f;
+        w *= f;
+        h *= f;
+
+        return this;
+    }
+
     public boolean overlaps(Rect2D other){
         return contains(other.x, other.y)
                 || contains(other.x + other.w, other.y)

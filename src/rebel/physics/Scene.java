@@ -9,7 +9,7 @@ public class Scene {
     private float accumulator = 0f;
 
     public Scene(Vector2f gravity){
-        world = new World(JBox2DVectorUtils.toVec2(gravity));
+        world = new World(Math.toVec2(gravity));
     }
 
     public void update(float step){
@@ -25,7 +25,7 @@ public class Scene {
     }
 
     public Vector2f getGravity(){
-        return JBox2DVectorUtils.toVector2f(world.getGravity());
+        return Math.toVector2f(world.getGravity());
     }
 
     public World getWorld() {

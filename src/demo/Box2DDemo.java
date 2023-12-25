@@ -17,25 +17,24 @@ public class Box2DDemo {
 
 
         //meters to pixels, p = m * 2
-        float box2DToScreen = 2f;
+        float screenToBox2D = 2;
 
 
-        Block block =  new Block(BodyType.DYNAMIC, scene.getWorld(), new Rect2D(20, 0, 50, 20));
-        Block block2 = new Block(BodyType.STATIC,  scene.getWorld(), new Rect2D(0, 150, 100, 70));
-        Block block3 = new Block(BodyType.DYNAMIC, scene.getWorld(), new Rect2D(30, 70, 250, 13));
+        Block block =  new Block(screenToBox2D, BodyType.DYNAMIC, scene.getWorld(), new Rect2D(20, 0, 50, 20).mul(screenToBox2D));
+        Block block2 = new Block(screenToBox2D, BodyType.STATIC,  scene.getWorld(), new Rect2D(0, 150, 100, 70).mul(screenToBox2D));
+        Block block3 = new Block(screenToBox2D, BodyType.DYNAMIC, scene.getWorld(), new Rect2D(30, 70, 250, 13).mul(screenToBox2D));
 
 
         while (!window.shouldClose()) {
             renderer2D.clear(0f, 0f, 0f, 1.0f);
 
 
-            block.render(renderer2D, box2DToScreen);
-            block2.render(renderer2D, box2DToScreen);
-            block3.render(renderer2D, box2DToScreen);
-
-
+            block.render(renderer2D);
+            block2.render(renderer2D);
+            block3.render(renderer2D);
 
             scene.update(1/60f);
+
             renderer2D.render();
             window.update();
         }
@@ -50,8 +49,21 @@ public class Box2DDemo {
         private Color color;
         private Body body;
 
-        public Block(BodyType bodyType, World world, Rect2D rect2D) {
+        public Block(float box2DToScreen, BodyType bodyType, World world, Rect2D rect2D) {
             this.rect2D = rect2D;
+
+            rect2D.x /= box2DToScreen;
+            rect2D.y /= box2DToScreen;
+            rect2D.w /= box2DToScreen;
+            rect2D.h /= box2DToScreen;
+
+
+            System.out.println(rect2D.h);
+
+
+
+
+
             BodyDef bodyDef = new BodyDef();
             bodyDef.type = bodyType;
             bodyDef.position.set(rect2D.x, rect2D.y);
@@ -61,11 +73,11 @@ public class Box2DDemo {
             color = new Color((float) Math.random() + 0.5f, (float) Math.random() + 0.5f, (float) Math.random() + 0.5f, 1f);
         }
 
-        public void render(Renderer2D renderer2D, float box2DToScreen){
-            Vec2 playerBodyPos = body.getPosition().mul(box2DToScreen);
+        public void render(Renderer2D renderer2D){
+            Vec2 playerBodyPos = body.getPosition();
             renderer2D.setOrigin(playerBodyPos.x, playerBodyPos.y);
             renderer2D.rotate(body.getAngle());
-            renderer2D.drawFilledRect(playerBodyPos.x, playerBodyPos.y, (rect2D.w) * box2DToScreen, (rect2D.h) * box2DToScreen, color);
+            renderer2D.drawFilledRect(playerBodyPos.x, playerBodyPos.y, rect2D.w, rect2D.h, color);
             renderer2D.resetTransform();
             renderer2D.setOrigin(0, 0);
         }
