@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class AudioEngine {
     private Thread thread;
-    private BlockingQueue<Audio> audioQueue = new LinkedBlockingQueue<>();
+    private BlockingQueue<AudioEvent> audioQueue = new LinkedBlockingQueue<>();
     public AudioEngine(){
         thread = new Thread(() -> {
 
@@ -62,37 +62,43 @@ public class AudioEngine {
 
             while(true) {
 
-                Iterator<Audio> iter = audioQueue.iterator();
+                Iterator<AudioEvent> iter = audioQueue.iterator();
                 while (iter.hasNext()) {
-                    Audio audio = iter.next();
+                    AudioEvent event = iter.next();
 
-                    if(!audio.isReady()){
-                        audio.id = AL10.alGenBuffers();
+                    if(event instanceof AudioPlayEvent audioPlayEvent){
 
-                        float duration = loadAudioWAV(audio);
+                        if(!audioPlayEvent.audio.isReady()){
+                            audioPlayEvent.audio.id = AL10.alGenBuffers();
 
-                        audio.duration = duration;
+                            float duration = loadAudioWAV(audioPlayEvent.audio);
 
-                        audio.source = AL10.alGenSources();
+                            audioPlayEvent.audio.duration = duration;
+                            audioPlayEvent.audio.source = AL10.alGenSources();
 
-                        AL10.alSourcei(audio.source, AL10.AL_BUFFER, audio.id);
-                        AL10.alSource3f(audio.source, AL10.AL_POSITION, 0f, 0f, 0f);
-                        AL10.alSource3f(audio.source, AL10.AL_VELOCITY, 0f, 0f, 0f);
-                        AL10.alSourcef(audio.source, AL10.AL_PITCH, 1);
-                        AL10.alSourcef(audio.source, AL10.AL_GAIN, 1f);
-                        AL10.alSourcei(audio.source, AL10.AL_LOOPING, AL10.AL_FALSE);
+                            AL10.alSourcei(audioPlayEvent.audio.source, AL10.AL_BUFFER, audioPlayEvent.audio.id);
+                            AL10.alSource3f(audioPlayEvent.audio.source, AL10.AL_POSITION, 0f, 0f, 0f);
+                            AL10.alSource3f(audioPlayEvent.audio.source, AL10.AL_VELOCITY, 0f, 0f, 0f);
+                            AL10.alSourcef(audioPlayEvent.audio.source, AL10.AL_PITCH, 1);
+                            AL10.alSourcef(audioPlayEvent.audio.source, AL10.AL_GAIN, 1f);
+                            AL10.alSourcei(audioPlayEvent.audio.source, AL10.AL_LOOPING, AL10.AL_FALSE);
 
-                        audio.setReady(true);
+                            audioPlayEvent.audio.setReady(true);
+                        }
+
+                        AL10.alSourcePlay(audioPlayEvent.audio.source);
+                        try {
+                            Thread.sleep((long) audioPlayEvent.audio.duration);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        AL10.alSourceStop(audioPlayEvent.audio.source);
                     }
 
-                    AL10.alSourcePlay(audio.source);
-                    try {
-                        Thread.sleep((long) audio.duration);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
 
-                    AL10.alSourceStop(audio.source);
+
+
                     iter.remove();
                 }
 
@@ -107,7 +113,7 @@ public class AudioEngine {
 
 
     public void play(Audio audio){
-        audioQueue.add(audio);
+        audioQueue.add(new AudioPlayEvent(audio));
     }
 
     private float loadAudioWAV(Audio audio){
