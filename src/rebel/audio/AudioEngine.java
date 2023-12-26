@@ -107,7 +107,7 @@ public class AudioEngine {
 
         });
 
-        thread.setName("openal");
+        thread.setName("Audio Thread");
         thread.start();
     }
 
