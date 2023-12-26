@@ -3,7 +3,8 @@ package rebel.physics;
 import org.jbox2d.common.Vec2;
 import org.joml.Vector2f;
 
-class Math {
+public class PhysicsUtil {
+
     public static Vec2 toVec2(Vector2f vector2f){
         return new Vec2(vector2f.x, vector2f.y);
     }

@@ -169,6 +169,12 @@ public class Renderer2D {
         this.originX = x;
         this.originY = y;
     }
+
+    public void setOrigin(Vector2f vector2f){
+        this.originX = vector2f.x;
+        this.originY = vector2f.y;
+    }
+
     public void drawRect(float x, float y, float w, float h, Color color, int thickness){
 
         //Left

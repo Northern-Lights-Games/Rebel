@@ -1,11 +1,8 @@
 package demo;
 
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.*;
 import org.joml.Vector2f;
 import rebel.graphics.*;
-import rebel.physics.Fixtures;
-import rebel.physics.Scene;
+import rebel.physics.*;
 
 public class Box2DDemo {
 
@@ -13,28 +10,70 @@ public class Box2DDemo {
     public static void main(String[] args) {
         Window window = new Window(640, 480, "Rebel");
         Renderer2D renderer2D = new Renderer2D(640, 480, true);
-        Scene scene = new Scene(new Vector2f(0, 9.8f * 12));
 
 
-        //meters to pixels, p = m * 2
-        float screenToBox2D = 2;
+        Scene2D scene2D = new Scene2D(1f, new Vector2f(0, 9.8f * 12));
+
+        RectBody2D r1 = scene2D.newRectBody2D(new Rect2D(50, 0, 200, 40), RigidBody2D.Type.DYNAMIC);
+        r1.setPhysics(0.5f, 0.4f, 0.01f);
+
+        RectBody2D r2 = scene2D.newRectBody2D(new Rect2D(0, 300, 250, 140), RigidBody2D.Type.STATIC);
+        r2.setPhysics(0.5f, 0.4f, 0.01f);
+
+        RectBody2D r3 = scene2D.newRectBody2D(new Rect2D(50, 140, 500, 26), RigidBody2D.Type.DYNAMIC);
+        r3.setPhysics(0.5f, 0.4f, 0.06f);
+
+        CircleBody2D c1 = scene2D.newCircleBody2D(new Vector2f(150, 70), 50, RigidBody2D.Type.DYNAMIC);
+        c1.setPhysics(0.5f, 0.0f, 0.06f);
 
 
-        Block block =  new Block(screenToBox2D, BodyType.DYNAMIC, scene.getWorld(), new Rect2D(20, 0, 50, 20).mul(screenToBox2D));
-        Block block2 = new Block(screenToBox2D, BodyType.STATIC,  scene.getWorld(), new Rect2D(0, 150, 100, 70).mul(screenToBox2D));
-        Block block3 = new Block(screenToBox2D, BodyType.DYNAMIC, scene.getWorld(), new Rect2D(30, 70, 250, 13).mul(screenToBox2D));
 
+
+        Texture2D texture2D = new Texture2D("project/logo.png");
 
         while (!window.shouldClose()) {
-            renderer2D.clear(0f, 0f, 0f, 1.0f);
+            renderer2D.clear(1f, 1f, 1f, 1.0f);
+
+            {
+                renderer2D.setOrigin(r1.getOrigin());
+                renderer2D.rotate(r1.getRotation());
+                renderer2D.drawTexture(r1.getPosition().x, r1.getPosition().y, r1.getWidth(), r1.getHeight(), texture2D, Color.WHITE);
+                renderer2D.resetTransform();
+                renderer2D.setOrigin(0, 0);
+            }
+
+            {
+
+                renderer2D.setOrigin(r2.getOrigin());
+                renderer2D.rotate(r2.getRotation());
+                renderer2D.drawFilledRect(r2.getPosition().x, r2.getPosition().y, r2.getWidth(), r2.getHeight(), Color.RED);
+                renderer2D.resetTransform();
+                renderer2D.setOrigin(0, 0);
+
+            }
+            {
+
+                Vector2f r3Pos = r3.getPosition();
+                renderer2D.setOrigin(r3Pos.x, r3Pos.y);
+                renderer2D.rotate(r3.getRotation());
+                renderer2D.drawFilledRect(r3Pos.x, r3Pos.y, r3.getWidth(), r3.getHeight(), Color.LIGHT_GRAY);
+                renderer2D.resetTransform();
+                renderer2D.setOrigin(0, 0);
+
+            }
+            {
 
 
-            block.render(renderer2D);
-            block2.render(renderer2D);
-            block3.render(renderer2D);
+                renderer2D.setOrigin(c1.getOrigin());
+                renderer2D.rotate(r3.getRotation());
+                renderer2D.drawEllipse(c1.getPosition().x, c1.getPosition().y, c1.getRadius() * 2, c1.getRadius() * 2, Color.GREEN, 0.05f);
+                renderer2D.resetTransform();
+                renderer2D.setOrigin(0, 0);
 
-            scene.update(1/60f);
+            }
 
+
+            scene2D.update(1/60f);
             renderer2D.render();
             window.update();
         }
@@ -42,46 +81,5 @@ public class Box2DDemo {
 
         window.close();
     }
-
-    static class Block {
-
-        private Rect2D rect2D;
-        private Color color;
-        private Body body;
-
-        public Block(float box2DToScreen, BodyType bodyType, World world, Rect2D rect2D) {
-            this.rect2D = rect2D;
-
-            rect2D.x /= box2DToScreen;
-            rect2D.y /= box2DToScreen;
-            rect2D.w /= box2DToScreen;
-            rect2D.h /= box2DToScreen;
-
-
-            System.out.println(rect2D.h);
-
-
-
-
-
-            BodyDef bodyDef = new BodyDef();
-            bodyDef.type = bodyType;
-            bodyDef.position.set(rect2D.x, rect2D.y);
-            body = world.createBody(bodyDef);
-            body.createFixture(Fixtures.Box(rect2D.w / 2f, rect2D.h / 2f, 0.1f, 0.4f, 0.9f));
-
-            color = new Color((float) Math.random() + 0.5f, (float) Math.random() + 0.5f, (float) Math.random() + 0.5f, 1f);
-        }
-
-        public void render(Renderer2D renderer2D){
-            Vec2 playerBodyPos = body.getPosition();
-            renderer2D.setOrigin(playerBodyPos.x, playerBodyPos.y);
-            renderer2D.rotate(body.getAngle());
-            renderer2D.drawFilledRect(playerBodyPos.x, playerBodyPos.y, rect2D.w, rect2D.h, color);
-            renderer2D.resetTransform();
-            renderer2D.setOrigin(0, 0);
-        }
-    }
-
 
 }
