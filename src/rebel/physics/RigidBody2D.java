@@ -31,6 +31,18 @@ public abstract class RigidBody2D {
         return null;
     }
 
+    public void applyForce(Vector2f where, Vector2f force){
+        body.applyForce(PhysicsUtil.toVec2(where), PhysicsUtil.toVec2(force));
+    }
+
+    public void applyForceToCenter(Vector2f force){
+        body.applyForceToCenter(PhysicsUtil.toVec2(force));
+    }
+
+    public void applyImpulseToCenter(Vector2f force){
+        body.applyLinearImpulse(PhysicsUtil.toVec2(force), body.getWorldPoint(body.getLocalCenter()), true);
+    }
+
     public void setPhysics(float density, float friction, float res){
         this.density = density;
         this.friction = friction;
