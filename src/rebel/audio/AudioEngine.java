@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import static org.lwjgl.openal.ALC10.*;
+import static org.lwjgl.openal.ALC11.*;
 import static org.lwjgl.openal.ALC11.ALC_DEFAULT_ALL_DEVICES_SPECIFIER;
 import static org.lwjgl.openal.EXTEfx.ALC_MAX_AUXILIARY_SENDS;
 import static org.lwjgl.system.MemoryUtil.NULL;
