@@ -26,7 +26,8 @@ Rebel is a WIP 2D Java Game Framework under the MIT License. Join the fun and le
 
 2. Download the latest release from the GitHub Releases Tab on the right. 
 3. Include the .jar in your classpath. 
-4. Make something cool!
+4. Check out the [Welcome to Rebel Series](https://app.gitbook.com/o/Gcx5dfQwoxzbPhwLVGWk/s/L3mZIO0tYMwoj4IvT7e2/)
+5. Make something cool!
 
 ## Examples
 
