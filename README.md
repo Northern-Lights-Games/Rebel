@@ -1,28 +1,39 @@
 # Rebel - 2D Java Game Engine
 
-<img src="project/logo.png" alt="isolated" width="250"/>
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7cfi2z8n5yo7vkfq8jj5.png)
 
-Rebel is a WIP Java Game Engine for making 2D games on Desktop. It provides an OpenGL Batch Renderer that can draw textures, shapes and text. Rebel is open-source under the MIT license, so join the fun and let's build together!
 
-## Features (Rebel 2.0)
+Rebel is a WIP 2D Java Game Framework under the MIT License. Join the fun and let's build together!
 
-- 2D Primitive Batch Rendering (Rectangles/Circles/Lines/Textures)
-- Sprite-sheet based Animation
-- Text rendering with different fonts
-- Input handling (keys/mouse)
-- Quadratic/Cubic Bezier curve API
-- Full GPU GLSL implementation of a Cubic Bezier
-- Compatibility with Java2D, (BufferedImages can be loaded to Textures)
-- Simple transformation API including rotate() and scale() methods that abstract matrix math
-- Simple Particle System API (ParticleSource)
-- Custom GLSL shader support (Vertex/Fragment Shaders)
-- Packages into a single .jar file to include in your classpath!
-- Control over your main loop, create a Window, Renderer2D and your own application loop
+## Features
 
-## Getting Started
+- Hardware-Accelerated 2D Batch Rendering via OpenGL 4.6 (Shapes/Textures)
+- Animation API for Spritesheets
+- Text Rendering (System Fonts + Truetype .ttf)
+- Quadratic/Cubic Bezier Curve API
+- Interoperability with Java2D including uploading BufferedImage to Texture and using AWT Fonts with Font2D
+- Input Handling (Keyboard/Mouse)
+- .wav Audio Support (via OpenAL) 
+- 2D Physics including Rectangular/Circular RigidBody2Ds
+- Custom GLSL Shader Support (Vertex/Fragment Shaders)
+- Particle System (ParticleSource)
+- Easy to include in your project. Just add the .jar to your Classpath
+- Very basic GLSL Compute Shader API
 
-Rebel is configured using Gradle and it's recommended to clone the repository using Git and run the _demo.ShowcaseDemo_ file. 
-The current Rebel release cycle will see major changes between releases, and the API will be quite volatile. 
+## Get Started
+
+1. Make sure you have a JDK installed on your system. Rebel was developed using Amazon Coretto 18 (Java 18)
+
+2. Download the latest release from the GitHub Releases Tab on the right. 
+3. Include the .jar in your classpath. 
+4. Make something cool!
+
+## Examples
+
+View the demo package. :)
+
+
+
 
 ## Gallery
 
