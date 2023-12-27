@@ -1,5 +1,6 @@
 package demo;
 
+import rebel.FileReader;
 import rebel.gpu.ComputeShader;
 import rebel.gpu.ComputeTask;
 import rebel.gpu.ComputeTexture2D;
@@ -11,21 +12,9 @@ public class ComputeDemo {
     public static void main(String[] args) {
         Window window = new Window(640, 480, "Rebel");
 
-        ComputeShader computeShader = new ComputeShader("#version 430 core\n" +
-                "\n" +
-                "layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;\n" +
-                "layout(rgba32f) uniform image2D imgOutput;\n" +
-                "void main() {\n" +
-                "    vec4 value = vec4(0.0, 0.0, 0.0, 1.0);\n" +
-                "    ivec2 texelCoord = ivec2(gl_GlobalInvocationID.xy);\n" +
-                "\t\n" +
-                "    value.x = float(texelCoord.x)/(gl_NumWorkGroups.x);\n" +
-                "    value.y = float(texelCoord.y)/(gl_NumWorkGroups.y);\n" +
-                "\t\n" +
-                "    imageStore(imgOutput, texelCoord, value);\n" +
-                "}");
-
-
+        ComputeShader computeShader = new ComputeShader(
+                FileReader.readFile(Renderer2D.class.getClassLoader().getResourceAsStream("ComputeParticlesShader.glsl"))
+        );
         computeShader.prepare();
 
         ComputeTask task = new ComputeTask(computeShader);
@@ -40,18 +29,21 @@ public class ComputeDemo {
 
             //Render
             renderer2D.clear(1f, 1f, 1f, 1f);
-            renderer2D.drawTexture(0, 0, 512, 512, computeTexture2D);
+            task.dispatchComputeTask(computeTexture2D, 512, 512, 1);
+            task.barrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+            renderer2D.getCurrentShaderProgram().bind();
 
+
+
+
+            renderer2D.drawTexture(0, 0, 512, 512, computeTexture2D);
             renderer2D.drawTexture(512, 0, 100, 100, logo, Color.WHITE);
             renderer2D.render();
 
 
             //Compute
-            task.dispatchComputeTask(computeTexture2D, 512, 512, 1);
-            task.barrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 
 
-            renderer2D.getCurrentShaderProgram().bind();
 
 
 
