@@ -20,6 +20,13 @@ import static org.lwjgl.openal.ALC11.ALC_DEFAULT_ALL_DEVICES_SPECIFIER;
 import static org.lwjgl.openal.EXTEfx.ALC_MAX_AUXILIARY_SENDS;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
+/***
+ * Represents an OpenAL context and plays Audio instances. All Audio samples and Audio Events are processed on a
+ * separate thread that manages the OpenAL context.
+ *
+ * NOTE! Do not attempt to call OpenAL functions on the application/main thread!
+ */
+
 public class AudioEngine {
     private Thread thread;
     private BlockingQueue<AudioEvent> audioQueue = new LinkedBlockingQueue<>();
@@ -111,6 +118,11 @@ public class AudioEngine {
         thread.start();
     }
 
+    /***
+     * Dispatches an AudioPlayEvent to play the specified Audio instance on the OpenAL thread.
+     * This method doesn't block the main thread.
+     * @param audio
+     */
 
     public void play(Audio audio){
         audioQueue.add(new AudioPlayEvent(audio));
