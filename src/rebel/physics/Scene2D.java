@@ -10,6 +10,9 @@ import rebel.graphics.Rect2D;
 
 import java.util.ArrayList;
 
+/***
+ * A Scene2D represents a Physics World which can simulate RigidBody2Ds.
+ */
 public class Scene2D {
     private World world;
     private float accumulator = 0f;
@@ -21,6 +24,12 @@ public class Scene2D {
     private ArrayList<ContactListener> contactListeners = new ArrayList<>();
 
 
+    /***
+     * Creates a Scene2D with the specified scale and gravity
+     *
+     * @param physicsToScreenScale How many meters represent a pixel
+     * @param gravity
+     */
     public Scene2D(float physicsToScreenScale, Vector2f gravity){
         setPhysicsToScreenScale(physicsToScreenScale);
         world = new World(PhysicsUtil.toVec2(gravity));
@@ -52,6 +61,11 @@ public class Scene2D {
         });
     }
 
+    /***
+     * Update the simulation with the specified fixed-time step. Scene2D will automatically handle keeping the
+     * time-step in sync with rendering. The recommended value is 1/60f, or 0.016 seconds.
+     * @param step
+     */
     public void update(float step){
         //Prevent skipping the Box2D simulation too far into the future if the
         //Frame-rate gets slowed because of the Rendering side
