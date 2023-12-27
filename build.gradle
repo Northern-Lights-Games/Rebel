@@ -23,6 +23,7 @@ switch (OperatingSystem.current()) {
 }
 
 
+
 group 'northern.lights'
 version '2.0-SNAPSHOT'
 
@@ -45,19 +46,45 @@ dependencies {
     implementation "org.lwjgl:lwjgl-glfw"
     implementation "org.lwjgl:lwjgl-opengl"
     implementation "org.lwjgl:lwjgl-stb"
-    runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
-    runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
-    runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
-    runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
     implementation "org.joml:joml:${jomlVersion}"
     implementation "org.lwjgl:lwjgl-openal"
-    runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
+
+
+    runtimeOnly "org.lwjgl:lwjgl::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl::natives-linux"
+    runtimeOnly "org.lwjgl:lwjgl::natives-macos"
+
+    runtimeOnly "org.lwjgl:lwjgl-glfw::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-glfw::natives-linux"
+    runtimeOnly "org.lwjgl:lwjgl-glfw::natives-macos"
+
+    runtimeOnly "org.lwjgl:lwjgl-opengl::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-opengl::natives-linux"
+    runtimeOnly "org.lwjgl:lwjgl-opengl::natives-macos"
+
+    runtimeOnly "org.lwjgl:lwjgl-stb::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-stb::natives-linux"
+    runtimeOnly "org.lwjgl:lwjgl-stb::natives-macos"
+
+    runtimeOnly "org.lwjgl:lwjgl-openal::natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-openal::natives-linux"
+    runtimeOnly "org.lwjgl:lwjgl-openal::natives-macos"
+
+
+
+
+
+
+
 
 
 }
 
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    exclude("demo")
+
     from {
         configurations.runtimeClasspath.collect {
             it.isDirectory() ? it : zipTree(it)
