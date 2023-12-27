@@ -28,7 +28,7 @@ public class ComputeDemo {
 
 
             //Render
-            renderer2D.clear(1f, 1f, 1f, 1f);
+            renderer2D.clear(new Color(1f, 1f, 1f, 1f));
             task.dispatchComputeTask(computeTexture2D, 512, 512, 1);
             task.barrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
             renderer2D.getCurrentShaderProgram().bind();

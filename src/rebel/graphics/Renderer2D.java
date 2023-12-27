@@ -409,9 +409,9 @@ public class Renderer2D {
         this.debug = debug;
     }
 
-    public void clear(float r, float g, float b, float a) {
+    public void clear(Color color) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearColor(r, g, b, a);
+        glClearColor(color.r, color.g, color.b, color.a);
     }
 
     public float getOriginX() {

@@ -61,7 +61,7 @@ public class ShowcaseDemo {
 
 
         while (!window.shouldClose()) {
-            renderer2D.clear(0.5f, 0.5f, 0.5f, 1.0f);
+            renderer2D.clear(new Color(0.5f, 0.5f, 0.5f, 1.0f));
             renderer2D.drawText(0, 0, "Rebel - The 2D Java Game Library\nRenderer2D OpenGL Demo. FPS: " + window.getFPS(), Color.BLUE, font2);
 
 

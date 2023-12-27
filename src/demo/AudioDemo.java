@@ -24,7 +24,7 @@ public class AudioDemo {
 
 
         while(!window.shouldClose()){
-            renderer2D.clear(1f, 1f, 1f, 1f);
+            renderer2D.clear(new Color(1f, 1f, 1f, 1f));
 
             if(window.isKeyPressed(Input.REBEL_KEY_Q) && waitMs >= 3000){
                 audioEngine.play(cheer);

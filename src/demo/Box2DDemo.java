@@ -33,7 +33,7 @@ public class Box2DDemo {
         Texture2D texture2D = new Texture2D("project/logo.png");
 
         while (!window.shouldClose()) {
-            renderer2D.clear(1f, 1f, 1f, 1.0f);
+            renderer2D.clear(new Color(1f, 1f, 1f, 1.0f));
 
             {
                 renderer2D.setOrigin(r1.getOrigin());
