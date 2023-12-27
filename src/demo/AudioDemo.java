@@ -5,6 +5,10 @@ import rebel.Time;
 import rebel.audio.Audio;
 import rebel.audio.AudioEngine;
 import rebel.graphics.*;
+import rebel.graphics.Color;
+import rebel.graphics.Window;
+
+import java.awt.*;
 
 public class AudioDemo {
     public static void main(String[] args) {
@@ -18,7 +22,7 @@ public class AudioDemo {
         Audio cheer = new Audio("cheering.wav");
         Audio crash = new Audio("synth.wav");
 
-        Font2D font2D = new Font2D("Arial", Font2D.NORMAL, 20);
+        Font2D font2D = new Font2D(GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()[0].getFontName(), Font2D.NORMAL, 20);
 
         float waitMs = 0f;
 

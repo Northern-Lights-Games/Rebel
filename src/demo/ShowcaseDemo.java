@@ -4,10 +4,13 @@ import org.joml.*;
 import rebel.Animation;
 import rebel.Time;
 import rebel.graphics.*;
+import rebel.graphics.Color;
+import rebel.graphics.Window;
 import rebel.particles.Particle;
 import rebel.particles.ParticleSource;
 import rebel.particles.ParticleSourceConfig;
 
+import java.awt.*;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +41,8 @@ public class ShowcaseDemo {
             textures.add(i % 2 == 0 ? logo : opengl);
         }
 
-        Font2D font = new Font2D("Arial", Font2D.NORMAL, 100);
-        Font2D font2 = new Font2D("Cascadia Mono", Font2D.NORMAL | Font2D.BOLD,  100);
+        Font2D font = new Font2D(GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()[0].getFontName(), Font2D.NORMAL, 100);
+        Font2D font2 = new Font2D(GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()[10].getFontName(), Font2D.NORMAL | Font2D.BOLD,  100);
         CubicBezierCurve2D cubicBezierCurve = new CubicBezierCurve2D(
                 new Vector2f(200, 800),
                 new Vector2f(600, 400),
