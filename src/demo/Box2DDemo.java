@@ -1,6 +1,7 @@
 package demo;
 
 import org.joml.Vector2f;
+import rebel.Input;
 import rebel.graphics.*;
 import rebel.physics.*;
 
@@ -72,6 +73,15 @@ public class Box2DDemo {
 
             }
 
+            if(window.isKeyPressed(Input.REBEL_KEY_RIGHT)){
+                r3.applyImpulseToCenter(new Vector2f(40000, 1));
+            }
+            if(window.isKeyPressed(Input.REBEL_KEY_LEFT)){
+                r3.applyImpulseToCenter(new Vector2f(-40000, 1));
+            }
+            if(window.isKeyPressed(Input.REBEL_KEY_UP)){
+                r3.applyImpulseToCenter(new Vector2f(0, -40000));
+            }
 
             scene2D.update(1/60f);
             renderer2D.render();
