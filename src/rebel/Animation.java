@@ -52,15 +52,21 @@ public class Animation {
      */
     public void create(int rows, int columns, int num){
         this.numOfFrames = num;
-        float frameWidth = 1f / rows;
-        float frameHeight = 1f / columns;
+        float frameWidth = 1f / columns;
+        float frameHeight = 1f / rows;
 
 
         int currentFrame = 0;
 
-        for (int col = 0; col < columns; col++) {
-            for (int row = 0; row < rows; row++) {
-                frames.add(new Rect2D(row * frameWidth, col * frameHeight, frameWidth, frameHeight));
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < columns; col++) {
+                frames.add(new Rect2D(
+                        col * frameWidth,
+                        row * frameHeight,
+                        (col * frameWidth) + frameWidth,
+                        (row * frameHeight) + frameHeight
+                ));
+
                 currentFrame++;
 
                 if(currentFrame == num) return;
