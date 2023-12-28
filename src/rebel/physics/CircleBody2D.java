@@ -8,13 +8,12 @@ import rebel.Math;
 public class CircleBody2D extends RigidBody2D {
     private float radius;
 
-    public CircleBody2D(World world, float radius, Vector2f pos, Type bodyType) {
+    public CircleBody2D(World world, float radius, Vector2f pos, Type bodyType, boolean canRotate) {
         this.radius = radius;
         this.bodyType = bodyType;
 
-
-
         BodyDef bodyDef = new BodyDef();
+        bodyDef.setFixedRotation(!canRotate);
         bodyDef.type = toBox2DType(this.bodyType);
         bodyDef.position.set(pos.x, pos.y);
         body = world.createBody(bodyDef);

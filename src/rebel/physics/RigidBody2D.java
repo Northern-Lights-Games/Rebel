@@ -19,6 +19,8 @@ public abstract class RigidBody2D {
     public abstract Vector2f getOrigin();
     public abstract Vector2f getPosition();
 
+    boolean canRotate;
+
     public float getRotation(){
         return body.getAngle();
     }
@@ -49,4 +51,7 @@ public abstract class RigidBody2D {
         this.res = res;
     }
 
+    public boolean isCanRotate() {
+        return canRotate;
+    }
 }

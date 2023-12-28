@@ -10,11 +10,12 @@ public class RectBody2D extends RigidBody2D {
 
     private Rect2D rect2D;
 
-    public RectBody2D(World world, Rect2D rect2D, Type bodyType) {
+    public RectBody2D(World world, Rect2D rect2D, Type bodyType, boolean canRotate) {
         this.rect2D = rect2D;
         this.bodyType = bodyType;
 
         BodyDef bodyDef = new BodyDef();
+        bodyDef.setFixedRotation(!canRotate);
         bodyDef.type = toBox2DType(bodyType);
         bodyDef.position.set(rect2D.x, rect2D.y);
         body = world.createBody(bodyDef);

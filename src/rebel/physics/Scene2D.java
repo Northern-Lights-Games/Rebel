@@ -95,12 +95,12 @@ public class Scene2D {
         this.positionIterations = positionIterations;
     }
 
-    public RectBody2D newRectBody2D(Rect2D rect2D, RigidBody2D.Type bodyType){
-        return new RectBody2D(world, rect2D.mul(getPhysicsToScreenScale()), bodyType);
+    public RectBody2D newRectBody2D(Rect2D rect2D, RigidBody2D.Type bodyType, boolean canRotate){
+        return new RectBody2D(world, rect2D.mul(getPhysicsToScreenScale()), bodyType, canRotate);
     }
 
-    public CircleBody2D newCircleBody2D(Vector2f pos, float radius, RigidBody2D.Type bodyType) {
-        return new CircleBody2D(world, radius * getPhysicsToScreenScale(), pos.mul(getPhysicsToScreenScale()), bodyType);
+    public CircleBody2D newCircleBody2D(Vector2f pos, float radius, RigidBody2D.Type bodyType, boolean canRotate) {
+        return new CircleBody2D(world, radius * getPhysicsToScreenScale(), pos.mul(getPhysicsToScreenScale()), bodyType, canRotate);
     }
 
     public void addContactListener(ContactListener contactListener){

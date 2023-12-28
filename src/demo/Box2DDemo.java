@@ -15,16 +15,16 @@ public class Box2DDemo {
 
         Scene2D scene2D = new Scene2D(1f, new Vector2f(0, 9.8f * 12));
 
-        RectBody2D r1 = scene2D.newRectBody2D(new Rect2D(50, 0, 200, 40), RigidBody2D.Type.DYNAMIC);
+        RectBody2D r1 = scene2D.newRectBody2D(new Rect2D(50, 0, 200, 40), RigidBody2D.Type.DYNAMIC, false);
         r1.setPhysics(0.5f, 0.4f, 0.01f);
 
-        RectBody2D r2 = scene2D.newRectBody2D(new Rect2D(0, 300, 250, 140), RigidBody2D.Type.STATIC);
+        RectBody2D r2 = scene2D.newRectBody2D(new Rect2D(0, 300, 250, 140), RigidBody2D.Type.STATIC, false);
         r2.setPhysics(0.5f, 0.4f, 0.01f);
 
-        RectBody2D r3 = scene2D.newRectBody2D(new Rect2D(50, 140, 500, 26), RigidBody2D.Type.DYNAMIC);
+        RectBody2D r3 = scene2D.newRectBody2D(new Rect2D(50, 140, 500, 26), RigidBody2D.Type.DYNAMIC, true);
         r3.setPhysics(0.5f, 0.4f, 0.06f);
 
-        CircleBody2D c1 = scene2D.newCircleBody2D(new Vector2f(150, 70), 50, RigidBody2D.Type.DYNAMIC);
+        CircleBody2D c1 = scene2D.newCircleBody2D(new Vector2f(150, 70), 50, RigidBody2D.Type.DYNAMIC, true);
         c1.setPhysics(0.5f, 0.0f, 0.06f);
 
 
