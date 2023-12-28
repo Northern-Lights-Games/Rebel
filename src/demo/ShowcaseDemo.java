@@ -113,7 +113,7 @@ public class ShowcaseDemo {
 
                 animation.update(Time.deltaTime);
 
-                renderer2D.drawTexture(0, renderer2D.getHeight() - 512, 512, 512, animation.getTexture(), Color.WHITE, animation.getCurrentFrame());
+                renderer2D.drawTexture(0, renderer2D.getHeight() - 512, 512, 512, animation.getTexture(), Color.WHITE, animation.getCurrentFrame(), false, false);
 
 
             }

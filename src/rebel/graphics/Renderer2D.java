@@ -216,9 +216,9 @@ public class Renderer2D {
 
 
     public void drawTexture(float x, float y, float w, float h, Texture2D texture, Color color){
-        drawTexture(x, y, w, h, texture, color, new Rect2D(0, 0, 1, 1));
+        drawTexture(x, y, w, h, texture, color, new Rect2D(0, 0, 1, 1), false, false);
     }
-    public void drawTexture(float x, float y, float w, float h, Texture2D texture, Color color, Rect2D rect2D) {
+    public void drawTexture(float x, float y, float w, float h, Texture2D texture, Color color, Rect2D rect2D, boolean xFlip, boolean yFlip) {
 
         int slot = nextTextureSlot;
         boolean isUniqueTexture = false;
@@ -240,7 +240,7 @@ public class Renderer2D {
         }
 
 
-        drawQuadGL(x, y, w, h, slot, color, originX, originY, rect2D, -1);
+        drawQuadGL(x, y, w, h, slot, color, originX, originY, rect2D, -1, xFlip, yFlip);
 
         if(isUniqueTexture) nextTextureSlot++;
 
@@ -249,18 +249,33 @@ public class Renderer2D {
 
     }
     public void drawFilledRect(float x, float y, float w, float h, Color color){
-        drawQuadGL(x, y, w, h, RECT, color, originX, originY, new Rect2D(0, 0, 1, 1), -1);
+        drawQuadGL(x, y, w, h, RECT, color, originX, originY, new Rect2D(0, 0, 1, 1), -1, false, false);
     }
     public void drawFilledEllipse(float x, float y, float w, float h, Color color) {
-        drawQuadGL(x, y, w, h, CIRCLE, color, originX, originY, new Rect2D(0, 0, 1, 1), 1);
+        drawQuadGL(x, y, w, h, CIRCLE, color, originX, originY, new Rect2D(0, 0, 1, 1), 1, false, false);
     }
     public void drawEllipse(float x, float y, float w, float h, Color color, float thickness) {
-        drawQuadGL(x, y, w, h, CIRCLE, color, originX, originY, new Rect2D(0, 0, 1, 1), thickness);
+        drawQuadGL(x, y, w, h, CIRCLE, color, originX, originY, new Rect2D(0, 0, 1, 1), thickness, false, false);
     }
 
-    public void drawQuadGL(float x, float y, float w, float h, int slot, Color color, float originX, float originY, Rect2D region, float thickness){
+    public void drawQuadGL(float x, float y, float w, float h, int slot, Color color, float originX, float originY, Rect2D region, float thickness, boolean xFlip, boolean yFlip){
         //Translate back by origin (for rotation math)
         //This usually takes everything near (0, 0)
+
+        Rect2D copy = new Rect2D(region.x, region.y, region.w, region.h);
+
+        if(xFlip){
+            float temp = copy.x;
+            copy.x = copy.w;
+            copy.w = temp;
+        }
+
+        if(yFlip){
+            float temp = copy.y;
+            copy.y = copy.h;
+            copy.h = temp;
+        }
+
         Vector4f topLeft = new Vector4f(x - originX, y - originY, 0, 1);
         Vector4f topRight = new Vector4f(x + w - originX, y - originY, 0, 1);
         Vector4f bottomLeft = new Vector4f(x - originX, y + h - originY, 0, 1);
@@ -288,8 +303,8 @@ public class Renderer2D {
         {
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 0] = topLeft.x;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 1] = topLeft.y;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 2] = region.x;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 3] = region.y;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 2] = copy.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 3] = copy.y;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 4] = slot;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 5] = color.r;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 6] = color.g;
@@ -300,8 +315,8 @@ public class Renderer2D {
 
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 10] = bottomLeft.x;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 11] = bottomLeft.y;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 12] = region.x;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 13] = region.y + region.h;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 12] = copy.x;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 13] = copy.h;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 14] = slot;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 15] = color.r;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 16] = color.g;
@@ -312,8 +327,8 @@ public class Renderer2D {
 
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 20] = bottomRight.x;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 21] = bottomRight.y;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 22] = region.x + region.w;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 23] = region.y + region.h;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 22] = copy.w;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 23] = copy.h;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 24] = slot;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 25] = color.r;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 26] = color.g;
@@ -324,8 +339,8 @@ public class Renderer2D {
 
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 30] = topRight.x;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 31] = topRight.y;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 32] = region.x + region.w;
-            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 33] = region.y;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 32] = copy.w;
+            vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 33] = copy.y;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 34] = slot;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 35] = color.r;
             vertexData[(quadIndex * vertexBuffer.getVertexDataSize()) + 36] = color.g;
