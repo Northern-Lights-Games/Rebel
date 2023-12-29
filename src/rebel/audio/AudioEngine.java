@@ -94,12 +94,12 @@ public class AudioEngine {
                         }
 
                         AL10.alSourcePlay(audioPlayEvent.audio.source);
+
                         try {
                             Thread.sleep((long) audioPlayEvent.audio.duration);
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-
                         AL10.alSourceStop(audioPlayEvent.audio.source);
                     }
 
