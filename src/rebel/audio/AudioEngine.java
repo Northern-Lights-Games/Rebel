@@ -2,6 +2,8 @@ package rebel.audio;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.*;
+import rebel.graphics.Disposable;
+import rebel.graphics.Disposer;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -27,10 +29,14 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * NOTE! Do not attempt to call OpenAL functions on the application/main thread!
  */
 
-public class AudioEngine {
+public class AudioEngine implements Disposable {
     private Thread thread;
     private BlockingQueue<AudioEvent> audioQueue = new LinkedBlockingQueue<>();
+    private boolean shutdown = false;
     public AudioEngine(){
+        Disposer.add(this);
+
+
         thread = new Thread(() -> {
 
             long device = ALC10.alcOpenDevice((ByteBuffer) null);
@@ -49,9 +55,9 @@ public class AudioEngine {
             contextAttribList.put(0);
             contextAttribList.flip();
 
-            long newContext = ALC10.alcCreateContext(device, contextAttribList);
+            long context = ALC10.alcCreateContext(device, contextAttribList);
 
-            if(!ALC10.alcMakeContextCurrent(newContext)) {
+            if(!ALC10.alcMakeContextCurrent(context)) {
                 throw new RuntimeException("Failed to create OpenAL Context");
             }
 
@@ -67,7 +73,7 @@ public class AudioEngine {
 
 
 
-            while(true) {
+            while(!isShutdown()) {
 
                 Iterator<AudioEvent> iter = audioQueue.iterator();
                 while (iter.hasNext()) {
@@ -95,22 +101,16 @@ public class AudioEngine {
 
                         AL10.alSourcePlay(audioPlayEvent.audio.source);
 
-                        try {
-                            Thread.sleep((long) audioPlayEvent.audio.duration);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        AL10.alSourceStop(audioPlayEvent.audio.source);
+
                     }
-
-
-
-
                     iter.remove();
+
                 }
 
-                //The Audio Queue is empty
             }
+
+            alcCloseDevice(device);
+            alcDestroyContext(context);
 
         });
 
@@ -126,6 +126,14 @@ public class AudioEngine {
 
     public void play(Audio audio){
         audioQueue.add(new AudioPlayEvent(audio));
+    }
+
+    private synchronized boolean isShutdown() {
+        return shutdown;
+    }
+
+    private synchronized void setShutdown(boolean shutdown) {
+        this.shutdown = shutdown;
     }
 
     private float loadAudioWAV(Audio audio){
@@ -146,6 +154,8 @@ public class AudioEngine {
     }
 
 
-
-
+    @Override
+    public void dispose() {
+        setShutdown(true);
+    }
 }
