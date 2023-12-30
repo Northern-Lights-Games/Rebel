@@ -18,7 +18,7 @@ public class Renderer2D {
     private int width;
     private int height;
     private Matrix4f proj;
-    private Camera2D camera2D;
+    private Camera camera;
     private Matrix4f translation;
     private VertexBuffer vertexBuffer;
     private float[] vertexData;
@@ -45,7 +45,7 @@ public class Renderer2D {
 
 
         proj = new Matrix4f().ortho(0, width, height, 0, 0, 1);
-        camera2D = new Camera2D();
+        camera = new Camera();
         translation = new Matrix4f().identity();
 
 
@@ -134,11 +134,11 @@ public class Renderer2D {
     public Matrix4f getProj() {
         return proj;
     }
-    public Camera2D getCamera2D() {
-        return camera2D;
+    public Camera getCamera2D() {
+        return camera;
     }
     public Matrix4f getView() {
-        return camera2D.getViewMatrix();
+        return camera.getViewMatrix();
     }
     public Matrix4f getTranslation() {
         return translation;
