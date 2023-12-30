@@ -21,7 +21,7 @@ public class Color {
         this.a = a;
     }
 
-    public Color fromRGB(float r, float g, float b, float a){
+    public static Color fromRGB(float r, float g, float b, float a){
         float scale = 1 / 255f;
         return new Color(scale * r, scale * g, scale * b, scale * a);
     }
